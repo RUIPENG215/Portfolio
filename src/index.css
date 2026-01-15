@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply antialiased;
+  }
+}
+
+@layer utilities {
+  .outline-text {
+    color: white; /* Base color for the filter to work with Alpha */
+    filter: url(#clean-outline);
+    -webkit-font-smoothing: antialiased;
+  }
+}
