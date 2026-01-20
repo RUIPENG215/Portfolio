@@ -4,7 +4,7 @@
 
 @layer base {
   body {
-    @apply antialiased;
+    @apply antialiased bg-[#050505]; /* Set dark background to prevent white bleed lines */
   }
 }
 

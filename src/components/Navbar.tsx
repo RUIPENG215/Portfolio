@@ -43,7 +43,7 @@ const Navbar = () => {
         w-full border-y border-x-transparent pointer-events-auto
         backdrop-blur-sm transition-all duration-500
         ${isNavbarDark 
-          ? `bg-gray-950/${isScrolled ? '70' : '20'} border-white/10 text-white` 
+          ? `bg-[#0d1117]/${isScrolled ? '90' : '50'} border-b border-[#30363d] text-[#e6edf3]` 
           : `bg-white/${isScrolled ? '60' : '30'} border-black/5 text-gray-900`}
       `}>
         <div className="max-w-7xl mx-auto flex items-center justify-between py-3 px-4 md:px-8">

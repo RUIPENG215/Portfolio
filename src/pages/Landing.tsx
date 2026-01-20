@@ -149,7 +149,10 @@ const Landing = () => {
       </div>
 
       {/* Fixed Footer Reveal */}
-      <div className="fixed bottom-0 left-0 right-0 h-[30vw] md:h-[20vw] bg-[#050505] flex items-end justify-center z-0 pointer-events-none overflow-hidden pb-0">
+      <motion.div 
+        className="fixed bottom-0 left-0 right-0 h-[30vw] md:h-[20vw] bg-[#050505] flex items-end justify-center z-0 pointer-events-none overflow-hidden pb-0"
+        exit={{ opacity: 0, transition: { duration: 0 } }} // Instantly hide on exit to prevent artifacts
+      >
         <motion.div
           initial={{ opacity: 0, y: 100 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -160,7 +163,7 @@ const Landing = () => {
             RUIPENG
           </h1>
         </motion.div>
-      </div>
+      </motion.div>
     </div>
   );
 };

@@ -8,7 +8,7 @@ const Engineering = () => {
   const projects = engineeringProjects;
 
   return (
-    <div className="min-h-screen bg-[#0d1117] text-[#c9d1d9] font-mono pt-24 pb-10">
+    <div className="min-h-screen bg-[#0d1117] text-[#c9d1d9] font-mono pt-24 pb-10 relative z-10">
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         <div className="flex justify-between items-center mb-12 border-b border-[#30363d] pb-4">
           <div className="flex items-center text-[#8b949e] text-sm">
@@ -85,7 +85,7 @@ const Engineering = () => {
             </Link>
           ))}
         </div>
-        <Footer />
+        <Footer darkMode={true} />
       </div>
     </div>
   );

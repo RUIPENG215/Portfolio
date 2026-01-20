@@ -30,12 +30,15 @@ function AnimatedRoutes() {
   const backgroundColor = getBackgroundColor(location.pathname);
 
   useEffect(() => {
+    // 同步设置 body 背景色，防止页面边缘漏出底色导致"划痕"问题
+    document.body.style.backgroundColor = backgroundColor;
+
     // 模拟资源加载时间
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 2000);
     return () => clearTimeout(timer);
-  }, []);
+  }, [backgroundColor]); // Add backgroundColor dependency
 
   return (
     <div style={{ backgroundColor, minHeight: '100vh' }}>

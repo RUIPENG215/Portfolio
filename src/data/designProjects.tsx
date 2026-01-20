@@ -26,7 +26,7 @@ export const designProjects: DesignProjectData[] = [
     title: "Luminous Tower Crane",
     category: "Industrial Design",
     description: "A sculptural, foldable lamp that transitions seamlessly from a focused work light to a warm ambient glow, merging tactile interaction with effortless portability for life on the go.",
-    aboutProject: "Beyond portability and function, this lamp is an exploration of how light can adapt to our lives—whether we’re working, resting, or moving between spaces. It’s not just a lamp; it’s a companion that brings warmth wherever you go.",
+    aboutProject: "Beyond portability and function, this lamp is an exploration of how light can adapt to our lives—whether we're working, resting, or moving between spaces. It's not just a lamp; it's a companion that brings warmth wherever you go.",
     image: "/Design_1/Hero_lamp.webp",
     heroImage: "/Design_1/Hero_lamp.webp",
     icon: <Layout size={40} />,

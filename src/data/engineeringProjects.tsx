@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { Cpu, Wind, Code } from 'lucide-react';
+import { Cpu, Wind, Code, Globe } from 'lucide-react';
 import type { ContentBlock } from './types';
 
 export interface EngineeringProjectData {
@@ -15,6 +15,35 @@ export interface EngineeringProjectData {
 }
 
 export const engineeringProjects: EngineeringProjectData[] = [
+  {
+    id: 0,
+    title: "Personal Portfolio Website",
+    subtitle: "Frontend Development",
+    tech: ["React 19", "TypeScript", "Tailwind CSS", "Framer Motion"],
+    description: "A modern, responsive portfolio platform built from scratch. Features component-driven architecture, seamless page transitions, and a custom design system.",
+    icon: <Globe size={40} />,
+    status: "LIVE",
+    time: "2025.01 - PRESENT",
+    content: [
+      {
+        type: 'text-full',
+        title: "// ARCHITECTURE & TECH STACK",
+        content: "Built on the Vite ecosystem for optimal performance. The application utilizes React 19 for the UI layer and TypeScript for type safety. Routing is handled by React Router v6 with a custom animated transition wrapper."
+      },
+      {
+        type: 'text-and-image',
+        title: "// DESIGN SYSTEM IMPLEMENTATION",
+        content: "I developed a custom utility-first design system using Tailwind CSS. The interface features a minimalist aesthetic with 'JetBrains Mono' for technical elements. Framer Motion powers the complex enter/exit animations and layout shifts.",
+        src: "https://placehold.co/800x600/1e293b/4f46e5?text=Code+Structure",
+        imageLeft: true
+      },
+      {
+        type: 'text-full',
+        title: "// ENGINEERING CHALLENGES",
+        content: "Key challenges included designing a flexible data structure to render diverse project layouts (grid, full-width, text-image) dynamically without code duplication. The 'PageWrapper' component manages scroll restoration and animation lifecycles."
+      }
+    ]
+  },
   {
     id: 1,
     title: "Composite Topology Optimization",
