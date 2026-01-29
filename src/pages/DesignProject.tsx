@@ -8,9 +8,11 @@ const BlockRenderer = ({ block }: { block: ContentBlock }) => {
   switch (block.type) {
     case 'text-full':
       return (
-        <section className="mb-24 max-w-4xl mx-auto">
-          {block.title && <h3 className="text-3xl font-bold mb-6">{block.title}</h3>}
-          <p className="text-xl text-gray-600 leading-relaxed font-light">{block.content}</p>
+        <section className={`${block.width === 'full' ? 'w-full' : 'max-w-4xl'} ${block.align === 'left' ? 'mx-0' : 'mx-auto'} ${block.marginBottom === 'small' ? 'mb-8' : 'mb-24'}`}>
+          {block.title && <h3 className="text-3xl font-bold mb-8 text-gray-900 tracking-tight">{block.title}</h3>}
+          <div className="text-lg text-gray-600/90 leading-[1.8] font-normal whitespace-pre-line tracking-wide">
+            {block.content}
+          </div>
         </section>
       );
     case 'image-full':
@@ -51,7 +53,7 @@ const BlockRenderer = ({ block }: { block: ContentBlock }) => {
     case 'text-and-image':
       const textSizeClass = block.textSize === 'sm' ? 'text-base' :
                            block.textSize === 'md' ? 'text-lg' :
-                           'text-xl';
+                           'text-lg'; // Changed from text-xl to text-lg for consistency
 
       const isAuto = block.imageAspectRatio === 'auto';
       // Default to square if not specified, to maintain backward compatibility
@@ -69,8 +71,10 @@ const BlockRenderer = ({ block }: { block: ContentBlock }) => {
       return (
         <section className={`flex flex-col ${block.imageLeft ? 'md:flex-row-reverse' : 'md:flex-row'} gap-12 items-center mb-24`}>
           <div className="w-full md:w-1/2">
-            {block.title && <h3 className="text-3xl font-bold mb-6">{block.title}</h3>}
-            <p className={`${textSizeClass} text-gray-600 leading-relaxed font-light`}>{block.content}</p>
+            {block.title && <h3 className="text-3xl font-bold mb-8 text-gray-900 tracking-tight">{block.title}</h3>}
+            <div className={`${textSizeClass} text-gray-600/90 leading-[1.8] font-normal whitespace-pre-line tracking-wide`}>
+              {block.content}
+            </div>
           </div>
           <div className={`w-full md:w-1/2 flex ${block.imageLeft ? 'justify-end' : 'justify-start'}`}>
             <div className={`rounded-lg overflow-hidden shadow-lg group ${isAuto ? '' : aspectRatioClass} ${widthClass}`}>
@@ -93,6 +97,28 @@ const BlockRenderer = ({ block }: { block: ContentBlock }) => {
           {block.author && <cite className="text-sm font-bold uppercase tracking-widest text-gray-400">— {block.author}</cite>}
         </section>
       );
+    case 'video':
+      const videoWidthClass = block.width === 'narrow' ? 'max-w-4xl mx-auto' :
+                             block.width === 'standard' ? 'max-w-5xl mx-auto' :
+                             'w-full';
+      return (
+        <section className={`mb-24 ${block.width !== 'full' ? '' : ''}`}>
+          <div className={`rounded-lg overflow-hidden bg-gray-50 shadow-sm ${videoWidthClass}`}>
+            <video 
+              src={block.src} 
+              poster={block.poster}
+              controls={block.controls ?? true}
+              autoPlay={block.autoPlay}
+              loop={block.loop}
+              muted={block.muted}
+              className="w-full h-auto"
+            >
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          {block.caption && <p className="mt-4 text-center text-sm text-gray-400 italic">{block.caption}</p>}
+        </section>
+      );
     default:
       return null;
   }
@@ -107,6 +133,8 @@ const DesignProject = () => {
 
   if (!project) return <div className="p-20 text-center">Project not found</div>;
 
+  const isInteractionProject = project.category === 'Interaction Design';
+
   return (
     <motion.div 
       className="min-h-screen bg-white text-gray-800"
@@ -115,48 +143,116 @@ const DesignProject = () => {
       exit={{ opacity: 0 }}
     >
       {/* 1. Hero Section */}
-      <div className="relative h-screen w-full overflow-hidden bg-[#f8f8f8] flex items-center">
-        <div className="absolute inset-0 z-[1] pointer-events-none shadow-[inset_0_0_150px_rgba(248,248,248,1)]" />
-        <div className="max-w-7xl mx-auto w-full relative z-10 h-full flex flex-col justify-center px-4 md:px-8">
-          <div className="absolute top-24 md:top-32">
-            <Link to="/design" className="inline-flex items-center gap-2 text-gray-400 hover:text-black transition-all group">
-              <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" /> 
-              <span className="text-[10px] md:text-xs font-bold uppercase tracking-[0.2em]">Back to Portfolio</span>
-            </Link>
-          </div>
+      {isInteractionProject ? (
+        <div className="relative h-screen w-full overflow-hidden bg-gray-900 flex items-center">
+          {/* Background Image */}
+          <motion.div 
+            initial={{ scale: 1.1, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 1.5, ease: "easeOut" }}
+            className="absolute inset-0 z-0"
+          >
+            <img 
+              src={project.heroImage} 
+              alt={project.title} 
+              className="w-full h-full object-cover opacity-60"
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60" />
+          </motion.div>
 
-          <div className="flex flex-col md:flex-row items-start justify-between w-full md:pt-24">
-            <div className="w-full md:w-[45%] mt-32 md:mt-0">
-              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3, duration: 0.8 }}>
-                <span className="text-red-500 font-bold tracking-[0.3em] uppercase text-xs block mb-8 border-l-2 border-red-500 pl-4">
-                  {project.category}
-                </span>
-                <h1 className="text-6xl md:text-[6rem] font-black text-gray-800 tracking-tighter leading-[0.9] mb-12">
+          <div className="max-w-7xl mx-auto w-full relative z-10 h-full flex flex-col justify-center pt-32 px-4 md:px-8">
+            {/* Back Button */}
+            <div className="absolute top-24 md:top-32">
+              <Link to="/design" className="inline-flex items-center gap-2 text-white/70 hover:text-white transition-all group">
+                <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" /> 
+                <span className="text-[10px] md:text-xs font-bold uppercase tracking-[0.2em]">Back to Portfolio</span>
+              </Link>
+            </div>
+
+            <div className="max-w-4xl">
+              <motion.div 
+                initial={{ opacity: 0, y: 30 }} 
+                animate={{ opacity: 1, y: 0 }} 
+                transition={{ delay: 0.5, duration: 0.8 }}
+              >
+                <h1 className="text-5xl md:text-7xl font-black text-white mb-3 tracking-tight italic leading-[1.1]">
                   {project.title.split(' ').map((word, i) => (
-                    <span key={i} className="block">{word}</span>
+                    <span key={i} className="block mb-2 last:mb-0">
+                      {word}
+                    </span>
                   ))}
                 </h1>
-
-                <div className="max-w-lg mb-12">
-                  <p className="text-base md:text-lg text-gray-500 leading-relaxed font-light italic">
-                    {project.description}
+                {project.subtitle && (
+                  <p className="text-xl md:text-2xl text-white/80 font-light italic mb-12">
+                    {project.subtitle}
                   </p>
-                </div>
-              </motion.div>
-            </div>
-            <div className="w-full md:w-[55%] flex justify-end items-start relative group">
-              <motion.div initial={{ opacity: 0, x: 100, scale: 1.1 }} animate={{ opacity: 1, x: 0, scale: 1 }} transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }} className="relative z-0">
-                <img 
-                  src={project.heroImage} 
-                  alt={project.title} 
-                  className="max-w-full max-h-[60vh] md:max-h-[85vh] object-contain drop-shadow-[0_35px_35px_rgba(0,0,0,0.1)] translate-x-12 md:translate-x-24 transition-transform duration-700 ease-in-out group-hover:scale-105" 
-                />
+                )}
+
+                {/* Description Box */}
+                <motion.div 
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.8, duration: 0.8 }}
+                  className="bg-white/5 backdrop-blur-sm border border-white/10 p-8 rounded-2xl max-w-2xl"
+                >
+                  <p className="text-white/90 leading-[1.8] font-normal text-sm md:text-base tracking-wide">
+                    {project.aboutProject || project.description}
+                  </p>
+                </motion.div>
               </motion.div>
             </div>
           </div>
+          
+          {/* Scroll Indicator */}
+          <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/50">
+            <span className="text-[10px] uppercase tracking-widest font-bold">Scroll</span>
+            <div className="w-px h-12 bg-gradient-to-b from-white/50 to-transparent" />
+          </div>
         </div>
-        <div className="absolute inset-0 bg-gradient-to-r from-[#f8f8f8] via-transparent to-transparent pointer-events-none z-[2]" />
-      </div>
+      ) : (
+        <div className="relative h-screen w-full overflow-hidden bg-[#f8f8f8] flex items-center">
+          <div className="absolute inset-0 z-[1] pointer-events-none shadow-[inset_0_0_150px_rgba(248,248,248,1)]" />
+          <div className="max-w-7xl mx-auto w-full relative z-10 h-full flex flex-col justify-center px-4 md:px-8">
+            <div className="absolute top-24 md:top-32">
+              <Link to="/design" className="inline-flex items-center gap-2 text-gray-400 hover:text-black transition-all group">
+                <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" /> 
+                <span className="text-[10px] md:text-xs font-bold uppercase tracking-[0.2em]">Back to Portfolio</span>
+              </Link>
+            </div>
+
+            <div className="flex flex-col md:flex-row items-start justify-between w-full md:pt-24">
+              <div className="w-full md:w-[45%] mt-32 md:mt-0">
+                <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3, duration: 0.8 }}>
+                  <span className="text-red-500 font-bold tracking-[0.3em] uppercase text-xs block mb-8 border-l-2 border-red-500 pl-4">
+                    {project.category}
+                  </span>
+                  <h1 className="text-6xl md:text-[6rem] font-black text-gray-800 tracking-tighter leading-[0.9] mb-12">
+                    {project.title.split(' ').map((word, i) => (
+                      <span key={i} className="block">{word}</span>
+                    ))}
+                  </h1>
+
+                  <div className="max-w-lg mb-12">
+                    <p className="text-base md:text-lg text-gray-500 leading-relaxed font-light italic">
+                      {project.description}
+                    </p>
+                  </div>
+                </motion.div>
+              </div>
+              <div className="w-full md:w-[55%] flex justify-end items-start relative group">
+                <motion.div initial={{ opacity: 0, x: 100, scale: 1.1 }} animate={{ opacity: 1, x: 0, scale: 1 }} transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }} className="relative z-0">
+                  <img 
+                    src={project.heroImage} 
+                    alt={project.title} 
+                    className="max-w-full max-h-[60vh] md:max-h-[85vh] object-contain drop-shadow-[0_35px_35px_rgba(0,0,0,0.1)] translate-x-12 md:translate-x-24 transition-transform duration-700 ease-in-out group-hover:scale-105" 
+                  />
+                </motion.div>
+              </div>
+            </div>
+          </div>
+          <div className="absolute inset-0 bg-gradient-to-r from-[#f8f8f8] via-transparent to-transparent pointer-events-none z-[2]" />
+        </div>
+      )}
 
       {/* 2. Dynamic Content Blocks */}
       <div className="max-w-7xl mx-auto px-4 md:px-8 py-24">

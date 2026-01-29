@@ -42,7 +42,7 @@ const Landing = () => {
               transition={{ delay: 0.2, duration: 0.8 }}
               className="flex flex-col mb-6"
             >
-              <span className="text-white/40 text-xs md:text-sm tracking-[0.5em] uppercase mb-3">Creative Portfolio</span>
+              <span className="text-white/40 text-xs md:text-sm tracking-[0.5em] uppercase mb-3">Creative Space</span>
               <h1 className="text-6xl md:text-9xl font-black tracking-tighter leading-[0.9] mb-2">
                 <span className="outline-text">WANG</span><br />
                 RUIPENG

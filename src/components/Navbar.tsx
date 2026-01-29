@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
+import { designProjects } from '../data/designProjects';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -30,7 +31,12 @@ const Navbar = () => {
   ];
 
   const isPageDark = location.pathname.startsWith('/engineering');
-  const isNavbarDark = isPageDark || (location.pathname === '/' && !isScrolled);
+  const isDesignProject = location.pathname.startsWith('/design/');
+  const currentProjectId = isDesignProject ? location.pathname.split('/').pop() : null;
+  const currentProject = currentProjectId ? designProjects.find(p => p.id === Number(currentProjectId)) : null;
+  const isInteractionProject = currentProject?.category === 'Interaction Design';
+  
+  const isNavbarDark = isPageDark || (location.pathname === '/' && !isScrolled) || (isInteractionProject && !isScrolled);
 
   return (
     <motion.nav 

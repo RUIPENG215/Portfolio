@@ -31,12 +31,12 @@ const Design = () => {
                   <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-6 ${project.color} shadow-sm`}>
                     {project.icon}
                   </div>
-                  <div className="flex items-center gap-3 mb-2">
-                    <div className="text-xs font-bold tracking-[0.2em] uppercase text-gray-400">{project.category}</div>
-                    <div className="text-[10px] text-gray-300 uppercase tracking-widest px-2 py-0.5 border border-gray-100 rounded-full">{project.time}</div>
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="text-[10px] font-black tracking-[0.2em] uppercase text-gray-500">{project.category}</div>
+                    <div className="text-[10px] text-gray-400/80 font-medium uppercase tracking-wider px-2.5 py-0.5 bg-gray-50 border border-gray-100/50 rounded-full">{project.time}</div>
                   </div>
-                  <h3 className="text-3xl font-bold mb-3 text-gray-800">{project.title}</h3>
-                  <p className="text-gray-500 leading-relaxed font-light max-w-lg">
+                  <h3 className="text-3xl font-bold mb-4 text-gray-900 tracking-tight leading-tight">{project.title}</h3>
+                  <p className="text-gray-500/90 leading-relaxed font-normal text-[15px] max-w-lg">
                     {project.description}
                   </p>
                 </div>
