@@ -25,13 +25,18 @@ export interface ProjectSummary {
 
 export interface Education {
   school: string;
-  degree: string;
+  degree?: string;
+  major?: string;
   period: string;
+  logo?: string;
+  logoScale?: number;
+  isSecondary?: boolean;
 }
 
 export interface SkillGroup {
   category: string;
-  skills: string[];
+  skills: { name: string; level: number }[];
+  description?: string;
 }
 
 export interface Honor {
@@ -57,6 +62,16 @@ export const experiences: Experience[] = [
 ];
 
 export const projectSummaries: ProjectSummary[] = [
+  {
+    title: "Metro Seat Support Research",
+    period: "2024 - Present",
+    description: "Engineering research on 3D-printed lightweight seat supports for Xi'an Metro Line 15. Utilizing topology optimization and additive manufacturing.",
+    tags: ["3D Printing", "Topology Optimization", "CAD/CAE"],
+    icon: <Cpu size={24} />,
+    colorClass: "bg-blue-50",
+    textColorClass: "text-blue-600",
+    ongoing: true
+  },
   {
     title: "Hequ Restaurant",
     period: "Apr - Jun 2025",
@@ -85,57 +100,100 @@ export const projectSummaries: ProjectSummary[] = [
     textColorClass: "text-blue-600"
   },
   {
-    title: "Tech Research",
+    title: "Advanced Tech Research",
     period: "Ongoing",
-    description: "Multidisciplinary research including Thermal Comfort (Arduino), PCB Design, Ansys Fluent Simulation, and Computer Vision (OpenCV).",
-    tags: ["Hardware", "Simulation"],
+    description: "Ongoing exploration in Thermal Comfort (Arduino), Ansys Fluent CFD, and Computer Vision. Focused on integrating simulation data with physical prototypes.",
+    tags: ["Hardware", "Simulation", "OpenCV"],
     icon: <Cpu size={24} />,
-    colorClass: "bg-white/10",
-    textColorClass: "text-purple-300",
+    colorClass: "bg-purple-50",
+    textColorClass: "text-purple-600",
     ongoing: true
   }
 ];
 
 export const education: Education[] = [
   {
-    school: "Xi'an Jiaotong Univ.",
-    degree: "Industrial Design",
-    period: "2022 - Present"
+    school: "Xi'an Jiaotong University",
+    degree: "Bachelor of Engineering",
+    major: "Industrial Design",
+    period: "2022 - Present",
+    logo: "/logos/xjtu-logo.webp",
+    logoScale: 1.0
   },
   {
     school: "Politecnico di Milano",
-    degree: "Ind. Prod. Engineering",
-    period: "2022 - Present"
+    degree: "Bachelor of Engineering",
+    major: "Industrial Product Engineering (Double Degree)",
+    period: "2022 - Present",
+    logo: "/logos/polimi-logo.webp",
+    logoScale: 1.1
   },
   {
-    school: "ECUST",
-    degree: "Process Engineering",
-    period: "2018 - 2020"
+    school: "East China University of Science and Technology",
+    major: "Process Equipment and Control Engineering",
+    period: "2018 - 2020",
+    logo: "/logos/ecust-logo.webp",
+    logoScale: 0.91,
+    isSecondary: true
   }
 ];
 
 export const skillGroups: SkillGroup[] = [
   {
-    category: "Design",
-    skills: ['Solidworks', 'Keyshot', 'Alias', 'Figma', 'Rhino']
+    category: "Design & Visualization",
+    description: "Proficient in design thinking and user-centric methodologies. Experienced in leading design teams to deliver high-quality creative solutions.",
+    skills: [
+      { name: 'Solidworks', level: 90 },
+      { name: 'Rhino/Grasshopper', level: 85 },
+      { name: 'Keyshot', level: 85 },
+      { name: 'Alias', level: 75 },
+      { name: 'Figma', level: 80 },
+      { name: 'Adobe Suite', level: 90 }
+    ]
   },
   {
-    category: "Dev & Creative",
-    skills: ['Unity', 'React', 'Arduino', 'Adobe Suite']
+    category: "Development & Engineering",
+    description: "Strong foundation in mechanical engineering and frontend development. Skilled in bridging the gap between physical prototypes and digital systems.",
+    skills: [
+      { name: 'React/TypeScript', level: 85 },
+      { name: 'Node.js', level: 75 },
+      { name: 'Unity', level: 80 },
+      { name: 'Arduino/ESP32', level: 85 },
+      { name: 'ROS', level: 70 },
+      { name: 'OpenFOAM/Ansys', level: 75 }
+    ]
+  },
+  {
+    category: "AI & Specialized",
+    description: "Focusing on the intersection of AI and human-computer interaction. Expert in leveraging LLMs and CV for innovative design automation.",
+    skills: [
+      { name: 'LLM Agents', level: 85 },
+      { name: 'AR Projection', level: 80 },
+      { name: 'Computer Vision', level: 75 },
+      { name: 'Topology Optimization', level: 85 }
+    ]
   }
 ];
 
 export const honors: Honor[] = [
   {
-    title: "3rd Prize, \"Tengfei Cup\"",
-    org: "2022-2023 Innovation Track"
-  },
-  {
-    title: "Third Class Scholarship",
-    org: "Xi'an Jiaotong University"
+    title: "Second Class Scholarship",
+    org: "Joint Design School (College Level)",
+    year: "2024-2025"
   },
   {
     title: "Second Class Scholarship",
-    org: "Joint Design School"
+    org: "Joint Design School (College Level)",
+    year: "2023-2024"
+  },
+  {
+    title: "3rd Prize, \"Tengfei Cup\"",
+    org: "XJTU Innovation Track",
+    year: "2022-2023"
+  },
+  {
+    title: "Third Class Scholarship",
+    org: "Xi'an Jiaotong University",
+    year: "2022-2023"
   }
 ];

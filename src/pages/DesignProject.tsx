@@ -1,6 +1,6 @@
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowLeft, ArrowRight, Quote } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Quote, ExternalLink } from 'lucide-react';
 import { designProjects } from '../data/designProjects';
 import type { ContentBlock } from '../data/types';
 
@@ -199,6 +199,24 @@ const DesignProject = () => {
                     {project.aboutProject || project.description}
                   </p>
                 </motion.div>
+                
+                {project.externalLink && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 1, duration: 0.8 }}
+                    className="mt-8 flex justify-start"
+                  >
+                    <a 
+                      href={project.externalLink} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 bg-white text-gray-900 px-6 py-3 rounded-full font-bold text-sm hover:bg-white/90 transition-all group shadow-xl shadow-white/5"
+                    >
+                      Visit Live Project <ExternalLink size={16} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                    </a>
+                  </motion.div>
+                )}
               </motion.div>
             </div>
           </div>
@@ -238,6 +256,23 @@ const DesignProject = () => {
                     </p>
                   </div>
                 </motion.div>
+                {project.externalLink && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 1, duration: 0.8 }}
+                    className="mt-8"
+                  >
+                    <a 
+                      href={project.externalLink} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 bg-black text-white px-6 py-3 rounded-full font-bold text-sm hover:bg-gray-800 transition-all group shadow-lg shadow-black/10"
+                    >
+                      Visit Live Project <ExternalLink size={16} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                    </a>
+                  </motion.div>
+                )}
               </div>
               <div className="w-full md:w-[55%] flex justify-end items-start relative group">
                 <motion.div initial={{ opacity: 0, x: 100, scale: 1.1 }} animate={{ opacity: 1, x: 0, scale: 1 }} transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }} className="relative z-0">

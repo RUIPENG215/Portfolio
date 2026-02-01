@@ -18,7 +18,8 @@ export interface DesignProjectData {
   status: 'COMPLETED' | 'IN_PROGRESS' | 'CONCEPT' | string;
   tags?: string[]; // Keywords to replace status in the footer
   time: string;
-  content: ContentBlock[]; // Dynamic content blocks
+  externalLink?: string;
+  content?: ContentBlock[]; // Dynamic content blocks
 }
 
 export const designProjects: DesignProjectData[] = [
@@ -564,7 +565,8 @@ export const designProjects: DesignProjectData[] = [
     color: "bg-slate-100 text-slate-600",
     status: "RESEARCH PROJECT",
     tags: ["Interaction Design", "Automotive", "HMI", "AR-HUD", "Human-Machine Co-Driving"],
-    time: "2025.5 - 2025.10",
+    time: "2024.05 - 2024.08",
+    externalLink: "https://spark-pilot.vercel.app",
     content: [
       {
         type: 'image-full',
@@ -657,42 +659,67 @@ export const designProjects: DesignProjectData[] = [
   {
     id: 8,
     title: "SparkPilot",
-    subtitle: "Intelligent AI-AR Assistant for Electronic Design and Soldering",
+    subtitle: "AI-AR Assisted Interactive Learning System for PCB Design",
     category: "Interaction Design",
-    description: "A web-based platform combined with AR projection and AI agents to help beginners learn PCB design and soldering efficiently.",
-    aboutProject: "Designing and soldering a PCB is often a daunting task for beginners. SparkPilot bridges the gap by providing an AI agent that assists in schematic drawing and an AR assistant that projects real-time soldering instructions onto the physical board, reducing errors and learning time.",
-    image: "https://placehold.co/800x600/0c0a09/white?text=SparkPilot+Cover",
-    heroImage: "https://placehold.co/1920x1080/0c0a09/white?text=SparkPilot+Hero",
+    description: "An innovative hardware education platform that integrates Large Language Models (LLM) and Augmented Reality (AR) to lower the entry barrier for electronic engineering.",
+    aboutProject: "Traditional electronic design and soldering education faces a high learning curve and safety concerns. SparkPilot transforms this process by introducing an 'AI Mentor' for circuit design and 'AR Guidance' for physical soldering. By bridging the gap between digital schematics and physical hardware through real-time projection and intelligent agents, we empower beginners to move from concept to functional PCB with confidence and precision.",
+    image: "/Design_8/H.webp",
+    heroImage: "/Design_8/H.webp",
     icon: <Cpu size={40} />,
-    color: "bg-stone-100 text-stone-600",
-    status: "PROTOTYPE",
-    tags: ["Interaction Design", "EdTech", "AI Agent", "AR Projection", "PCB Design"],
-    time: "2024.05 - 2024.08",
+    color: "bg-orange-50 text-orange-600",
+    status: "PROTOTYPE COMPLETED",
+    tags: ["Interaction Design", "AI Agent", "AR Projection", "Electronic Engineering", "Educational Technology"],
+    time: "2024.11 - 2024.12",
+    externalLink: "https://spark-pilot.vercel.app",
     content: [
       {
         type: 'text-full',
-        title: "The Learning Barrier",
-        content: "Beginners often struggle with component placement and soldering techniques. Our research showed that real-time, context-aware guidance significantly improves the learning curve in hardware design.",
+        title: "The Vision: Democratizing Hardware Innovation",
+        content: "Hardware design has long been seen as a 'black box' for many enthusiasts. SparkPilot aims to dismantle this barrier. We've built a web-integrated ecosystem where AI doesn't just check for errors, but collaborates on circuit logic, while AR projection eliminates the 'look-up-and-down' fatigue during soldering, keeping the user's focus exactly where it needs to be—on the board.",
         align: 'center',
         width: 'full'
       },
       {
         type: 'image-full',
-        src: "https://placehold.co/1200x600/1c1917/white?text=AI+and+AR+Integration",
-        caption: "Inspiration from AI IDEs and AR devices applied to electronics education."
+        src: "/Design_8/D8_1.webp",
+        caption: "System Architecture: Seamless integration of Web UI, AI Agents, and AR Hardware."
       },
       {
-        type: 'text-and-image',
-        title: "Web-Based Intelligent Interface",
-        content: "The platform integrates LCEDA for schematic design, supported by an AI agent that provides real-time design suggestions and error checking.",
-        src: "https://placehold.co/800x600/292524/white?text=Web+Interface+Design",
-        imageLeft: true,
-        imageAspectRatio: 'auto'
+        type: 'image-grid',
+        columns: 2,
+        images: [
+          "/Design_8/D8_2.webp",
+          "/Design_8/D8_3.webp"
+        ],
+        caption: "Intelligent Design Phase: AI-assisted schematic generation and component selection within a custom Web IDE."
       },
       {
         type: 'image-full',
-        src: "https://placehold.co/1200x800/0c0a09/white?text=Technical+Architecture",
-        caption: "Technical architecture overview: Frontend (Tailwind, JS), Backend (Node.js, Express), and AI/AR service layers."
+        src: "/Design_8/D8_4.webp",
+        caption: "AR Assisted Soldering: Real-time projection mapping indicating component orientation and soldering points."
+      },
+      {
+        type: 'text-and-image',
+        title: "Human-Centric AI Interaction",
+        content: "Unlike static tutorials, SparkPilot's AI Agent understands context. If a user is stuck on a decoupling capacitor placement, the AI explains the 'why' behind the design rule, fostering true understanding rather than rote imitation.",
+        src: "/Design_8/D8_5.webp",
+        imageLeft: false,
+        imageAspectRatio: 'auto'
+      },
+      {
+        type: 'image-grid',
+        columns: 3,
+        images: [
+          "/Design_8/D8_6.webp",
+          "/Design_8/D8_7.webp",
+          "/Design_8/D8_8.webp"
+        ],
+        caption: "Prototyping & Testing: Iterative development of the AR projection rig and user interface testing."
+      },
+      {
+        type: 'quote',
+        text: "SparkPilot isn't just a tool; it's a bridge between the abstract world of electronics and the tactile joy of creation.",
+        author: "Project Lead"
       }
     ]
   }

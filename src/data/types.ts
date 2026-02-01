@@ -15,3 +15,11 @@ export type ContentBlock =
     }
   | { type: 'quote'; text: string; author?: string }
   | { type: 'video'; src: string; caption?: string; poster?: string; autoPlay?: boolean; loop?: boolean; muted?: boolean; controls?: boolean; width?: 'full' | 'standard' | 'narrow' };
+
+export interface Work {
+  title: string;
+  tags?: string[];
+  time?: string;
+  externalLink?: string;
+  content?: ContentBlock[];
+}

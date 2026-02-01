@@ -11,12 +11,11 @@ const InterestCard = ({ interest, variants }: InterestCardProps) => {
   return (
     <Link to={interest.path} className="group">
       <motion.div 
-        className={`h-96 ${interest.bgClass} ${interest.borderClass} ${interest.textClass} ${interest.isMono ? 'font-mono' : ''} border rounded-2xl p-8 flex flex-col justify-between hover:shadow-xl transition-shadow relative overflow-hidden`}
+        className={`h-96 ${interest.bgClass} ${interest.borderClass} ${interest.textClass} ${interest.isMono ? 'font-mono' : ''} border rounded-2xl p-8 flex flex-col justify-between shadow-sm hover:shadow-xl transition-all duration-500 relative overflow-hidden`}
         variants={variants}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        whileHover={{ scale: 1.02 }}
       >
         <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
           <div className={interest.accentClass}>

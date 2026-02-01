@@ -30,9 +30,9 @@ const Engineering = () => {
               <span className="text-[#ff7b72]">const</span> <span className="text-[#d2a8ff]">Engineer</span> = <span className="text-[#79c0ff]">{'{'}</span>
             </h1>
             <div className="pl-8 md:pl-16 text-[#8b949e] space-y-2 text-lg">
-              <p>background: <span className="text-[#a5d6ff]">'Mechanical Engineering'</span>,</p>
-              <p>skills: [<span className="text-[#a5d6ff]">'Simulation'</span>, <span className="text-[#a5d6ff]">'Electronics'</span>, <span className="text-[#a5d6ff]">'Coding'</span>],</p>
-              <p>passion: <span className="text-[#a5d6ff]">'Solving Hard Problems'</span></p>
+              <p>background: [<span className="text-[#a5d6ff]">'Mechanical Engineering'</span>, <span className="text-[#a5d6ff]">'Computer Science'</span>, <span className="text-[#a5d6ff]">'Electronics'</span>, <span className="text-[#a5d6ff]">'Communication'</span>],</p>
+              <p>skills: [<span className="text-[#a5d6ff]">'Structural Optimization'</span>, <span className="text-[#a5d6ff]">'Frontend Development'</span>, <span className="text-[#a5d6ff]">'Circuit & PCB Design'</span>, <span className="text-[#a5d6ff]">'CAE Simulation'</span>],</p>
+              <p>passion: <span className="text-[#a5d6ff]">'Solving Complex Engineering Problems'</span></p>
             </div>
             <h1 className="text-4xl md:text-6xl font-bold text-[#79c0ff] mt-4">{'}'}</h1>
           </motion.div>
