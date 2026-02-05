@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import Hero from '../components/Hero';
 import Resume from '../components/Resume';
 import Footer from '../components/Footer';
@@ -82,71 +83,132 @@ const Landing = () => {
           </motion.div>
         </Hero>
 
-        <div className="w-full max-w-7xl mx-auto px-4 md:px-8 py-12 md:py-20 bg-gray-50">
+        <div className="w-full max-w-7xl mx-auto px-4 md:px-8 pt-20 md:pt-32 pb-16 bg-gray-50">
           
           <motion.div 
-            className="w-full mb-12 md:20 mt-6 md:mt-10 text-center md:text-left"
-            initial={{ opacity: 0, y: 20 }}
+            className="w-full mt-12 md:mt-24"
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           >
-            {/* Profile Intro Section */}
-            <div className="flex flex-col md:flex-row items-center gap-10 md:gap-16 mb-16 md:mb-24">
-              {/* Photo Container */}
-              <div className="w-48 md:w-64 shrink-0 relative group">
-                <div className="relative aspect-[3/4] rounded-2xl overflow-hidden shadow-xl border border-gray-100 bg-white">
+            {/* Bold Profile Section */}
+            <div className="relative grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-0 items-center">
+              {/* Massive Name Background (Desktop only) */}
+              <div className="hidden md:block absolute -top-32 -left-10 text-[12rem] font-black text-black/[0.03] select-none pointer-events-none tracking-tighter leading-none">
+                ABOUT
+              </div>
+
+              {/* Text Content - Spans left and middle */}
+               <div className="md:col-span-8 z-10">
+                  <motion.div 
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.2, duration: 0.8 }}
+                    className="flex flex-col h-full justify-center"
+                  >
+                    <h2 className="text-5xl md:text-7xl font-black text-gray-900 mb-8 tracking-tight leading-[1.1]">
+                      Where <span className="text-gray-400 italic font-serif font-light border-b-2 border-gray-100">humanity</span> meets <br/>
+                      <span className="text-gray-900">design & engineering.</span>
+                    </h2>
+  
+                    <div className="flex flex-col md:flex-row gap-12">
+                      <div className="flex-1">
+                        <div className="mb-2 text-[10px] uppercase tracking-[0.3em] text-gray-400 font-bold">Profile</div>
+                        <p className="text-2xl md:text-4xl text-gray-900 font-black mb-4 tracking-tighter leading-none">
+                          WANG <br/>
+                          RUIPENG
+                        </p>
+                        <p className="text-sm md:text-base text-gray-500 font-bold uppercase tracking-widest mb-6">
+                          Industrial Designer & <br/>
+                          Creative Engineer
+                        </p>
+                        <Link to="/contact" className="group inline-flex items-center gap-3 text-xs font-bold tracking-widest uppercase text-gray-900 hover:text-gray-600 transition-colors">
+                          Contact Me
+                          <span className="w-8 h-px bg-gray-900 group-hover:w-12 transition-all" />
+                        </Link>
+                      </div>
+                      <div className="flex-1 flex flex-col justify-end">
+                        <p className="text-base md:text-lg text-gray-500 leading-relaxed font-light">
+                          Bridging the gap between human experience, physical form, and technical logic. Passionate about creating intuitive solutions that solve complex problems through integrated design thinking.
+                        </p>
+                      </div>
+                    </div>
+                  </motion.div>
+                </div>
+
+              {/* Photo Container - Smaller and Balanced */}
+              <div className="md:col-span-4 flex justify-end items-center relative">
+                <motion.div 
+                  className="relative w-full max-w-[280px] aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl bg-gray-100"
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                >
                   <img 
                     src="/profile.webp" 
                     alt="Wang Ruipeng" 
                     className="w-full h-full object-cover"
                   />
-                </div>
-              </div>
-
-              <div className="flex-1 text-center md:text-left flex flex-col justify-center h-full">
-                <div className="inline-block px-3 py-1 bg-black text-white text-xs font-bold rounded-full mb-4 self-center md:self-start">
-                  OPEN TO WORK
-                </div>
-                <h2 className="text-4xl md:text-6xl font-black text-gray-900 mb-4 tracking-tight">
-                  Wang Ruipeng
-                </h2>
-                <p className="text-xl md:text-2xl text-gray-500 font-medium mb-6">
-                  Industrial Designer & Creative Technologist
-                </p>
-                <p className="text-lg text-gray-600 leading-relaxed max-w-2xl mx-auto md:mx-0">
-                  Bridging the gap between physical form and digital experience. Passionate about creating intuitive products that solve real-world problems through design thinking and engineering precision.
-                </p>
+                </motion.div>
                 
-                <div className="mt-8 flex flex-wrap gap-4 justify-center md:justify-start">
-                   <a href="#contact" className="px-8 py-3 bg-gray-900 text-white rounded-full font-bold hover:bg-gray-800 transition-colors">
-                     Contact Me
-                   </a>
-                   <button className="px-8 py-3 bg-white text-gray-900 border border-gray-200 rounded-full font-bold hover:bg-gray-50 transition-colors">
-                     Download CV
-                   </button>
+                {/* Floating caption for photo */}
+                <div className="absolute -bottom-6 -right-4 bg-white p-5 shadow-xl rounded-xl max-w-[160px] z-20 hidden sm:block border border-gray-100">
+                  <p className="text-[9px] uppercase tracking-[0.2em] text-gray-400 mb-1">Based in</p>
+                  <p className="text-xs font-bold text-gray-900 text-right">Xi'an, China</p>
                 </div>
               </div>
             </div>
 
-            <div className="border-t border-gray-200 my-16"></div>
+            {/* Bold Transition to Interests - Grid Layout */}
+            <div className="relative mt-40 md:mt-64 mb-24">
+              {/* Massive Background Text */}
+              <div className="hidden md:block absolute -top-20 -right-20 text-[14rem] font-black text-black/[0.02] select-none pointer-events-none tracking-tighter leading-none">
+                FIELDS
+              </div>
 
-            <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-6">Fields of interests</h2>
-            <p className="text-lg text-gray-600 max-w-2xl leading-relaxed">
-              Dive into my multidisciplinary journey. From industrial design aesthetics to rigorous engineering solutions and artistic expression.
-            </p>
-          </motion.div>
+              <div className="grid grid-cols-1 md:grid-cols-12 gap-12 items-end relative z-10">
+                <motion.div 
+                  className="md:col-span-5"
+                  initial={{ opacity: 0, x: -30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8 }}
+                >
+                  <div className="flex items-center gap-4 mb-8">
+                    <div className="w-12 h-px bg-gray-900" />
+                    <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-gray-400">Selected Works</span>
+                  </div>
+                  <h3 className="text-5xl md:text-6xl font-black text-gray-900 tracking-tighter leading-[0.9]">
+                    Exploring <br/> 
+                    The Synergy.
+                  </h3>
+                </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full mb-20">
-            {interests.map((interest) => (
-              <InterestCard key={interest.id} interest={interest} variants={itemVariants} />
-            ))}
-          </div>
+                <motion.div 
+                  className="md:col-span-7 pb-2"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8, delay: 0.2 }}
+                >
+                  <p className="text-xl md:text-2xl text-gray-500 font-medium leading-tight max-w-2xl">
+                    A multidisciplinary approach to <span className="text-gray-900">problem solving</span>, bridging human experience with technical logic.
+                  </p>
+                </motion.div>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full mb-20">
+              {interests.map((interest) => (
+                <InterestCard key={interest.id} interest={interest} variants={itemVariants} />
+              ))}
+            </div>
 
           <Resume />
           <Footer />
-        </div>
+        </motion.div>
       </div>
+    </div>
 
       {/* Fixed Footer Reveal */}
       <motion.div 

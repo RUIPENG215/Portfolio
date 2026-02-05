@@ -5,9 +5,10 @@ import { socialLinks } from '../data/socialLinks';
 interface FooterProps {
   darkMode?: boolean;
   lineArt?: boolean;
+  paddingBottom?: string;
 }
 
-const Footer = ({ darkMode = false, lineArt = false }: FooterProps) => {
+const Footer = ({ darkMode = false, lineArt = false, paddingBottom = "pb-4" }: FooterProps) => {
   const [activeQr, setActiveQr] = useState<string | null>(null);
 
   if (lineArt) {
@@ -102,7 +103,7 @@ const Footer = ({ darkMode = false, lineArt = false }: FooterProps) => {
         darkMode ? 'bg-[#30363d]' : 'bg-gray-200'
       }`} />
       
-      <div className="flex flex-col md:flex-row justify-between items-center gap-6 text-center md:text-left pb-6">
+      <div className={`flex flex-col md:flex-row justify-between items-center gap-6 text-center md:text-left ${paddingBottom}`}>
         <div className="text-sm font-medium">
           © 2026 Wang Ruipeng. Built with passion & curiosity.
         </div>

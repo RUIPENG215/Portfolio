@@ -565,7 +565,7 @@ export const designProjects: DesignProjectData[] = [
     color: "bg-slate-100 text-slate-600",
     status: "RESEARCH PROJECT",
     tags: ["Interaction Design", "Automotive", "HMI", "AR-HUD", "Human-Machine Co-Driving"],
-    time: "2024.05 - 2024.08",
+    time: "2025.05 - 2025.08",
     externalLink: "https://spark-pilot.vercel.app",
     content: [
       {
@@ -663,63 +663,103 @@ export const designProjects: DesignProjectData[] = [
     category: "Interaction Design",
     description: "An innovative hardware education platform that integrates Large Language Models (LLM) and Augmented Reality (AR) to lower the entry barrier for electronic engineering.",
     aboutProject: "Traditional electronic design and soldering education faces a high learning curve and safety concerns. SparkPilot transforms this process by introducing an 'AI Mentor' for circuit design and 'AR Guidance' for physical soldering. By bridging the gap between digital schematics and physical hardware through real-time projection and intelligent agents, we empower beginners to move from concept to functional PCB with confidence and precision.",
-    image: "/Design_8/H.webp",
-    heroImage: "/Design_8/H.webp",
+    image: "/Design_8/D8_H.webp",
+    heroImage: "/Design_8/D8_H.webp",
     icon: <Cpu size={40} />,
     color: "bg-orange-50 text-orange-600",
     status: "PROTOTYPE COMPLETED",
-    tags: ["Interaction Design", "AI Agent", "AR Projection", "Electronic Engineering", "Educational Technology"],
-    time: "2024.11 - 2024.12",
-    externalLink: "https://spark-pilot.vercel.app",
+    tags: ["Interaction Design", "Electronic Engineering","AI Agent", "Augmented Reality", "Large Language Model" ],
+    time: "2025.10 - 2026.01",
+    externalLink: "https://github.com/RUIPENG215/SparkPilot",
     content: [
       {
         type: 'text-full',
-        title: "The Vision: Democratizing Hardware Innovation",
-        content: "Hardware design has long been seen as a 'black box' for many enthusiasts. SparkPilot aims to dismantle this barrier. We've built a web-integrated ecosystem where AI doesn't just check for errors, but collaborates on circuit logic, while AR projection eliminates the 'look-up-and-down' fatigue during soldering, keeping the user's focus exactly where it needs to be—on the board.",
-        align: 'center',
-        width: 'full'
+        title: "// BACKGROUND: THE CHALLENGE OF ELECTRONICS LEARNING",
+        content: "Designing and soldering a PCB is never a simple task for beginners. They often face multiple hurdles simultaneously:\n\n- Technical Knowledge: Lacking a foundation in analog and digital circuits.\n- Tool Operation: Unfamiliarity with EDA platform interfaces and soldering equipment.\n- Physical Execution: Challenges in component placement, temperature control, and time management often lead to defects like insufficient solder, excess solder, or bridging.",
+        align: 'left', 
+        width: 'full',
+        marginBottom: 'none'
       },
       {
         type: 'image-full',
         src: "/Design_8/D8_1.webp",
-        caption: "System Architecture: Seamless integration of Web UI, AI Agents, and AR Hardware."
+      },
+      {
+        type: 'text-full',
+        title: "// INSPIRATION: AI IDE & AR DEVICES",
+        content: "The emergence of AI-integrated development environments (like TRAE) has turned programming from a professionals-only tool into a medium for enthusiasts to bring their creative ideas to fruition. \n\nSimilarly, AR hardware provides tools to break down the barriers between reality and virtuality. By combining AI's smart support with AR's live interaction, we can create a feasible path to solve the PCB learning challenges.",
+        align: 'left',
+        width: 'full',
+        marginBottom: 'small'
       },
       {
         type: 'image-grid',
         columns: 2,
         images: [
-          "/Design_8/D8_2.webp",
-          "/Design_8/D8_3.webp"
+          "/Design_8/D8_3.webp",
+          "/Design_8/D8_4.webp"
         ],
-        caption: "Intelligent Design Phase: AI-assisted schematic generation and component selection within a custom Web IDE."
+      },
+      {
+        type: 'text-full',
+        title: "// THE CORE CONCEPT: INTELLIGENT HARDWARE EDUCATION",
+        content: "SparkPilot is a transdisciplinary project that redefines the learning curve of electronic engineering. By integrating Large Language Models (LLM) and Augmented Reality (AR), we've created a 'Live Circuit' environment where digital logic and physical components coexist. The system addresses the two biggest hurdles for beginners: the abstract complexity of circuit design and the high precision required for physical soldering.",
+        align: 'left',
+        width: 'full',
+        marginBottom: 'small'
       },
       {
         type: 'image-full',
-        src: "/Design_8/D8_4.webp",
-        caption: "AR Assisted Soldering: Real-time projection mapping indicating component orientation and soldering points."
+        src: "/Design_8/D8_5.webp",
       },
       {
-        type: 'text-and-image',
-        title: "Human-Centric AI Interaction",
-        content: "Unlike static tutorials, SparkPilot's AI Agent understands context. If a user is stuck on a decoupling capacitor placement, the AI explains the 'why' behind the design rule, fostering true understanding rather than rote imitation.",
-        src: "/Design_8/D8_5.webp",
-        imageLeft: false,
-        imageAspectRatio: 'auto'
+        type: 'text-full',
+        title: "// PHASE 1: AI-INTEGRATED WEB EDA & COZE AGENT",
+        content: "Traditional EDA tools are passive. SparkPilot integrates a web-based EDA environment with a custom AI Agent built on the Coze platform. The agent acts as an active mentor rather than a direct editor, ensuring users learn the 'why' behind the design.\n\n- Multimodal Interaction: Users can communicate with the AI through natural language or by uploading images of circuit diagrams and component datasheets.\n- Intelligent Guidance: The Coze-powered agent analyzes user queries and provides technical advice, component recommendations, and troubleshooting tips.\n- Educational Guardrails: The AI provides the rationale and steps for design, but does not directly modify the EDA files, encouraging users to implement the changes and build their skills.",
+        align: 'left',
+        width: 'full',
+        marginBottom: 'small'
+      },
+      {
+        type: 'image-grid',
+        columns: 2,
+        images: [
+          "/Design_8/D8_6.webp",
+          "/Design_8/D8_7.webp"
+        ],
+        keepAspectRatio: true,
+      },
+      {
+        type: 'text-full',
+        title: "// PHASE 2: AR-GUIDED PRECISION SOLDERING",
+        content: "The transition from digital design to physical assembly is where most errors occur. SparkPilot uses a custom-built AR projection rig to bridge this gap.\n\n- Real-time Projection Mapping: Components and soldering pads are highlighted directly on the physical PCB.\n- Step-by-Step Instructions: The system tracks progress and illuminates the exact location for the next component.\n- Error Prevention: Visual cues prevent common mistakes like incorrect polarity or cold joints.",
+        align: 'left',
+        width: 'full',
+        marginBottom: 'small'
       },
       {
         type: 'image-grid',
         columns: 3,
         images: [
-          "/Design_8/D8_6.webp",
-          "/Design_8/D8_7.webp",
-          "/Design_8/D8_8.webp"
+          "/Design_8/D8_8.webp",
+          "/Design_8/D8_9.webp",
+          "/Design_8/D8_10.webp"
         ],
-        caption: "Prototyping & Testing: Iterative development of the AR projection rig and user interface testing."
+        keepAspectRatio: true,
+        caption: "AR Workflow: Startup interface, front-side component placement, and back-side soldering guidance."
+      },
+      {
+        type: 'text-and-image',
+        title: "// TECHNICAL IMPLEMENTATION",
+        content: "The project leverages a robust tech stack to ensure low-latency interaction:\n\n- Frontend: React-based web EDA IDE with integrated chat interface for AI communication.\n- AI Engine: Intelligent Agent deployed on Coze platform, utilizing multimodal LLMs for text and image analysis.\n- AR Engine: WebAR implementation utilizing browser-based camera access and computer vision for real-time projection alignment and component tracking.",
+        src: "/Design_8/D8_2.webp",
+        imageLeft: false,
+        imageAspectRatio: 'auto'
       },
       {
         type: 'quote',
-        text: "SparkPilot isn't just a tool; it's a bridge between the abstract world of electronics and the tactile joy of creation.",
-        author: "Project Lead"
+        text: "SparkPilot is more than a tool; it's a bridge between abstract electronics and the tactile joy of creation.",
+        author: "Project Vision"
       }
     ]
   }

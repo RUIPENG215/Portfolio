@@ -2,7 +2,7 @@ import { useState, memo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Music, Camera, X, MapPin, Calendar } from 'lucide-react';
 import Footer from '../components/Footer';
-import { photography, musicTracks } from '../data/humanitiesData';
+import { photography, musicTracks, musicBio } from '../data/humanitiesData';
 import type { HumanitiesPhotoData, HumanitiesMusicData } from '../data/humanitiesData';
 
 // Memoized Photo Card Component to prevent unnecessary re-renders
@@ -72,7 +72,7 @@ const Humanities = () => {
           >
             <span className="block text-humanities-primary italic text-xl mb-2">The Soul of the Maker</span>
             <h1 className="text-6xl md:text-8xl text-gray-900 mb-6">Humanities</h1>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto font-sans font-light">
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto font-serif font-light leading-relaxed">
               "Art is the elimination of the unnecessary." <br/>
               Exploring the world through the lens of a camera and the notes of a melody.
             </p>
@@ -115,31 +115,93 @@ const Humanities = () => {
             <h2 className="text-3xl italic">Music</h2>
           </motion.div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 font-sans">
-            {musicTracks.map((track: HumanitiesMusicData, i) => (
-              <motion.div 
-                key={track.id}
-                className="bg-white p-6 rounded-xl shadow-sm border border-humanities-secondary/30 flex items-center gap-4 hover:shadow-md transition-shadow"
-                initial={{ opacity: 0, x: -15 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ 
-                  delay: (i % 4) * 0.1, 
-                  duration: 0.8,
-                  ease: "easeOut" 
-                }}
-                whileHover={{ x: 5 }} // Reduced movement
-                style={{ willChange: "transform, opacity" }}
-              >
-                <div className="w-12 h-12 bg-humanities-primary/20 rounded-full flex items-center justify-center text-humanities-primary">
-                  {track.icon || <Music size={20} />}
+          <div className="relative">
+            {/* Background Decorative Element */}
+            <div className="absolute -top-20 -right-20 w-64 h-64 bg-humanities-primary/5 rounded-full blur-3xl -z-10" />
+            
+            <motion.div 
+              className="bg-white/40 backdrop-blur-sm border border-humanities-secondary/20 rounded-2xl p-8 md:p-12 shadow-[0_4px_20px_rgb(0,0,0,0.03)] relative overflow-hidden group"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            >
+              {/* Subtle grid pattern background */}
+              <div className="absolute inset-0 opacity-[0.015] pointer-events-none" 
+                   style={{ backgroundImage: 'radial-gradient(#000 1px, transparent 1px)', backgroundSize: '24px 24px' }} />
+
+              <div className="relative z-10 w-full">
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.2, duration: 0.8 }}
+                  className="flex items-center gap-3 mb-8"
+                >
+                  <div className="h-px w-8 bg-humanities-primary/40" />
+                  <span className="text-xs tracking-[0.3em] uppercase text-humanities-primary/60 font-serif font-medium">
+                    Musical Philosophy
+                  </span>
+                </motion.div>
+
+                <p className="text-lg md:text-xl text-gray-700 leading-relaxed font-light mb-10 font-serif text-justify">
+                  {musicBio}
+                </p>
+                
+                <div className="flex flex-wrap gap-x-8 gap-y-4">
+                  {[
+                    { label: 'Symphony', icon: '01' },
+                    { label: 'Jazz', icon: '02' },
+                    { label: 'Clarinet', icon: '03' },
+                    { label: 'AI Synthesis', icon: '04' }
+                  ].map((tag, idx) => (
+                    <motion.div 
+                      key={tag.label}
+                      initial={{ opacity: 0, y: 10 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.4 + (idx * 0.1), duration: 0.5 }}
+                      className="flex items-baseline gap-2 group/tag"
+                    >
+                      <span className="text-[10px] font-serif text-humanities-primary/30 group-hover/tag:text-humanities-primary/60 transition-colors">
+                        {tag.icon}
+                      </span>
+                      <span className="text-sm tracking-widest uppercase text-gray-500 group-hover/tag:text-gray-900 transition-colors font-serif">
+                        {tag.label}
+                      </span>
+                    </motion.div>
+                  ))}
                 </div>
-                <div>
-                  <h3 className="font-bold text-gray-800">{track.title}</h3>
-                  <p className="text-sm text-gray-500">{track.type} • {track.duration}</p>
-                </div>
-              </motion.div>
-            ))}
+              </div>
+
+              {/* Elegant floating icon */}
+              <div className="absolute -bottom-10 -right-10 opacity-[0.02] text-humanities-primary rotate-[-15deg] group-hover:rotate-0 transition-transform duration-1000 pointer-events-none">
+                <Music size={220} strokeWidth={0.5} />
+              </div>
+            </motion.div>
+
+            {musicTracks.length > 0 && (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-16">
+                {musicTracks.map((track: HumanitiesMusicData, i) => (
+                  <motion.div 
+                    key={track.id}
+                    className="group bg-white/60 backdrop-blur-sm p-8 rounded-2xl border border-humanities-secondary/10 hover:border-humanities-primary/20 hover:shadow-xl hover:shadow-humanities-primary/5 transition-all duration-500"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.1, duration: 0.8 }}
+                  >
+                    <div className="flex items-center gap-6">
+                      <div className="w-14 h-14 rounded-full bg-humanities-primary/5 flex items-center justify-center text-humanities-primary group-hover:bg-humanities-primary group-hover:text-white transition-all duration-500">
+                        {track.icon || <Music size={24} strokeWidth={1.5} />}
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-medium text-gray-900 mb-1 group-hover:text-humanities-primary transition-colors">{track.title}</h3>
+                        <p className="text-xs tracking-widest uppercase text-gray-400">{track.type} • {track.duration}</p>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            )}
           </div>
         </section>
         <Footer />

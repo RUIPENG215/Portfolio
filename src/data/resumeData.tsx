@@ -1,4 +1,4 @@
-import { Zap, Star, Code, Cpu } from 'lucide-react';
+import { Star, Code, Navigation, Thermometer, Gamepad2, Train } from 'lucide-react';
 import type { ReactNode } from 'react';
 
 export interface Experience {
@@ -35,7 +35,7 @@ export interface Education {
 
 export interface SkillGroup {
   category: string;
-  skills: { name: string; level: number }[];
+  skills: string[];
   description?: string;
 }
 
@@ -64,10 +64,10 @@ export const experiences: Experience[] = [
 export const projectSummaries: ProjectSummary[] = [
   {
     title: "Metro Seat Support Research",
-    period: "2024 - Present",
+    period: "2025 - Present",
     description: "Engineering research on 3D-printed lightweight seat supports for Xi'an Metro Line 15. Utilizing topology optimization and additive manufacturing.",
     tags: ["3D Printing", "Topology Optimization", "CAD/CAE"],
-    icon: <Cpu size={24} />,
+    icon: <Train size={24} />,
     colorClass: "bg-blue-50",
     textColorClass: "text-blue-600",
     ongoing: true
@@ -77,7 +77,7 @@ export const projectSummaries: ProjectSummary[] = [
     period: "Apr - Jun 2025",
     description: "Immersive VR simulation game built with Unity. Designed core gameplay mechanics and environmental interactions for PICO VR hardware.",
     tags: ["Unity", "VR/XR"],
-    icon: <Zap size={24} />,
+    icon: <Gamepad2 size={24} />,
     colorClass: "bg-indigo-50",
     textColorClass: "text-indigo-600"
   },
@@ -100,14 +100,22 @@ export const projectSummaries: ProjectSummary[] = [
     textColorClass: "text-blue-600"
   },
   {
-    title: "Advanced Tech Research",
-    period: "Ongoing",
-    description: "Ongoing exploration in Thermal Comfort (Arduino), Ansys Fluent CFD, and Computer Vision. Focused on integrating simulation data with physical prototypes.",
-    tags: ["Hardware", "Simulation", "OpenCV"],
-    icon: <Cpu size={24} />,
-    colorClass: "bg-purple-50",
-    textColorClass: "text-purple-600",
-    ongoing: true
+    title: "Smart Thermal Jacket",
+    period: "Sep - Dec 2024",
+    description: "An IoT-driven wearable system utilizing Bluetooth Mesh to synchronize real-time sensor data, weather APIs, and user preferences for autonomous temperature regulation.",
+    tags: ["IoT", "Bluetooth Mesh", "App Development", "Sensor Fusion"],
+    icon: <Thermometer size={24} />,
+    colorClass: "bg-orange-50",
+    textColorClass: "text-orange-600"
+  },
+  {
+    title: "iHarbour Smart Bus System",
+    period: "Oct - Dec 2025",
+    description: "A Product-Service System (PSS) design optimizing campus transit through user demand research, new route planning, and an integrated management application.",
+    tags: ["PSS Design", "Service Design", "UI/UX", "System Architecture"],
+    icon: <Navigation size={24} />,
+    colorClass: "bg-emerald-50",
+    textColorClass: "text-emerald-600"
   }
 ];
 
@@ -140,37 +148,54 @@ export const education: Education[] = [
 
 export const skillGroups: SkillGroup[] = [
   {
-    category: "Design & Visualization",
-    description: "Proficient in design thinking and user-centric methodologies. Experienced in leading design teams to deliver high-quality creative solutions.",
+    category: "Product Design & User Experience",
     skills: [
-      { name: 'Solidworks', level: 90 },
-      { name: 'Rhino/Grasshopper', level: 85 },
-      { name: 'Keyshot', level: 85 },
-      { name: 'Alias', level: 75 },
-      { name: 'Figma', level: 80 },
-      { name: 'Adobe Suite', level: 90 }
+      "End-to-End Design: User research, conceptual sketching, form aesthetics, solution implementation",
+      "User Experience: Persona development, journey mapping, usability testing, experience optimization",
+      "Design Thinking: Double Diamond model, competitive analysis, innovative solutions",
+      "Expert Tools: SolidWorks, Alias, Keyshot, Figma, Adobe Suite, Prototyping"
     ]
   },
   {
-    category: "Development & Engineering",
-    description: "Strong foundation in mechanical engineering and frontend development. Skilled in bridging the gap between physical prototypes and digital systems.",
+    category: "Mechanical Engineering & Manufacturing",
     skills: [
-      { name: 'React/TypeScript', level: 85 },
-      { name: 'Node.js', level: 75 },
-      { name: 'Unity', level: 80 },
-      { name: 'Arduino/ESP32', level: 85 },
-      { name: 'ROS', level: 70 },
-      { name: 'OpenFOAM/Ansys', level: 75 }
+      "Structural Engineering: Structural design, engineering drafting, SolidWorks, mechanical analysis",
+      "Simulation & Optimization: FEA (ANSYS/Abaqus), topology optimization, structural iteration",
+      "Advanced Manufacturing: 3D Printing (FDM/FRP), composite material design & processing",
+      "Data & Computation: MATLAB, data visualization, parametric analysis, technical documentation"
     ]
   },
   {
-    category: "AI & Specialized",
-    description: "Focusing on the intersection of AI and human-computer interaction. Expert in leveraging LLMs and CV for innovative design automation.",
+    category: "Electronics, IoT & Communication",
     skills: [
-      { name: 'LLM Agents', level: 85 },
-      { name: 'AR Projection', level: 80 },
-      { name: 'Computer Vision', level: 75 },
-      { name: 'Topology Optimization', level: 85 }
+      "Embedded Systems: Arduino, STM32, ESP32 programming, peripheral driver development",
+      "Hardware Design: Schematic design, PCB/FPC layout, hardware prototype assembly",
+      "IoT & Networking: WiFi/Bluetooth/Zigbee, communication protocols, smart home linkage",
+      "Sensor Fusion: Data acquisition & processing, IoT system architecture, hardware debugging"
+    ]
+  },
+  {
+    category: "Digital Product & Creative Coding",
+    skills: [
+      "Frontend Development: HTML/CSS/JavaScript, responsive web design, interactive effects",
+      "Programming Languages: C (hardware logic), C# (Unity), JavaScript (frontend), Python (computer vision, data processing)",
+      "Interactive Media: Unity 3D development, XR interaction, virtual prototyping & gamified design"
+    ]
+  },
+  {
+    category: "Visual Communication & Multimedia",
+    skills: [
+      "Video & Motion: Premiere Pro, After Effects, pacing control, narrative expression",
+      "Visual Output: Portfolio production, design visualization, dynamic presentation creation",
+      "Graphic Design:Print layout, typography, poster design, visual system, information graphic design"
+    ]
+  },
+  {
+    category: "Integrated Practice & Interests",
+    skills: [
+      "3C Product Exploration: 3C product research, technical teardown, trend insight, Hardware-software integration analysis, user experience",
+      "Automotive & Mobility: Automotive structure, vehicle dynamics, motorsport technology",
+      "Interdisciplinary Synergy: Design-Mechanical-Electrical-Software integration, Cross-domain collaboration"
     ]
   }
 ];

@@ -386,14 +386,14 @@ const Contact = () => {
                     <div className="text-lg md:text-xl font-bold text-black">{contactInfo[1].value}</div>
                   </div>
                 </a>
-                <div className="group p-6 md:p-8 hover:bg-black/[0.02] transition-all flex flex-col justify-center gap-4 flex-grow relative">
-                  <div className="flex items-center gap-6 transition-all duration-300">
-                    <div className="text-gray-600 group-hover:text-blue-600 group-hover:scale-110 transition-all duration-300">{contactInfo[2].icon}</div>
-                    <div className="group-hover:translate-x-1 transition-transform duration-300">
+                <div className="group p-6 md:p-8 hover:bg-black/[0.02] transition-colors duration-300 flex flex-col justify-center gap-4 flex-grow relative backface-hidden will-change-transform transform-gpu">
+                  <div className="flex items-center gap-6">
+                    <div className="text-gray-600 group-hover:text-blue-600 group-hover:scale-110 transition-[transform,color] duration-300 backface-hidden transform-gpu">{contactInfo[2].icon}</div>
+                    <div className="group-hover:translate-x-1 transition-transform duration-300 backface-hidden transform-gpu">
                       <div className="text-[9px] font-mono text-gray-800 uppercase tracking-widest mb-1 group-hover:text-black transition-colors">{contactInfo[2].label}</div>
                       <div className="text-lg md:text-xl font-bold text-black mb-4">{contactInfo[2].value}</div>
                       <div className="flex flex-col gap-1 text-[10px] font-mono text-gray-800 group-hover:text-black transition-colors">
-                        <div className="flex items-center border-b border-black/[0.1] pb-1 group-hover:border-black/30 transition-colors">
+                        <div className="flex items-center border-b border-black/[0.1] pb-1 group-hover:border-black/30 transition-colors duration-300 transform-gpu backface-hidden">
                           <span className="w-8 opacity-70 font-bold text-[9px]">LAT</span>
                           <div className="flex font-bold ml-2">
                             <span className="w-7 text-right">34</span>

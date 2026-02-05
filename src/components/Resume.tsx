@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Briefcase, GraduationCap, Award, Cpu, Layers, Star, ChevronDown, ChevronUp } from 'lucide-react';
+import { Briefcase, GraduationCap, Award, Cpu, Layers, Star, ChevronDown, ChevronUp, Palette, Zap, Box, Terminal, Compass } from 'lucide-react';
 import { experiences, projectSummaries, education, skillGroups, honors } from '../data/resumeData';
 
 const Resume = () => {
@@ -9,6 +9,17 @@ const Resume = () => {
   const fadeInUp = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+  };
+
+  const getCategoryIcon = (category: string) => {
+    const lowerCategory = category.toLowerCase();
+    if (lowerCategory.includes('product design')) return <Palette size={18} />;
+    if (lowerCategory.includes('electronics')) return <Zap size={18} />;
+    if (lowerCategory.includes('mechanical')) return <Box size={18} />;
+    if (lowerCategory.includes('digital product')) return <Terminal size={18} />;
+    if (lowerCategory.includes('visual communication')) return <Layers size={18} />;
+    if (lowerCategory.includes('integrated practice')) return <Compass size={18} />;
+    return <Star size={18} />;
   };
 
   const staggerContainer = {
@@ -32,8 +43,14 @@ const Resume = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
+          className="relative"
         >
-          <div className="flex items-center gap-4 mb-8">
+          {/* Section Background Decoration (Desktop) */}
+          <div className="hidden md:block absolute -top-6 right-0 text-[6.5rem] font-black text-black/[0.02] select-none pointer-events-none tracking-tighter leading-none">
+            ACADEMIC
+          </div>
+
+          <div className="flex items-center gap-4 mb-8 relative z-10">
               <div className="p-3 bg-gray-900 text-white rounded-xl shadow-lg">
                 <GraduationCap size={24} />
               </div>
@@ -148,8 +165,14 @@ const Resume = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
+          className="relative"
         >
-           <div className="flex items-center gap-4 mb-8">
+          {/* Section Background Decoration (Desktop) */}
+          <div className="hidden md:block absolute -top-6 right-0 text-[6.5rem] font-black text-black/[0.02] select-none pointer-events-none tracking-tighter leading-none">
+            INTERN
+          </div>
+
+          <div className="flex items-center gap-4 mb-8 relative z-10">
               <div className="p-3 bg-gray-900 text-white rounded-xl shadow-lg">
                 <Briefcase size={24} />
               </div>
@@ -201,8 +224,14 @@ const Resume = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
+          className="relative"
         >
-          <div className="flex items-center gap-4 mb-8">
+          {/* Section Background Decoration (Desktop) */}
+          <div className="hidden md:block absolute -top-6 right-0 text-[6.5rem] font-black text-black/[0.02] select-none pointer-events-none tracking-tighter leading-none">
+            GALLERY
+          </div>
+
+          <div className="flex items-center gap-4 mb-8 relative z-10">
               <div className="p-3 bg-gray-900 text-white rounded-xl shadow-lg">
                 <Layers size={24} />
               </div>
@@ -273,24 +302,21 @@ const Resume = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="space-y-10"
+          className="space-y-8 relative"
         >
-          <div className="flex items-center gap-4 mb-2">
-              <div className="p-3 bg-gray-900 text-white rounded-xl shadow-lg">
-                <Cpu size={24} />
-              </div>
-              <h3 className="text-3xl font-bold text-gray-900">Expertise & Recognition</h3>
+          {/* Section Background Decoration (Desktop) */}
+          <div className="hidden md:block absolute -top-6 right-0 text-[6.5rem] font-black text-black/[0.02] select-none pointer-events-none tracking-tighter leading-none">
+            RECOGNITION
           </div>
 
-          {/* Honors Card */}
-          <div className="bg-white rounded-[2.5rem] p-8 md:p-12 border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500">
-            <div className="flex items-center gap-3 mb-8">
-              <div className="p-2.5 bg-yellow-50 text-yellow-600 rounded-xl">
-                <Award size={20} />
+          <div className="flex items-center gap-4 mb-2 relative z-10">
+              <div className="p-3 bg-gray-900 text-white rounded-xl shadow-lg">
+                <Award size={24} />
               </div>
-              <h3 className="text-2xl font-bold text-gray-900">Honors & Awards</h3>
-            </div>
-            
+              <h3 className="text-3xl font-bold text-gray-900">Honors & Awards</h3>
+          </div>
+
+          <div className="bg-white rounded-[2.5rem] p-8 md:p-12 border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {honors.map((honor, i) => (
                 <motion.div 
@@ -314,48 +340,79 @@ const Resume = () => {
               ))}
             </div>
           </div>
+        </motion.section>
 
-          {/* Skills Card */}
-          <div className="bg-white rounded-[2.5rem] p-8 md:p-12 border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500">
-            <div className="flex items-center gap-3 mb-10">
-              <div className="p-2.5 bg-blue-50 text-blue-600 rounded-xl">
-                <Cpu size={20} />
+        {/* Section 5: Skills & Expertise */}
+        <motion.section
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="space-y-8 relative"
+        >
+          {/* Section Background Decoration (Desktop) */}
+          <div className="hidden md:block absolute -top-6 right-0 text-[6.5rem] font-black text-black/[0.02] select-none pointer-events-none tracking-tighter leading-none">
+            CAPABILITY
+          </div>
+
+          <div className="flex items-center gap-4 mb-2 relative z-10">
+              <div className="p-3 bg-gray-900 text-white rounded-xl shadow-lg">
+                <Cpu size={24} />
               </div>
-              <h3 className="text-2xl font-bold text-gray-900">Skills & Technical Proficiency</h3>
-            </div>
+              <h3 className="text-3xl font-bold text-gray-900">Skills & Expertise</h3>
+          </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-              {skillGroups.map((group, i) => (
-                <div key={i} className="space-y-6 flex flex-col">
-                  <div className="space-y-4">
-                    <h5 className="text-xs font-black text-gray-900 uppercase tracking-widest bg-gray-100 px-3 py-1.5 rounded-lg inline-block">{group.category}</h5>
-                    {group.description && (
-                      <p className="text-sm text-gray-500 leading-relaxed font-medium italic">
-                        "{group.description}"
-                      </p>
-                    )}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
+            {skillGroups.map((group, i) => (
+              <motion.div 
+                key={i} 
+                variants={fadeInUp}
+                className="group relative bg-white rounded-[2.5rem] p-10 md:p-12 border border-gray-100 shadow-sm hover:shadow-xl hover:border-gray-200 transition-all duration-500 flex flex-col h-full overflow-hidden"
+              >
+                {/* Background Decoration */}
+                <div className="absolute top-0 right-0 -mr-32 -mt-32 w-64 h-64 bg-gray-50 rounded-full group-hover:scale-125 group-hover:bg-gray-100 transition-all duration-700 ease-out" />
+                
+                <div className="relative z-10 flex items-center gap-4 mb-10 pb-6 border-b border-gray-50 min-h-[110px]">
+                  <div className="p-4 bg-gray-900 text-white rounded-2xl shadow-lg group-hover:scale-110 transition-transform duration-500 shrink-0">
+                    {getCategoryIcon(group.category)}
                   </div>
-                  <div className="space-y-5 mt-auto">
-                    {group.skills.map((skill, si) => (
-                      <div key={si} className="group">
-                        <div className="flex justify-between items-center mb-2">
-                          <span className="text-gray-900 font-bold group-hover:text-design-primary transition-colors">{skill.name}</span>
-                          <span className="text-[10px] font-mono text-gray-400 font-bold">{skill.level}%</span>
+                  <h5 className="text-2xl font-bold text-gray-900 leading-tight">
+                    {group.category}
+                  </h5>
+                </div>
+                
+                <div className="relative z-10 space-y-10">
+                  {group.skills.map((skill, si) => {
+                    const [title, ...details] = skill.split(':');
+                    const detailText = details.join(':').trim();
+                    
+                    return (
+                      <div key={si} className="relative pl-6 group/item">
+                        {/* Vertical Accent Line */}
+                        <div className="absolute left-0 top-1.5 bottom-1.5 w-[2px] bg-gray-100 group-hover/item:bg-design-primary transition-colors duration-300" />
+                        
+                        <div className="text-gray-900 font-bold text-lg mb-2 leading-tight group-hover/item:translate-x-1 transition-transform duration-300">
+                          {title.trim()}
                         </div>
-                        <div className="h-1.5 w-full bg-gray-50 rounded-full overflow-hidden">
-                          <motion.div 
-                            initial={{ width: 0 }}
-                            whileInView={{ width: `${skill.level}%` }}
-                            transition={{ duration: 1, delay: 0.2 + (si * 0.1) }}
-                            className="h-full bg-gray-900 group-hover:bg-design-primary transition-colors"
-                          />
-                        </div>
+                        {detailText && (
+                          <p className="text-base text-gray-500 font-medium leading-relaxed">
+                            {detailText}
+                          </p>
+                        )}
                       </div>
-                    ))}
+                    );
+                  })}
+                </div>
+
+                {/* Bottom Tag-like accent */}
+                <div className="mt-auto pt-10 relative z-10">
+                  <div className="inline-flex items-center gap-2 px-4 py-2 bg-gray-50 rounded-full text-[10px] font-black uppercase tracking-widest text-gray-400 group-hover:bg-gray-900 group-hover:text-white transition-all duration-500">
+                    <span className="w-1 h-1 rounded-full bg-current" />
+                    Expertise Area {i + 1}
                   </div>
                 </div>
-              ))}
-            </div>
+              </motion.div>
+            ))}
           </div>
         </motion.section>
       </div>

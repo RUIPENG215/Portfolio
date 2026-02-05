@@ -35,6 +35,7 @@ const Navbar = () => {
   const currentProjectId = isDesignProject ? location.pathname.split('/').pop() : null;
   const currentProject = currentProjectId ? designProjects.find(p => p.id === Number(currentProjectId)) : null;
   const isInteractionProject = currentProject?.category === 'Interaction Design';
+  const isHumanities = location.pathname === '/humanities';
   
   const isNavbarDark = isPageDark || (location.pathname === '/' && !isScrolled) || (isInteractionProject && !isScrolled);
 
@@ -49,8 +50,10 @@ const Navbar = () => {
         w-full border-y border-x-transparent pointer-events-auto
         backdrop-blur-sm transition-all duration-500
         ${isNavbarDark 
-          ? `bg-[#0d1117]/${isScrolled ? '90' : '50'} border-b border-[#30363d] text-[#e6edf3]` 
-          : `bg-white/${isScrolled ? '60' : '30'} border-black/5 text-gray-900`}
+          ? `bg-transparent border-b border-white/10 text-[#e6edf3]` 
+          : (isHumanities 
+            ? `bg-transparent border-black/5 text-[#463220]` 
+            : `bg-transparent border-black/5 text-gray-900`)}
       `}>
         <div className="max-w-7xl mx-auto flex items-center justify-between py-3 px-4 md:px-8">
           {/* Logo */}
@@ -70,13 +73,19 @@ const Navbar = () => {
                   to={item.path}
                   className="relative px-4 py-1.5 text-sm font-medium transition-colors"
                 >
-                  <span className={`relative z-10 ${isActive ? (isNavbarDark ? 'text-white' : 'text-black') : (isNavbarDark ? 'text-gray-400' : 'text-gray-500')} hover:text-current transition-colors`}>
+                  <span className={`relative z-10 ${
+                    isActive 
+                      ? (isNavbarDark ? 'text-white' : (isHumanities ? 'text-[#463220]' : 'text-black')) 
+                      : (isNavbarDark ? 'text-gray-400' : (isHumanities ? 'text-[#8b7355]' : 'text-gray-500'))
+                  } hover:text-current transition-colors`}>
                     {item.name}
                   </span>
                   {isActive && (
                     <motion.div 
                       layoutId="nav-active"
-                      className={`absolute inset-0 rounded-lg z-0 ${isNavbarDark ? 'bg-white/10' : 'bg-black/5'}`}
+                      className={`absolute inset-0 rounded-lg z-0 ${
+                        isNavbarDark ? 'bg-white/10' : (isHumanities ? 'bg-[#463220]/5' : 'bg-black/5')
+                      }`}
                       transition={{ type: "spring", stiffness: 380, damping: 30 }}
                     />
                   )}
@@ -104,7 +113,7 @@ const Navbar = () => {
             exit={{ opacity: 0, y: -20 }}
             className="absolute top-full left-4 right-4 mt-2 p-4 rounded-2xl border backdrop-blur-sm shadow-2xl pointer-events-auto md:hidden"
             style={{
-              backgroundColor: isNavbarDark ? 'rgba(3, 7, 18, 0.95)' : 'rgba(255, 255, 255, 0.95)',
+              backgroundColor: 'transparent',
               borderColor: isNavbarDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.05)',
               color: isNavbarDark ? 'white' : 'black'
             }}
@@ -120,8 +129,8 @@ const Navbar = () => {
                     className={`
                       px-4 py-3 rounded-xl text-lg font-bold transition-all
                       ${isActive 
-                        ? (isNavbarDark ? 'bg-white/10 text-white' : 'bg-black/5 text-black') 
-                        : (isNavbarDark ? 'text-gray-400 hover:text-white' : 'text-gray-500 hover:text-black')}
+                        ? (isNavbarDark ? 'bg-white/10 text-white' : (isHumanities ? 'bg-[#463220]/5 text-[#463220]' : 'bg-black/5 text-black')) 
+                        : (isNavbarDark ? 'text-gray-400 hover:text-white' : (isHumanities ? 'text-[#8b7355] hover:text-[#463220]' : 'text-gray-500 hover:text-black'))}
                     `}
                   >
                     {item.name}

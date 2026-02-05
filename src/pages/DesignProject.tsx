@@ -1,16 +1,35 @@
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowLeft, ArrowRight, Quote, ExternalLink } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Quote, ExternalLink, Github } from 'lucide-react';
 import { designProjects } from '../data/designProjects';
 import type { ContentBlock } from '../data/types';
 
 const BlockRenderer = ({ block }: { block: ContentBlock }) => {
+  const getTitle = (b: ContentBlock) => {
+    if (b.type === 'text-full' || b.type === 'text-and-image') {
+      return b.title;
+    }
+    return undefined;
+  };
+
+  const title = getTitle(block);
+  const isTechnicalTitle = title?.startsWith('//');
+  
   switch (block.type) {
     case 'text-full':
       return (
-        <section className={`${block.width === 'full' ? 'w-full' : 'max-w-4xl'} ${block.align === 'left' ? 'mx-0' : 'mx-auto'} ${block.marginBottom === 'small' ? 'mb-8' : 'mb-24'}`}>
-          {block.title && <h3 className="text-3xl font-bold mb-8 text-gray-900 tracking-tight">{block.title}</h3>}
-          <div className="text-lg text-gray-600/90 leading-[1.8] font-normal whitespace-pre-line tracking-wide">
+        <section className={`${block.width === 'full' ? 'w-full' : 'max-w-4xl'} ${block.align === 'left' ? 'mx-0' : 'mx-auto'} ${
+          block.marginBottom === 'none' ? 'mb-0' : 
+          block.marginBottom === 'small' ? 'mb-8' : 
+          block.marginBottom === 'medium' ? 'mb-16' :
+          'mb-24'
+        }`}>
+          {title && (
+            <h3 className={`text-2xl font-bold mb-8 tracking-tight ${isTechnicalTitle ? 'font-mono text-blue-600' : 'text-gray-900 text-3xl'}`}>
+              {title}
+            </h3>
+          )}
+          <div className={`text-lg text-gray-600/90 leading-[1.8] font-normal whitespace-pre-line tracking-wide ${isTechnicalTitle ? 'border-l-2 border-gray-100 pl-6' : ''}`}>
             {block.content}
           </div>
         </section>
@@ -18,10 +37,10 @@ const BlockRenderer = ({ block }: { block: ContentBlock }) => {
     case 'image-full':
       return (
         <section className="mb-24">
-          <div className="rounded-lg overflow-hidden bg-gray-50 shadow-sm">
+          <div className="rounded-lg overflow-hidden bg-gray-50 shadow-sm border border-gray-100">
             <img src={block.src} alt={block.caption} className="w-full h-auto" />
           </div>
-          {block.caption && <p className="mt-4 text-center text-sm text-gray-400 italic">{block.caption}</p>}
+          {block.caption && <p className="mt-4 text-center text-xs font-mono text-gray-400 uppercase tracking-widest">{block.caption}</p>}
         </section>
       );
     case 'image-grid':
@@ -30,24 +49,24 @@ const BlockRenderer = ({ block }: { block: ContentBlock }) => {
                            block.columns === 4 ? 'md:grid-cols-4' :
                            'md:grid-cols-2'; // Default fallback
 
-      // Use square aspect ratio for grids with 3 or more columns to keep them neat.
-      // For 2-column grids (often details), allow natural height to prevent cropping.
-      const isSquare = block.columns >= 3;
+      // Default: crop to square for 3+ columns to maintain grid neatness
+      // Optional: keep original aspect ratio if keepAspectRatio is true
+      const shouldCrop = block.columns >= 3 && !block.keepAspectRatio;
 
       return (
         <section className="mb-24">
           <div className={`grid grid-cols-1 ${gridColsClass} gap-8`}>
             {block.images.map((img, i) => (
-              <div key={i} className={`rounded-lg overflow-hidden bg-gray-50 group ${isSquare ? 'aspect-square' : ''}`}>
+              <div key={i} className={`rounded-lg overflow-hidden bg-gray-50 border border-gray-100 group ${shouldCrop ? 'aspect-square' : ''}`}>
                 <img 
                   src={img} 
                   alt={`Grid ${i}`} 
-                  className={`w-full ${isSquare ? 'h-full object-cover' : 'h-auto'} transition-transform duration-700 ease-in-out group-hover:scale-105`} 
+                  className={`w-full ${shouldCrop ? 'h-full object-cover' : 'h-auto'} transition-transform duration-700 ease-in-out group-hover:scale-105`} 
                 />
               </div>
             ))}
           </div>
-          {block.caption && <p className="mt-4 text-center text-sm text-gray-400 italic">{block.caption}</p>}
+          {block.caption && <p className="mt-4 text-center text-xs font-mono text-gray-400 uppercase tracking-widest">{block.caption}</p>}
         </section>
       );
     case 'text-and-image':
@@ -71,16 +90,20 @@ const BlockRenderer = ({ block }: { block: ContentBlock }) => {
       return (
         <section className={`flex flex-col ${block.imageLeft ? 'md:flex-row-reverse' : 'md:flex-row'} gap-12 items-center mb-24`}>
           <div className="w-full md:w-1/2">
-            {block.title && <h3 className="text-3xl font-bold mb-8 text-gray-900 tracking-tight">{block.title}</h3>}
-            <div className={`${textSizeClass} text-gray-600/90 leading-[1.8] font-normal whitespace-pre-line tracking-wide`}>
+            {title && (
+              <h3 className={`text-2xl font-bold mb-8 tracking-tight ${isTechnicalTitle ? 'font-mono text-blue-600' : 'text-gray-900 text-3xl'}`}>
+                {title}
+              </h3>
+            )}
+            <div className={`${textSizeClass} text-gray-600/90 leading-[1.8] font-normal whitespace-pre-line tracking-wide ${isTechnicalTitle ? 'border-l-2 border-gray-100 pl-6' : ''}`}>
               {block.content}
             </div>
           </div>
           <div className={`w-full md:w-1/2 flex ${block.imageLeft ? 'justify-end' : 'justify-start'}`}>
-            <div className={`rounded-lg overflow-hidden shadow-lg group ${isAuto ? '' : aspectRatioClass} ${widthClass}`}>
+            <div className={`rounded-lg overflow-hidden shadow-sm border border-gray-100 group ${isAuto ? '' : aspectRatioClass} ${widthClass}`}>
               <img 
                 src={block.src} 
-                alt={block.title} 
+                alt={title} 
                 className={`w-full ${isAuto ? 'h-auto' : 'h-full object-cover'} transition-transform duration-700 ease-in-out group-hover:scale-105`} 
               />
             </div>
@@ -213,7 +236,15 @@ const DesignProject = () => {
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 bg-white text-gray-900 px-6 py-3 rounded-full font-bold text-sm hover:bg-white/90 transition-all group shadow-xl shadow-white/5"
                     >
-                      Visit Live Project <ExternalLink size={16} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                      {project.externalLink.includes('github.com') ? (
+                        <>
+                          View on GitHub <Github size={16} className="group-hover:scale-110 transition-transform" />
+                        </>
+                      ) : (
+                        <>
+                          Visit Live Project <ExternalLink size={16} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                        </>
+                      )}
                     </a>
                   </motion.div>
                 )}
@@ -269,7 +300,15 @@ const DesignProject = () => {
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 bg-black text-white px-6 py-3 rounded-full font-bold text-sm hover:bg-gray-800 transition-all group shadow-lg shadow-black/10"
                     >
-                      Visit Live Project <ExternalLink size={16} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                      {project.externalLink.includes('github.com') ? (
+                        <>
+                          View on GitHub <Github size={16} className="group-hover:scale-110 transition-transform" />
+                        </>
+                      ) : (
+                        <>
+                          Visit Live Project <ExternalLink size={16} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                        </>
+                      )}
                     </a>
                   </motion.div>
                 )}

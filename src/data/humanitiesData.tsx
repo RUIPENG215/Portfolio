@@ -1,5 +1,4 @@
 import type { ReactNode } from 'react';
-import { Music as MusicIcon } from 'lucide-react';
 
 export interface HumanitiesPhotoData {
   id: number;
@@ -183,26 +182,6 @@ export const photography: HumanitiesPhotoData[] = [
   },
 ];
 
-export const musicTracks: HumanitiesMusicData[] = [
-  { 
-    id: 1, 
-    title: "Original Composition 1", 
-    type: "Piano & Strings", 
-    duration: "3:45",
-    icon: <MusicIcon size={20} />
-  },
-  { 
-    id: 2, 
-    title: "Original Composition 2", 
-    type: "Electronic Ambient", 
-    duration: "4:20",
-    icon: <MusicIcon size={20} />
-  },
-  { 
-    id: 3, 
-    title: "Original Composition 3", 
-    type: "Classical Guitar", 
-    duration: "2:55",
-    icon: <MusicIcon size={20} />
-  },
-];
+export const musicBio = "I am passionate about exploring the boundless frontiers of music—from the grandeur of symphonies to the fluid rhythms of jazz, and from contemporary pop to classical depths. As a clarinetist, I find profound joy in the unique timber of woodwinds, while my studies in vocal performance and music theory have deepened my understanding of melody and structure. With the rapid evolution of AI opening new creative horizons, I look forward to utilizing intelligent tools to forge a more liberated and deeply personal musical expression in the future.";
+
+export const musicTracks: HumanitiesMusicData[] = [];

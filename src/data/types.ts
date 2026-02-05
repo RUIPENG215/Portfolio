@@ -1,7 +1,7 @@
 export type ContentBlock = 
-  | { type: 'text-full'; title?: string; content: string; subtitle?: string; align?: 'left' | 'center'; marginBottom?: 'small' | 'normal'; width?: 'standard' | 'full' }
+  | { type: 'text-full'; title?: string; content: string; subtitle?: string; align?: 'left' | 'center'; marginBottom?: 'none' | 'small' | 'medium' | 'normal'; width?: 'standard' | 'full' }
   | { type: 'image-full'; src: string; caption?: string }
-  | { type: 'image-grid'; images: string[]; columns: number; caption?: string }
+  | { type: 'image-grid'; images: string[]; columns: number; caption?: string; keepAspectRatio?: boolean }
   | { 
       type: 'text-and-image'; 
       title?: string; 
