@@ -138,26 +138,32 @@ const Landing = () => {
                 </div>
 
               {/* Photo Container - Smaller and Balanced */}
-              <div className="md:col-span-4 flex justify-end items-center relative">
-                <motion.div 
-                  className="relative w-full max-w-[320px] md:max-w-[280px] aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl bg-gray-100"
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                  style={{ willChange: "transform" }}
-                >
-                  <img 
-                    src="/profile.webp" 
-                    alt="Wang Ruipeng" 
-                    className="w-full h-full object-cover"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </motion.div>
-                
-                {/* Floating caption for photo */}
-                <div className="absolute -bottom-6 -right-4 bg-white p-5 shadow-xl rounded-xl max-w-[160px] z-20 hidden sm:block border border-gray-100">
-                  <p className="text-[9px] uppercase tracking-[0.2em] text-gray-400 mb-1">Based in</p>
-                  <p className="text-xs font-bold text-gray-900 text-right">Xi'an, China</p>
+              <div className="md:col-span-4 flex justify-center md:justify-end items-center mt-20 md:mt-0">
+                <div className="relative w-[75vw] md:w-full max-w-[320px] md:max-w-[280px]">
+                  {/* Mobile Decoration - Subtle rotated background */}
+                  <div className="absolute inset-0 bg-gray-100 rounded-[2rem] -z-10 md:hidden transform rotate-6 scale-105" />
+                  <div className="absolute inset-0 border-2 border-gray-100 rounded-[2rem] -z-10 md:hidden transform -rotate-3 scale-105" />
+                  
+                  <motion.div 
+                    className="relative w-full aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl bg-gray-100"
+                    whileHover={{ scale: 1.02 }}
+                    transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                    style={{ willChange: "transform" }}
+                  >
+                    <img 
+                      src="/profile.webp" 
+                      alt="Wang Ruipeng" 
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </motion.div>
+                  
+                  {/* Floating caption for photo */}
+                  <div className="absolute -bottom-6 -right-6 md:-bottom-6 md:-right-4 bg-white p-4 md:p-5 shadow-xl rounded-xl max-w-[140px] md:max-w-[160px] z-20 border border-gray-100">
+                    <p className="text-[9px] uppercase tracking-[0.2em] text-gray-400 mb-1">Based in</p>
+                    <p className="text-xs font-bold text-gray-900 text-right">Xi'an, China</p>
+                  </div>
                 </div>
               </div>
             </div>

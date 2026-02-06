@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import type { Interest } from '../data/landingData';
+import type { Interest } from '../data/types';
 
 interface InterestCardProps {
   interest: Interest;
@@ -26,12 +26,12 @@ const InterestCard = ({ interest, variants }: InterestCardProps) => {
           <h2 className={`text-3xl font-bold mb-2 group-hover:${interest.accentClass} transition-colors ${!interest.isMono && interest.id === 'humanities' ? 'font-serif' : ''}`}>
             {interest.title}
           </h2>
-          <p className={interest.isMono ? 'text-[#8b949e]' : 'text-gray-600'}>
+          <p className={interest.isMono ? 'text-engineering-muted' : 'text-gray-600'}>
             {interest.subtitle}
           </p>
         </div>
         <div className="mt-4">
-          <p className={`text-sm ${interest.isMono ? 'text-[#8b949e] opacity-80' : 'text-gray-500'}`}>
+          <p className={`text-sm ${interest.isMono ? 'text-engineering-muted opacity-80' : 'text-gray-500'}`}>
             {interest.description}
           </p>
         </div>

@@ -1,11 +1,4 @@
-import type { ReactNode } from 'react';
-
-export interface SocialLink {
-  icon: ReactNode;
-  name: string;
-  link: string;
-  qrCode?: string;
-}
+import type { SocialLink } from './types';
 
 export const socialLinks: SocialLink[] = [
   { 
@@ -25,7 +18,7 @@ export const socialLinks: SocialLink[] = [
       </svg>
     ), 
     name: "Boss直聘", 
-    link: "https://m.zhipin.com/mpa/html/resume-detail?sid=self&securityId=5RpKubAzBWhw_-l1KBHvVpY8FRJamMGyvHdeARiKpwyp5HsLVk2m9bDQ9F_3gZVz7r6hJTl-mI9cf_j2feHWIQ8SstpqDAOWaNTe5w5i5UgkAqyPKRucnDWPdhceg8kSevrJDqUlqtcSPb_HhxfRPfKcKKrtOD813vDeG48~" 
+    link: "https://m.zhipin.com/mpa/html/resume-detail?sid=self&securityId=36jYCltQ6yCHp-81OYmB9_6PZZaT-VKsRBeE5_Wg2Kge6KHHmWIFQmSwNqZncjb-Lc15x2EEWYJtCXX-xZ-ZAxQNr5c7hIgxeow_i65Culev5sc8cSQSixFChrBVLKFRe1fjKS1Kbye6eHnDti-NKYU37aiNEN03IyVdy2A~" 
   },
   { 
     icon: (

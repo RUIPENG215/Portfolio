@@ -37,7 +37,8 @@ const Navbar = () => {
   const isInteractionProject = currentProject?.category === 'Interaction Design';
   const isHumanities = location.pathname === '/humanities';
   
-  const isNavbarDark = isPageDark || (location.pathname === '/' && !isScrolled) || (isInteractionProject && !isScrolled);
+  const isNavbarDark = isPageDark || 
+                       ((location.pathname === '/' || isInteractionProject) && !isScrolled);
 
   return (
     <motion.nav 

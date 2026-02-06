@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Music, Camera, X, MapPin, Calendar } from 'lucide-react';
 import Footer from '../components/Footer';
 import { photography, musicTracks, musicBio } from '../data/humanitiesData';
-import type { HumanitiesPhotoData, HumanitiesMusicData } from '../data/humanitiesData';
+import type { HumanitiesPhotoData, HumanitiesMusicData } from '../data/types';
 
 // Memoized Photo Card Component to prevent unnecessary re-renders
 const PhotoCard = memo(({ 
@@ -239,7 +239,7 @@ const Humanities = () => {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.98, y: 10 }}
               transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-              className="relative w-full max-w-[95vw] md:max-w-[90vw] h-[85vh] md:h-[90vh] md:max-h-[90vh] bg-[#121212] rounded-lg overflow-hidden flex flex-col md:flex-row border border-white/5 shadow-2xl"
+              className="relative w-full max-w-[95vw] md:max-w-fit h-[85vh] md:h-[90vh] md:max-h-[90vh] bg-[#121212] rounded-lg overflow-hidden flex flex-col md:flex-row border border-white/5 shadow-2xl"
             >
               <button 
                 onClick={() => setSelectedPhoto(null)}
@@ -251,7 +251,7 @@ const Humanities = () => {
               {/* Mobile: Scrollable Container for Image + Text */}
               <div className="md:hidden flex-1 overflow-y-auto scrollbar-hide">
                  {/* Image Section - Natural Height */}
-                 <div className="w-full bg-black relative">
+                 <div className="w-full bg-[#121212] relative">
                    <img 
                      src={selectedPhoto.image} 
                      alt={selectedPhoto.title} 
@@ -299,14 +299,14 @@ const Humanities = () => {
               </div>
 
               {/* Desktop Layout (Hidden on Mobile) */}
-              <div className="hidden md:flex w-auto h-full bg-black items-center justify-center overflow-hidden flex-1">
+              <div className="hidden md:flex w-auto h-full bg-[#121212] items-center justify-center overflow-hidden">
                 <motion.img 
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.1, duration: 0.5 }}
                   src={selectedPhoto.image} 
                   alt={selectedPhoto.title} 
-                  className="max-h-full max-w-full w-auto h-auto object-contain block"
+                  className="h-full w-auto max-w-[70vw] object-contain block"
                 />
               </div>
 

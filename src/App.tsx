@@ -21,8 +21,8 @@ function AnimatedRoutes() {
   
   // 动态设置背景色以匹配当前页面，防止转场闪白
   const getBackgroundColor = (pathname: string) => {
-    if (pathname.includes('/engineering')) return '#0d1117';
-    if (pathname.includes('/humanities')) return '#FEFAE0'; // Cream for Humanities
+    if (pathname.includes('/engineering')) return '#0d1117'; // engineering-bg
+    if (pathname.includes('/humanities')) return '#FEFAE0'; // humanities-bg
     if (pathname === '/') return '#050505'; // Dark for Landing/Hero
     return '#f9fafb'; // Default light for others
   };

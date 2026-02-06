@@ -1,26 +1,5 @@
 import { Palette, Settings, Camera } from 'lucide-react';
-import type { ReactNode } from 'react';
-
-export interface Interest {
-  id: string;
-  title: string;
-  subtitle: string;
-  description: string;
-  path: string;
-  icon: ReactNode;
-  bgClass: string;
-  borderClass: string;
-  textClass: string;
-  accentClass: string;
-  isMono?: boolean;
-  exploreBtnClass: string;
-}
-
-export interface HeroField {
-  label: string;
-  icon: any;
-  color: string;
-}
+import type { Interest, HeroField } from './types';
 
 export const heroFields: HeroField[] = [
   { label: 'Design', icon: Palette, color: 'text-blue-400' },

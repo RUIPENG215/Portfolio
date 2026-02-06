@@ -1,24 +1,4 @@
-import type { ReactNode } from 'react';
-
-export interface HumanitiesPhotoData {
-  id: number;
-  title: string;
-  category: string;
-  image: string;
-  description: string;
-  location?: string;
-  date?: string;
-  ratio?: 'horizontal' | 'vertical' | 'square';
-}
-
-export interface HumanitiesMusicData {
-  id: number;
-  title: string;
-  type: string;
-  duration: string;
-  icon?: ReactNode;
-  description?: string;
-}
+import type { HumanitiesPhotoData, HumanitiesMusicData } from './types';
 
 export const photography: HumanitiesPhotoData[] = [
   {

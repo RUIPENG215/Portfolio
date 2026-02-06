@@ -65,9 +65,10 @@ const Contact = () => {
       window.location.href = 'weixin://';
       
       // Fallback: Copy ID to clipboard and show toast/alert
+      const wechatId = 'WRPkkt'; // Unified actual ID
       setTimeout(() => {
-        navigator.clipboard.writeText('w751686929'); // Replace with actual WeChat ID
-        alert('WeChat ID copied: WRPkkt. Opening WeChat...');
+        navigator.clipboard.writeText(wechatId);
+        alert(`WeChat ID copied: ${wechatId}. Opening WeChat...`);
       }, 500);
     } else if (social.qrCode) {
       // For other QR code items on mobile, toggle the QR display

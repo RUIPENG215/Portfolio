@@ -88,6 +88,13 @@ const Resume = () => {
                         {edu.school}
                       </h4>
                       <p className="text-xl text-gray-600 font-medium">{edu.major}</p>
+                      {edu.degree && (
+                        <div className="mt-3 lg:hidden">
+                          <span className="px-3 py-1 bg-gray-50 text-gray-600 rounded-lg font-black text-[10px] uppercase tracking-widest border border-gray-100 group-hover:bg-design-primary group-hover:text-white group-hover:border-design-primary transition-all duration-500">
+                            {edu.degree}
+                          </span>
+                        </div>
+                      )}
                     </div>
                   </div>
                   {edu.degree && (
@@ -146,6 +153,13 @@ const Resume = () => {
                                   {edu.school}
                                 </h4>
                                 <p className="text-lg text-gray-400 font-medium group-hover:text-gray-600 transition-colors">{edu.major}</p>
+                                {edu.degree && (
+                                  <div className="mt-3">
+                                    <span className="px-3 py-1 bg-gray-50 text-gray-400 rounded-lg font-black text-[10px] uppercase tracking-widest border border-dashed border-gray-200 group-hover:border-solid group-hover:text-gray-600 transition-all duration-500">
+                                      {edu.degree}
+                                    </span>
+                                  </div>
+                                )}
                               </div>
                             </div>
                           </div>

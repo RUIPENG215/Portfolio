@@ -1,28 +1,7 @@
-import type { ReactNode } from 'react';
 import { Lamp, Utensils, DoorOpen, Zap, Activity, Car, Plane, Cpu } from 'lucide-react';
-import type { ContentBlock } from './types';
+import type { ProjectData } from './types';
 
-export type { ContentBlock };
-
-export interface DesignProjectData {
-  id: number;
-  title: string;
-  subtitle?: string; // Optional subtitle for hero section
-  category: string;
-  description: string;
-  aboutProject?: string; // Detailed description for the footer "About Project" section
-  image: string; // Used in list view
-  heroImage: string; // Used in detail view
-  icon: ReactNode;
-  color: string;
-  status: 'COMPLETED' | 'IN_PROGRESS' | 'CONCEPT' | string;
-  tags?: string[]; // Keywords to replace status in the footer
-  time: string;
-  externalLink?: string;
-  content?: ContentBlock[]; // Dynamic content blocks
-}
-
-export const designProjects: DesignProjectData[] = [
+export const designProjects: ProjectData[] = [
   {
     id: 1,
     title: "Luminous Tower Crane",

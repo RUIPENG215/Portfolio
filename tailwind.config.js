@@ -13,10 +13,15 @@ export default {
           bg: '#F7FFF7', // Off white
         },
         engineering: {
-          primary: '#00B4D8', // Cyan
-          secondary: '#0077B6', // Blue
-          bg: '#03045E', // Dark Blue
-          text: '#CAF0F8',
+          bg: '#0d1117',
+          card: '#161b22',
+          item: '#21262d',
+          text: '#c9d1d9',
+          muted: '#8b949e',
+          accent: '#79c0ff',
+          hover: '#58a6ff',
+          border: '#30363d',
+          header: '#e6edf3',
         },
         humanities: {
           primary: '#D4A373', // Tan
@@ -27,7 +32,6 @@ export default {
       fontFamily: {
         sans: ['"Noto Sans SC"', 'Inter', 'sans-serif'],
         mono: ['"JetBrains Mono"', 'monospace'],
-        pixel: ['"Press Start 2P"', 'cursive'],
         serif: ['Playfair Display', 'serif'],
       }
     },

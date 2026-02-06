@@ -1,49 +1,5 @@
 import { Star, Code, Navigation, Thermometer, Gamepad2, Train } from 'lucide-react';
-import type { ReactNode } from 'react';
-
-export interface Experience {
-  company: string;
-  role: string;
-  period: string;
-  description: string[];
-  achievement?: {
-    label: string;
-    text: string;
-  };
-}
-
-export interface ProjectSummary {
-  title: string;
-  period: string;
-  description: string;
-  tags: string[];
-  icon: ReactNode;
-  colorClass: string;
-  textColorClass: string;
-  ongoing?: boolean;
-}
-
-export interface Education {
-  school: string;
-  degree?: string;
-  major?: string;
-  period: string;
-  logo?: string;
-  logoScale?: number;
-  isSecondary?: boolean;
-}
-
-export interface SkillGroup {
-  category: string;
-  skills: string[];
-  description?: string;
-}
-
-export interface Honor {
-  title: string;
-  org: string;
-  year?: string;
-}
+import type { Experience, ProjectSummary, Education, SkillGroup, Honor } from './types';
 
 export const experiences: Experience[] = [
   {

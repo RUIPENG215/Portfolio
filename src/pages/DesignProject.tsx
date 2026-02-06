@@ -1,161 +1,8 @@
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowLeft, ArrowRight, Quote, ExternalLink, Github } from 'lucide-react';
+import { ArrowLeft, ArrowRight, ExternalLink, Github } from 'lucide-react';
 import { designProjects } from '../data/designProjects';
-import type { ContentBlock } from '../data/types';
-
-const BlockRenderer = ({ block }: { block: ContentBlock }) => {
-  const getTitle = (b: ContentBlock) => {
-    if (b.type === 'text-full' || b.type === 'text-and-image') {
-      return b.title;
-    }
-    return undefined;
-  };
-
-  const title = getTitle(block);
-  const isTechnicalTitle = title?.startsWith('//');
-  
-  switch (block.type) {
-    case 'text-full':
-      return (
-        <section className={`${block.width === 'full' ? 'w-full' : 'max-w-4xl'} ${block.align === 'left' ? 'mx-0' : 'mx-auto'} ${
-          block.marginBottom === 'none' ? 'mb-0' : 
-          block.marginBottom === 'small' ? 'mb-8' : 
-          block.marginBottom === 'medium' ? 'mb-16' :
-          'mb-24'
-        }`}>
-          {title && (
-            <h3 className={`text-2xl font-bold mb-8 tracking-tight ${isTechnicalTitle ? 'font-mono text-blue-600' : 'text-gray-900 text-3xl'}`}>
-              {title}
-            </h3>
-          )}
-          <div className={`text-lg text-gray-600/90 leading-[1.8] font-normal whitespace-pre-line tracking-wide ${isTechnicalTitle ? 'border-l-2 border-gray-100 pl-6' : ''}`}>
-            {block.content}
-          </div>
-        </section>
-      );
-    case 'image-full':
-      return (
-        <section className="mb-24">
-          <div className="rounded-lg overflow-hidden bg-gray-50 shadow-sm border border-gray-100">
-            <img 
-              src={block.src} 
-              alt={block.caption} 
-              className="w-full h-auto" 
-              loading="lazy" 
-              decoding="async" 
-            />
-          </div>
-          {block.caption && <p className="mt-4 text-center text-xs font-mono text-gray-400 uppercase tracking-widest">{block.caption}</p>}
-        </section>
-      );
-    case 'image-grid':
-      const gridColsClass = block.columns === 2 ? 'md:grid-cols-2' :
-                           block.columns === 3 ? 'md:grid-cols-3' :
-                           block.columns === 4 ? 'md:grid-cols-4' :
-                           'md:grid-cols-2'; // Default fallback
-
-      // Default: crop to square for 3+ columns to maintain grid neatness
-      // Optional: keep original aspect ratio if keepAspectRatio is true
-      const shouldCrop = block.columns >= 3 && !block.keepAspectRatio;
-
-      return (
-        <section className="mb-24">
-          <div className={`grid grid-cols-1 ${gridColsClass} gap-8`}>
-            {block.images.map((img, i) => (
-              <div key={i} className={`rounded-lg overflow-hidden bg-gray-50 border border-gray-100 group ${shouldCrop ? 'aspect-square' : ''}`}>
-                <img 
-                  src={img} 
-                  alt={`Grid ${i}`} 
-                  className={`w-full ${shouldCrop ? 'h-full object-cover' : 'h-auto'} transition-transform duration-700 ease-in-out group-hover:scale-105`} 
-                  loading="lazy" 
-                  decoding="async" 
-                />
-              </div>
-            ))}
-          </div>
-          {block.caption && <p className="mt-4 text-center text-xs font-mono text-gray-400 uppercase tracking-widest">{block.caption}</p>}
-        </section>
-      );
-    case 'text-and-image':
-      const textSizeClass = block.textSize === 'sm' ? 'text-base' :
-                           block.textSize === 'md' ? 'text-lg' :
-                           'text-lg'; // Changed from text-xl to text-lg for consistency
-
-      const isAuto = block.imageAspectRatio === 'auto';
-      // Default to square if not specified, to maintain backward compatibility
-      const aspectRatioClass = block.imageAspectRatio === 'video' ? 'aspect-video' :
-                              block.imageAspectRatio === 'portrait' ? 'aspect-[3/4]' :
-                              'aspect-square';
-
-      // Width class mapping
-      const widthClass = block.imageWidth === '4/5' ? 'w-full md:w-[80%]' :
-                        block.imageWidth === '3/4' ? 'w-full md:w-[75%]' :
-                        block.imageWidth === '2/3' ? 'w-full md:w-[66%]' :
-                        block.imageWidth === '1/2' ? 'w-full md:w-[50%]' :
-                        'w-full';
-
-      return (
-        <section className={`flex flex-col ${block.imageLeft ? 'md:flex-row-reverse' : 'md:flex-row'} gap-12 items-center mb-24`}>
-          <div className="w-full md:w-1/2">
-            {title && (
-              <h3 className={`text-2xl font-bold mb-8 tracking-tight ${isTechnicalTitle ? 'font-mono text-blue-600' : 'text-gray-900 text-3xl'}`}>
-                {title}
-              </h3>
-            )}
-            <div className={`${textSizeClass} text-gray-600/90 leading-[1.8] font-normal whitespace-pre-line tracking-wide ${isTechnicalTitle ? 'border-l-2 border-gray-100 pl-6' : ''}`}>
-              {block.content}
-            </div>
-          </div>
-          <div className={`w-full md:w-1/2 flex ${block.imageLeft ? 'justify-end' : 'justify-start'}`}>
-            <div className={`rounded-lg overflow-hidden shadow-sm border border-gray-100 group ${isAuto ? '' : aspectRatioClass} ${widthClass}`}>
-              <img 
-                src={block.src} 
-                alt={title} 
-                className={`w-full ${isAuto ? 'h-auto' : 'h-full object-cover'} transition-transform duration-700 ease-in-out group-hover:scale-105`} 
-                loading="lazy" 
-                decoding="async" 
-              />
-            </div>
-          </div>
-        </section>
-      );
-    case 'quote':
-      return (
-        <section className="mb-24 py-16 border-y border-gray-100 flex flex-col items-center text-center">
-          <Quote size={40} className="text-gray-200 mb-8" />
-          <blockquote className="text-4xl font-serif italic text-gray-800 mb-6 max-w-3xl">
-            "{block.text}"
-          </blockquote>
-          {block.author && <cite className="text-sm font-bold uppercase tracking-widest text-gray-400">— {block.author}</cite>}
-        </section>
-      );
-    case 'video':
-      const videoWidthClass = block.width === 'narrow' ? 'max-w-4xl mx-auto' :
-                             block.width === 'standard' ? 'max-w-5xl mx-auto' :
-                             'w-full';
-      return (
-        <section className={`mb-24 ${block.width !== 'full' ? '' : ''}`}>
-          <div className={`rounded-lg overflow-hidden bg-gray-50 shadow-sm ${videoWidthClass}`}>
-            <video 
-              src={block.src} 
-              poster={block.poster}
-              controls={block.controls ?? true}
-              autoPlay={block.autoPlay}
-              loop={block.loop}
-              muted={block.muted}
-              className="w-full h-auto"
-            >
-              Your browser does not support the video tag.
-            </video>
-          </div>
-          {block.caption && <p className="mt-4 text-center text-sm text-gray-400 italic">{block.caption}</p>}
-        </section>
-      );
-    default:
-      return null;
-  }
-};
+import ContentBlockRenderer from '../components/ContentBlockRenderer';
 
 const DesignProject = () => {
   const { id } = useParams();
@@ -323,12 +170,13 @@ const DesignProject = () => {
                   </motion.div>
                 )}
               </div>
-              <div className="w-full md:w-[55%] flex justify-end items-start relative group">
+              <div className="w-full md:w-[55%] flex justify-center md:justify-end items-center md:items-start relative group mt-12 md:mt-0">
                 <motion.div initial={{ opacity: 0, x: 100, scale: 1.1 }} animate={{ opacity: 1, x: 0, scale: 1 }} transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }} className="relative z-0">
                   <img 
                     src={project.heroImage} 
                     alt={project.title} 
-                    className="max-w-full max-h-[60vh] md:max-h-[85vh] object-contain drop-shadow-[0_35px_35px_rgba(0,0,0,0.1)] translate-x-12 md:translate-x-24 transition-transform duration-700 ease-in-out group-hover:scale-105" 
+                    className="max-w-full max-h-[50vh] md:max-h-[85vh] object-contain drop-shadow-[0_35px_35px_rgba(0,0,0,0.1)] translate-x-0 md:translate-x-24 transition-transform duration-700 ease-in-out group-hover:scale-105" 
+                    loading="eager"
                   />
                 </motion.div>
               </div>
@@ -348,7 +196,7 @@ const DesignProject = () => {
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8, delay: 0.1 }}
           >
-            <BlockRenderer block={block} />
+            <ContentBlockRenderer block={block} projectId={project.id} theme="light" />
           </motion.div>
         ))}
       </div>

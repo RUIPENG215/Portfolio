@@ -96,11 +96,11 @@ const Footer = ({ darkMode = false, lineArt = false, paddingBottom = "pb-4" }: F
 
   return (
     <footer className={`w-full mt-20 ${
-      darkMode ? 'text-[#8b949e]' : 'text-gray-700'
+      darkMode ? 'text-engineering-muted' : 'text-gray-700'
     }`}>
       {/* Separator Line */}
       <div className={`w-full h-[1px] mb-12 ${
-        darkMode ? 'bg-[#30363d]' : 'bg-gray-200'
+        darkMode ? 'bg-engineering-border' : 'bg-gray-200'
       }`} />
       
       <div className={`flex flex-col md:flex-row justify-between items-center gap-6 text-center md:text-left ${paddingBottom}`}>
@@ -115,7 +115,7 @@ const Footer = ({ darkMode = false, lineArt = false, paddingBottom = "pb-4" }: F
                 href={social.link} 
                 className={`transition-colors flex items-center justify-center ${
                   darkMode 
-                    ? 'text-[#8b949e] hover:text-[#58a6ff]' 
+                    ? 'text-engineering-muted hover:text-engineering-hover' 
                     : 'text-gray-600 hover:text-gray-900'
                 }`}
                 aria-label={social.name}

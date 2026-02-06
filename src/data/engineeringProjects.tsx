@@ -1,21 +1,7 @@
-import type { ReactNode } from 'react';
 import { Cpu, Wind, Code, Globe } from 'lucide-react';
-import type { ContentBlock } from './types';
+import type { ProjectData } from './types';
 
-export interface EngineeringProjectData {
-  id: number;
-  title: string;
-  subtitle: string;
-  tech: string[];
-  description: string;
-  icon: ReactNode;
-  status: 'COMPLETED' | 'ANALYSIS' | 'DEPLOYED' | 'PROTOTYPE' | 'DESIGN PHASE' | 'RESEARCH' | string;
-  time: string;
-  externalLink?: string;
-  content: ContentBlock[];
-}
-
-export const engineeringProjects: EngineeringProjectData[] = [
+export const engineeringProjects: ProjectData[] = [
   {
     id: 0,
     title: "Personal Portfolio Website",
