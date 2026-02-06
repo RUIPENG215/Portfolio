@@ -96,7 +96,11 @@ const Navbar = () => {
 
           {/* Mobile Menu Toggle */}
           <button 
-            className={`md:hidden p-2 rounded-xl transition-colors ${isNavbarDark ? 'hover:bg-white/5' : 'hover:bg-black/5'}`}
+            className={`md:hidden p-2 rounded-xl transition-colors ${
+              isNavbarDark 
+                ? 'hover:bg-white/5 text-white' 
+                : (isHumanities ? 'hover:bg-black/5 text-[#463220]' : 'hover:bg-black/5 text-black')
+            }`}
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -111,12 +115,13 @@ const Navbar = () => {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="absolute top-full left-4 right-4 mt-2 p-4 rounded-2xl border backdrop-blur-sm shadow-2xl pointer-events-auto md:hidden"
-            style={{
-              backgroundColor: 'transparent',
-              borderColor: isNavbarDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.05)',
-              color: isNavbarDark ? 'white' : 'black'
-            }}
+            className={`absolute top-full left-4 right-4 mt-2 p-4 rounded-2xl border backdrop-blur-xl shadow-2xl pointer-events-auto md:hidden ${
+              isNavbarDark 
+                ? 'bg-black/80 border-white/10 text-white' 
+                : (isHumanities 
+                  ? 'bg-[#f4f1ea]/90 border-[#463220]/10 text-[#463220]' 
+                  : 'bg-white/90 border-black/5 text-black')
+            }`}
           >
             <div className="flex flex-col gap-2">
               {navItems.map((item) => {

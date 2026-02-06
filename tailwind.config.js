@@ -25,7 +25,7 @@ export default {
         }
       },
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
+        sans: ['"Noto Sans SC"', 'Inter', 'sans-serif'],
         mono: ['"JetBrains Mono"', 'monospace'],
         pixel: ['"Press Start 2P"', 'cursive'],
         serif: ['Playfair Display', 'serif'],

@@ -16,7 +16,7 @@ const Landing = () => {
   };
 
   return (
-    <div className="bg-gray-50 min-h-screen">
+    <div className="min-h-screen overflow-x-hidden w-full">
       {/* SVG Filter for clean outline */}
       <svg width="0" height="0" style={{ position: 'absolute' }}>
         <defs>
@@ -29,7 +29,7 @@ const Landing = () => {
         </defs>
       </svg>
       {/* Main Content Wrapper - moves up to reveal footer */}
-      <div className="relative z-10 bg-gray-50 mb-[30vw] md:mb-[20vw] shadow-2xl">
+      <div className="relative z-10 bg-gray-50 mb-[10vh] md:mb-[20vw] shadow-2xl">
         <Hero>
           <motion.div 
             className="flex flex-col items-start text-left w-full"
@@ -75,7 +75,7 @@ const Landing = () => {
               initial={{ opacity: 0 }}
               animate={isLoaded ? { opacity: 1 } : { opacity: 0 }}
               transition={{ delay: 0.9, duration: 1 }}
-              className="text-white/40 max-w-lg text-sm md:text-base leading-relaxed font-light border-l-2 border-white/40 pl-6"
+              className="text-white/40 max-w-[80%] md:max-w-lg text-sm md:text-base leading-relaxed font-light border-l-2 border-white/40 pl-6"
             >
               Exploring the convergence of aesthetic form, technical logic, and human expression. 
               Currently studying Industrial Design at Xi'an Jiaotong University.
@@ -140,14 +140,17 @@ const Landing = () => {
               {/* Photo Container - Smaller and Balanced */}
               <div className="md:col-span-4 flex justify-end items-center relative">
                 <motion.div 
-                  className="relative w-full max-w-[280px] aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl bg-gray-100"
+                  className="relative w-full max-w-[320px] md:max-w-[280px] aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl bg-gray-100"
                   whileHover={{ scale: 1.02 }}
                   transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                  style={{ willChange: "transform" }}
                 >
                   <img 
                     src="/profile.webp" 
                     alt="Wang Ruipeng" 
                     className="w-full h-full object-cover"
+                    loading="lazy"
+                    decoding="async"
                   />
                 </motion.div>
                 
@@ -212,19 +215,16 @@ const Landing = () => {
 
       {/* Fixed Footer Reveal */}
       <motion.div 
-        className="fixed bottom-0 left-0 right-0 h-[30vw] md:h-[20vw] bg-[#050505] flex items-end justify-center z-0 pointer-events-none overflow-hidden pb-0"
-        exit={{ opacity: 0, transition: { duration: 0 } }} // Instantly hide on exit to prevent artifacts
+        className="fixed bottom-0 left-0 right-0 h-[10vh] md:h-[20vw] bg-[#050505] flex items-end justify-center z-0 pointer-events-none overflow-hidden pb-0"
+        initial={{ opacity: 1 }} // Force initial opacity to 1
+        animate={{ opacity: 1 }} // Maintain opacity
+        exit={{ opacity: 0, transition: { duration: 0 } }} 
       >
-        <motion.div
-          initial={{ opacity: 0, y: 100 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
-          className="w-full flex justify-center items-end"
-        >
-          <h1 className="text-[25vw] font-black text-[#1a1a1a] select-none tracking-tighter leading-none whitespace-nowrap -mb-4 md:-mb-10">
+        <div className="w-full flex justify-center items-end">
+          <h1 className="text-[26.5vw] md:text-[25vw] font-black text-[#1a1a1a] select-none tracking-tighter leading-none whitespace-nowrap -mb-[1.5vh] md:-mb-10">
             RUIPENG
           </h1>
-        </motion.div>
+        </div>
       </motion.div>
     </div>
   );

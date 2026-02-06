@@ -48,6 +48,34 @@ const Contact = () => {
     }),
   };
 
+  const handleSocialClick = (e: React.MouseEvent, social: any) => {
+    // Desktop: Default behavior (hover for QR, click for link)
+    if (window.innerWidth >= 1024) {
+      if (social.qrCode) {
+        e.preventDefault();
+        setActiveQr(activeQr === social.name ? null : social.name);
+      }
+      return;
+    }
+
+    // Mobile: Special handling for WeChat
+    if (social.name === '微信' || social.name === 'WeChat') {
+      e.preventDefault();
+      // Try to open WeChat app
+      window.location.href = 'weixin://';
+      
+      // Fallback: Copy ID to clipboard and show toast/alert
+      setTimeout(() => {
+        navigator.clipboard.writeText('w751686929'); // Replace with actual WeChat ID
+        alert('WeChat ID copied: WRPkkt. Opening WeChat...');
+      }, 500);
+    } else if (social.qrCode) {
+      // For other QR code items on mobile, toggle the QR display
+      e.preventDefault();
+      setActiveQr(activeQr === social.name ? null : social.name);
+    }
+  };
+
   const handleSubmit = async () => {
     if (!nameRef.current?.value || !emailRef.current?.value || !messageRef.current?.value) {
       alert("Please fill in all fields.");
@@ -212,6 +240,7 @@ const Contact = () => {
                       href={social.link}
                       className="w-10 h-10 border border-black/20 flex items-center justify-center text-gray-700 hover:text-blue-600 hover:border-blue-600 transition-all bg-white"
                       whileHover={{ scale: 1.05 }}
+                      onClick={(e) => handleSocialClick(e, social)}
                     >
                       <div className="scale-110">{social.icon}</div>
                     </motion.a>
@@ -445,12 +474,7 @@ const Contact = () => {
                         whileHover={{ scale: 1.05 }}
                         onMouseEnter={() => social.qrCode && setActiveQr(social.name)}
                         onMouseLeave={() => setActiveQr(null)}
-                        onClick={(e) => {
-                          if (social.qrCode) {
-                            e.preventDefault();
-                            setActiveQr(activeQr === social.name ? null : social.name);
-                          }
-                        }}
+                        onClick={(e) => handleSocialClick(e, social)}
                       >
                         <div className="scale-110">{social.icon}</div>
                       </motion.a>

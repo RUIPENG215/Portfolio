@@ -62,7 +62,7 @@ const Hero = ({ children }: HeroProps) => {
 
       {/* Scroll Indicator - Bottom Right */}
       <motion.div 
-        className="absolute bottom-10 right-10 z-20 flex flex-col items-center gap-4"
+        className="absolute bottom-10 right-4 md:right-10 z-20 flex flex-col items-center gap-4"
         animate={{ opacity: [0.3, 1, 0.3] }}
         transition={{ duration: 2, repeat: Infinity }}
       >

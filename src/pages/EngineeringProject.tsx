@@ -17,7 +17,13 @@ const EngineeringBlockRenderer = ({ block }: { block: ContentBlock }) => {
       return (
         <section className="mb-12">
           <div className="rounded-xl overflow-hidden border border-[#30363d] bg-[#0d1117]">
-            <img src={block.src} alt={block.caption} className="w-full h-auto object-cover opacity-90" />
+            <img 
+              src={block.src} 
+              alt={block.caption} 
+              className="w-full h-auto object-cover opacity-90" 
+              loading="lazy" 
+              decoding="async"
+            />
           </div>
           {block.caption && <p className="mt-3 text-sm text-[#8b949e] font-mono italic">// {block.caption}</p>}
         </section>
@@ -27,7 +33,13 @@ const EngineeringBlockRenderer = ({ block }: { block: ContentBlock }) => {
         <section className={`grid grid-cols-1 md:grid-cols-${block.columns} gap-4 mb-12`}>
           {block.images.map((img, i) => (
             <div key={i} className="rounded-xl overflow-hidden border border-[#30363d] bg-[#0d1117] aspect-square">
-              <img src={img} alt={`Grid ${i}`} className="w-full h-full object-cover opacity-90" />
+              <img 
+                src={img} 
+                alt={`Grid ${i}`} 
+                className="w-full h-full object-cover opacity-90" 
+                loading="lazy" 
+                decoding="async"
+              />
             </div>
           ))}
         </section>
@@ -41,7 +53,13 @@ const EngineeringBlockRenderer = ({ block }: { block: ContentBlock }) => {
           </div>
           <div className="w-full md:w-1/2">
             <div className="rounded-xl overflow-hidden border border-[#30363d] bg-[#0d1117] aspect-video">
-              <img src={block.src} alt={block.title} className="w-full h-full object-cover opacity-90" />
+              <img 
+                src={block.src} 
+                alt={block.title} 
+                className="w-full h-full object-cover opacity-90" 
+                loading="lazy" 
+                decoding="async"
+              />
             </div>
           </div>
         </section>

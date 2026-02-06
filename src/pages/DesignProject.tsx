@@ -38,7 +38,13 @@ const BlockRenderer = ({ block }: { block: ContentBlock }) => {
       return (
         <section className="mb-24">
           <div className="rounded-lg overflow-hidden bg-gray-50 shadow-sm border border-gray-100">
-            <img src={block.src} alt={block.caption} className="w-full h-auto" />
+            <img 
+              src={block.src} 
+              alt={block.caption} 
+              className="w-full h-auto" 
+              loading="lazy" 
+              decoding="async" 
+            />
           </div>
           {block.caption && <p className="mt-4 text-center text-xs font-mono text-gray-400 uppercase tracking-widest">{block.caption}</p>}
         </section>
@@ -62,6 +68,8 @@ const BlockRenderer = ({ block }: { block: ContentBlock }) => {
                   src={img} 
                   alt={`Grid ${i}`} 
                   className={`w-full ${shouldCrop ? 'h-full object-cover' : 'h-auto'} transition-transform duration-700 ease-in-out group-hover:scale-105`} 
+                  loading="lazy" 
+                  decoding="async" 
                 />
               </div>
             ))}
@@ -81,10 +89,10 @@ const BlockRenderer = ({ block }: { block: ContentBlock }) => {
                               'aspect-square';
 
       // Width class mapping
-      const widthClass = block.imageWidth === '4/5' ? 'w-[80%]' :
-                        block.imageWidth === '3/4' ? 'w-[75%]' :
-                        block.imageWidth === '2/3' ? 'w-[66%]' :
-                        block.imageWidth === '1/2' ? 'w-[50%]' :
+      const widthClass = block.imageWidth === '4/5' ? 'w-full md:w-[80%]' :
+                        block.imageWidth === '3/4' ? 'w-full md:w-[75%]' :
+                        block.imageWidth === '2/3' ? 'w-full md:w-[66%]' :
+                        block.imageWidth === '1/2' ? 'w-full md:w-[50%]' :
                         'w-full';
 
       return (
@@ -105,6 +113,8 @@ const BlockRenderer = ({ block }: { block: ContentBlock }) => {
                 src={block.src} 
                 alt={title} 
                 className={`w-full ${isAuto ? 'h-auto' : 'h-full object-cover'} transition-transform duration-700 ease-in-out group-hover:scale-105`} 
+                loading="lazy" 
+                decoding="async" 
               />
             </div>
           </div>

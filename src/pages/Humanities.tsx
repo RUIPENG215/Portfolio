@@ -1,4 +1,4 @@
-import { useState, memo } from 'react';
+import { useState, memo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Music, Camera, X, MapPin, Calendar } from 'lucide-react';
 import Footer from '../components/Footer';
@@ -9,11 +9,13 @@ import type { HumanitiesPhotoData, HumanitiesMusicData } from '../data/humanitie
 const PhotoCard = memo(({ 
   photo, 
   index, 
-  onClick 
+  onClick,
+  priority = false
 }: { 
   photo: HumanitiesPhotoData; 
   index: number; 
   onClick: (photo: HumanitiesPhotoData) => void;
+  priority?: boolean;
 }) => {
   // Precise aspect ratio styles to prevent layout shift
   const aspectStyle = photo.ratio === 'horizontal' 
@@ -29,7 +31,7 @@ const PhotoCard = memo(({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ 
-        delay: (index % 6) * 0.1, 
+        delay: 0.3 + (index % 6) * 0.1, 
         duration: 0.8, // Reduced duration for snappier feel
         ease: [0.22, 1, 0.36, 1]
       }}
@@ -43,7 +45,7 @@ const PhotoCard = memo(({
         <img 
           src={photo.image} 
           alt={photo.title} 
-          loading="lazy"
+          loading={priority ? "eager" : "lazy"}
           decoding="async"
           className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.02]" // Reduced scale and duration for performance
         />
@@ -59,15 +61,27 @@ const PhotoCard = memo(({
 const Humanities = () => {
   const [selectedPhoto, setSelectedPhoto] = useState<HumanitiesPhotoData | null>(null);
 
+  // Prevent background scrolling when modal is open
+  useEffect(() => {
+    if (selectedPhoto) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [selectedPhoto]);
+
   return (
-    <div className={`min-h-screen bg-humanities-bg text-gray-800 font-serif pt-32 pb-10 ${selectedPhoto ? 'overflow-hidden' : ''}`}>
+    <div className="min-h-screen bg-humanities-bg text-gray-800 font-serif pt-32 pb-10 overflow-x-hidden w-full">
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         
         <header className="mb-20 text-center">
           <motion.div 
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
             style={{ willChange: "transform, opacity" }}
           >
             <span className="block text-humanities-primary italic text-xl mb-2">The Soul of the Maker</span>
@@ -85,7 +99,7 @@ const Humanities = () => {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
           >
             <Camera className="text-humanities-primary" />
             <h2 className="text-3xl italic">Photography</h2>
@@ -98,6 +112,7 @@ const Humanities = () => {
                 photo={photo} 
                 index={i} 
                 onClick={setSelectedPhoto} 
+                priority={i < 6}
               />
             ))}
           </div>
@@ -224,33 +239,84 @@ const Humanities = () => {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.98, y: 10 }}
               transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-              className="relative w-fit max-w-[95vw] md:max-w-[90vw] max-h-[90vh] bg-[#121212] rounded-lg overflow-hidden flex flex-col md:flex-row border border-white/5" // Removed large shadow
+              className="relative w-full max-w-[95vw] md:max-w-[90vw] h-[85vh] md:h-[90vh] md:max-h-[90vh] bg-[#121212] rounded-lg overflow-hidden flex flex-col md:flex-row border border-white/5 shadow-2xl"
             >
               <button 
                 onClick={() => setSelectedPhoto(null)}
-                className="absolute top-6 right-6 z-20 p-2 text-white/40 hover:text-white transition-colors bg-black/20 rounded-full" // Removed backdrop-blur
+                className="absolute top-4 right-4 md:top-6 md:right-6 z-20 p-2 text-white/40 hover:text-white transition-colors bg-black/40 backdrop-blur-md rounded-full"
               >
                 <X size={20} />
               </button>
 
-              <div className="w-full md:w-auto md:h-[90vh] bg-black flex items-center justify-center overflow-hidden">
+              {/* Mobile: Scrollable Container for Image + Text */}
+              <div className="md:hidden flex-1 overflow-y-auto scrollbar-hide">
+                 {/* Image Section - Natural Height */}
+                 <div className="w-full bg-black relative">
+                   <img 
+                     src={selectedPhoto.image} 
+                     alt={selectedPhoto.title} 
+                     className="w-full h-auto object-contain block"
+                   />
+                   <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#121212]/50 pointer-events-none" />
+                 </div>
+
+                 {/* Text Section - Immediately follows image */}
+                 <div className="bg-[#121212] p-8 pb-20">
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.2, duration: 0.5 }}
+                    >
+                      <span className="text-humanities-primary font-sans text-[10px] tracking-[0.4em] uppercase mb-4 block opacity-80">
+                        {selectedPhoto.category}
+                      </span>
+                      <h2 className="text-3xl text-white font-light mb-6 leading-tight tracking-tight">
+                        {selectedPhoto.title}
+                      </h2>
+                      
+                      <div className="space-y-4 mb-8">
+                        {selectedPhoto.location && (
+                          <div className="flex items-center gap-3 text-white/50 font-sans text-xs tracking-wider">
+                            <MapPin size={12} className="text-humanities-primary" />
+                            {selectedPhoto.location}
+                          </div>
+                        )}
+                        {selectedPhoto.date && (
+                          <div className="flex items-center gap-3 text-white/50 font-sans text-xs tracking-wider">
+                            <Calendar size={12} className="text-humanities-primary" />
+                            {selectedPhoto.date}
+                          </div>
+                        )}
+                      </div>
+
+                      <div className="w-10 h-px bg-white/10 mb-8" />
+
+                      <p className="text-white/70 leading-relaxed font-sans font-light text-sm italic tracking-wide whitespace-pre-wrap">
+                        {selectedPhoto.description}
+                      </p>
+                    </motion.div>
+                 </div>
+              </div>
+
+              {/* Desktop Layout (Hidden on Mobile) */}
+              <div className="hidden md:flex w-auto h-full bg-black items-center justify-center overflow-hidden flex-1">
                 <motion.img 
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.1, duration: 0.5 }}
                   src={selectedPhoto.image} 
                   alt={selectedPhoto.title} 
-                  className="w-full h-auto md:w-auto md:h-full object-contain block"
+                  className="max-h-full max-w-full w-auto h-auto object-contain block"
                 />
               </div>
 
               <div 
-                className={`w-full flex-shrink-0 flex flex-col bg-[#121212] transition-all duration-500 ease-in-out overflow-y-auto scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent ${
-                  selectedPhoto.description.length > 200 ? 'md:w-[450px] lg:w-[550px]' : 'md:w-80 lg:w-96'
+                className={`hidden md:flex flex-shrink-0 flex-col bg-[#121212] transition-all duration-500 ease-in-out overflow-y-auto scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent ${
+                  selectedPhoto.description.length > 200 ? 'w-[450px] lg:w-[550px]' : 'w-80 lg:w-96'
                 }`}
               >
-                <div className="p-10 md:p-14">
-                  <div className="max-w-xl mx-auto md:mx-0">
+                <div className="p-14">
+                  <div className="max-w-xl mx-0">
                     <motion.div
                       initial={{ opacity: 0, x: 10 }}
                       animate={{ opacity: 1, x: 0 }}
@@ -259,7 +325,7 @@ const Humanities = () => {
                       <span className="text-humanities-primary font-sans text-[10px] tracking-[0.4em] uppercase mb-6 block opacity-80">
                         {selectedPhoto.category}
                       </span>
-                      <h2 className="text-3xl md:text-4xl text-white font-light mb-8 leading-tight tracking-tight">
+                      <h2 className="text-4xl text-white font-light mb-8 leading-tight tracking-tight">
                         {selectedPhoto.title}
                       </h2>
                       
@@ -280,7 +346,7 @@ const Humanities = () => {
 
                       <div className="w-10 h-px bg-white/10 mb-10" />
 
-                      <p className="text-white/70 leading-relaxed font-sans font-light text-sm md:text-base italic tracking-wide whitespace-pre-wrap">
+                      <p className="text-white/70 leading-relaxed font-sans font-light text-base italic tracking-wide whitespace-pre-wrap">
                         {selectedPhoto.description}
                       </p>
                     </motion.div>

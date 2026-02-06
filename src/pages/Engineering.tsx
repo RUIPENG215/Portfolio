@@ -46,6 +46,7 @@ const Engineering = () => {
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.4 + index * 0.1 }}
+                style={{ willChange: "transform, opacity" }}
               >
                 <div className="flex flex-col md:flex-row gap-6">
                   <div className="flex-shrink-0 mt-1">

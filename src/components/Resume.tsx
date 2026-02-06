@@ -67,7 +67,7 @@ const Resume = () => {
                 <div className="absolute top-0 right-0 w-32 h-32 bg-gray-50 rounded-full -mr-16 -mt-16 transition-transform group-hover:scale-150 duration-700 ease-out"></div>
                 
                 <div className="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-10">
-                  <div className="flex items-center gap-12 flex-1">
+                  <div className="flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-12 flex-1">
                     {edu.logo && (
                       <div className="w-48 h-12 flex items-center justify-start transition-all duration-500 shrink-0">
                         <img 
@@ -129,7 +129,7 @@ const Resume = () => {
                           className="group relative bg-white/50 rounded-[2rem] p-8 md:p-10 border border-dashed border-gray-200 hover:border-solid hover:border-gray-300 transition-all duration-500"
                         >
                           <div className="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-10">
-                            <div className="flex items-center gap-12 flex-1">
+                            <div className="flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-12 flex-1">
                               {edu.logo && (
                                 <div className="w-48 h-12 flex items-center justify-start shrink-0 opacity-40 group-hover:opacity-100 transition-all duration-500">
                                   <img 
