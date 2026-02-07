@@ -111,15 +111,13 @@ const Design = () => {
 
           {/* CSS for custom clip-path transition since Tailwind doesn't support clip-path transitions out of the box easily */}
           <style dangerouslySetInnerHTML={{ __html: `
-            @media (min-width: 768px) {
-              .group:hover .reveal-mask {
-                clip-path: circle(150% at calc(100% - 32px) 32px) !important;
-                -webkit-clip-path: circle(150% at calc(100% - 32px) 32px) !important;
-              }
-              .reveal-mask {
-                clip-path: circle(40px at calc(100% - 32px) 32px);
-                -webkit-clip-path: circle(40px at calc(100% - 32px) 32px);
-              }
+            .reveal-mask {
+              clip-path: circle(40px at calc(100% - 32px) 32px);
+              -webkit-clip-path: circle(40px at calc(100% - 32px) 32px);
+            }
+            .group:hover .reveal-mask {
+              clip-path: circle(150% at calc(100% - 32px) 32px) !important;
+              -webkit-clip-path: circle(150% at calc(100% - 32px) 32px) !important;
             }
           `}} />
         </div>
