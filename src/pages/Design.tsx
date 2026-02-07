@@ -92,9 +92,6 @@ const Design = () => {
                         decoding="async"
                       />
                       
-                      {/* Frosted Glass Overlay for the small preview circle state */}
-                      <div className="absolute inset-0 bg-white/10 backdrop-blur-xl group-hover:backdrop-blur-0 group-hover:bg-transparent transition-all duration-1000" />
-
                       <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col justify-end p-10 opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-300">
                         <div className="transform translate-y-8 group-hover:translate-y-0 transition-transform duration-700 delay-100">
                           <div className="text-xs font-black tracking-[0.3em] uppercase text-design-primary mb-3">Exploring</div>
