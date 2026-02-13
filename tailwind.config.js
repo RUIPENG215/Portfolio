@@ -32,7 +32,7 @@ export default {
       fontFamily: {
         sans: ['"Noto Sans SC"', 'Inter', 'sans-serif'],
         mono: ['"JetBrains Mono"', 'monospace'],
-        serif: ['Playfair Display', 'serif'],
+        serif: ['"Noto Serif SC"', '"Playfair Display"', 'serif'],
       }
     },
   },
