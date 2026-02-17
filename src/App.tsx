@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import { useEffect, useState } from 'react';
+import { Analytics } from '@vercel/analytics/react';
 import Landing from './pages/Landing';
 import Design from './pages/Design';
 import Engineering from './pages/Engineering';
@@ -76,6 +77,7 @@ function App() {
       <Router>
         <Navbar />
         <AnimatedRoutes />
+        <Analytics />
       </Router>
     </LoadingProvider>
   );
