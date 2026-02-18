@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import { AnimatePresence } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { Analytics } from '@vercel/analytics/react';
+import GoogleAnalyticsTracker from './components/GoogleAnalyticsTracker';
 import Landing from './pages/Landing';
 import Design from './pages/Design';
 import Engineering from './pages/Engineering';
@@ -75,6 +76,7 @@ function App() {
   return (
     <LoadingProvider>
       <Router>
+        <GoogleAnalyticsTracker />
         <Navbar />
         <AnimatedRoutes />
         <Analytics />
