@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import { AnimatePresence } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import GoogleAnalyticsTracker from './components/GoogleAnalyticsTracker';
 import Landing from './pages/Landing';
 import Design from './pages/Design';
@@ -80,6 +81,7 @@ function App() {
         <Navbar />
         <AnimatedRoutes />
         <Analytics />
+        <SpeedInsights />
       </Router>
     </LoadingProvider>
   );
