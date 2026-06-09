@@ -73,7 +73,7 @@ const Resume = () => {
                         <img 
                           src={edu.logo} 
                           alt={`${edu.school} logo`} 
-                          style={{ transform: `scale(${edu.logoScale || 1})` }}
+                          style={{ transform: `translateX(${edu.logoOffsetX || 0}px) scale(${edu.logoScale || 1})` }}
                           className="max-w-full max-h-full object-contain object-left filter grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500 origin-left"
                           onError={(e) => {
                             (e.target as HTMLImageElement).style.display = 'none';

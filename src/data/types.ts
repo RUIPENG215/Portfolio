@@ -106,6 +106,7 @@ export interface Education {
   period: string;
   logo?: string;
   logoScale?: number;
+  logoOffsetX?: number;
   isSecondary?: boolean;
 }
 

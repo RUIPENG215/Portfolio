@@ -77,10 +77,19 @@ export const projectSummaries: ProjectSummary[] = [
 
 export const education: Education[] = [
   {
+    school: "National University of Singapore",
+    degree: "Master of Science",
+    major: "Mechanical Engineering",
+    period: "2026 - Present",
+    logo: "/logos/nus-logo.webp",
+    logoScale: 2.8,
+    logoOffsetX: -12
+  },
+  {
     school: "Xi'an Jiaotong University",
     degree: "Bachelor of Engineering",
     major: "Industrial Design",
-    period: "2022 - Present",
+    period: "2022 - 2026",
     logo: "/logos/xjtu-logo.webp",
     logoScale: 1.0
   },
@@ -88,7 +97,7 @@ export const education: Education[] = [
     school: "Politecnico di Milano",
     degree: "Bachelor of Engineering",
     major: "Industrial Product Engineering (Double Degree)",
-    period: "2022 - Present",
+    period: "2022 - 2026",
     logo: "/logos/polimi-logo.webp",
     logoScale: 1.1
   },

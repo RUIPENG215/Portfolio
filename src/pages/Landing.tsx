@@ -78,7 +78,7 @@ const Landing = () => {
               className="text-white/40 max-w-[80%] md:max-w-lg text-sm md:text-base leading-relaxed font-light border-l-2 border-white/40 pl-6"
             >
               Exploring the convergence of aesthetic form, technical logic, and human expression. 
-              Currently studying Industrial Design at Xi'an Jiaotong University.
+              Currently pursuing a Master's degree in Mechanical Engineering at the National University of Singapore.
             </motion.p>
           </motion.div>
         </Hero>
