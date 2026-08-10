@@ -58,6 +58,7 @@ const Navbar = () => {
     >
       <div className={`
         w-full border-y border-x-transparent pointer-events-auto
+        backdrop-blur-sm
         ${isNavbarDark 
           ? `bg-transparent border-b border-white/10 text-[#e6edf3]` 
           : (isHumanities 
