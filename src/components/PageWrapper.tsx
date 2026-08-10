@@ -59,20 +59,21 @@ export const PageWrapper = ({ children }: PageWrapperProps) => {
       sessionStorage.setItem(`scroll:${pathname}`, window.scrollY.toString());
     };
 
-    // Save on scroll (throttled/debounced implicitly by the browser's scroll event frequency)
-    // but we'll use a passive listener for performance
+    let saveTimer: number | undefined;
+
     const handleScroll = () => {
-      // We don't need to save on every single pixel, but it's safe to do so
-      // as long as we don't do heavy work here.
-      saveScroll();
+      window.clearTimeout(saveTimer);
+      saveTimer = window.setTimeout(saveScroll, 160);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('pagehide', saveScroll);
     
-    // Also save when the component is about to unmount
     return () => {
+      window.clearTimeout(saveTimer);
       saveScroll();
       window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('pagehide', saveScroll);
     };
   }, [pathname]);
 

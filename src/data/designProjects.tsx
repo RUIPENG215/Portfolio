@@ -481,7 +481,7 @@ export const designProjects: ProjectData[] = [
     category: "Interaction Design",
     description: "An interactive thermal comfort system for orthopedic wards, using flexible sensors and real-time feedback to personalize microclimates.",
     aboutProject: "This project originated from a key issue identified in my research: thermal comfort in orthopedic wards varies drastically among patients. To address this, I developed an interactive system called 'Bio-Adaptive Microclimate'. The system integrates multiple sensors on flexible printed circuits (FPCs) to monitor patients' skin moisture and galvanic skin response (GSR) in real-time, enabling accurate quantification of their environmental perception.",
-    image: "Design_5/D5_H.webp",
+    image: "/Design_5/D5_H.webp",
     heroImage: "/Design_5/D5_H.webp",
     icon: <Activity size={40} />,
     color: "bg-blue-100 text-blue-600",

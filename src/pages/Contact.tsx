@@ -1,17 +1,16 @@
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { Variants } from 'framer-motion';
 import { Mail, Phone, MapPin } from 'lucide-react';
 import emailjs from '@emailjs/browser';
 import { socialLinks } from '../data/socialLinks';
+import type { SocialLink } from '../data/types';
 import Footer from '../components/Footer';
 
 const Contact = () => {
   const [activeQr, setActiveQr] = useState<string | null>(null);
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
-  const nameRef = useRef<HTMLInputElement>(null);
-  const emailRef = useRef<HTMLInputElement>(null);
-  const messageRef = useRef<HTMLTextAreaElement>(null);
+  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
 
   // Animation variants
   const containerVariants: Variants = {
@@ -48,7 +47,7 @@ const Contact = () => {
     }),
   };
 
-  const handleSocialClick = (e: React.MouseEvent, social: any) => {
+  const handleSocialClick = (e: React.MouseEvent, social: SocialLink) => {
     // Desktop: Default behavior (hover for QR, click for link)
     if (window.innerWidth >= 1024) {
       if (social.qrCode) {
@@ -61,14 +60,16 @@ const Contact = () => {
     // Mobile: Special handling for WeChat
     if (social.name === '微信' || social.name === 'WeChat') {
       e.preventDefault();
-      // Try to open WeChat app
-      window.location.href = 'weixin://';
+      // Try to open WeChat without mutating the global location object directly.
+      window.open('weixin://', '_self');
       
       // Fallback: Copy ID to clipboard and show toast/alert
       const wechatId = 'WRPkkt'; // Unified actual ID
-      setTimeout(() => {
-        navigator.clipboard.writeText(wechatId);
-        alert(`WeChat ID copied: ${wechatId}. Opening WeChat...`);
+      window.setTimeout(() => {
+        void navigator.clipboard.writeText(wechatId).then(
+          () => alert(`WeChat ID copied: ${wechatId}. Opening WeChat...`),
+          () => alert(`WeChat ID: ${wechatId}`),
+        );
       }, 500);
     } else if (social.qrCode) {
       // For other QR code items on mobile, toggle the QR display
@@ -78,8 +79,17 @@ const Contact = () => {
   };
 
   const handleSubmit = async () => {
-    if (!nameRef.current?.value || !emailRef.current?.value || !messageRef.current?.value) {
+    const name = formData.name.trim();
+    const email = formData.email.trim();
+    const message = formData.message.trim();
+
+    if (!name || !email || !message) {
       alert("Please fill in all fields.");
+      return;
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      alert("Please enter a valid email address.");
       return;
     }
 
@@ -90,18 +100,16 @@ const Contact = () => {
         'service_s3sb8va',
         'template_0twz1xd',
         {
-          from_name: nameRef.current.value,
-          from_email: emailRef.current.value,
-          message: messageRef.current.value,
+          from_name: name,
+          from_email: email,
+          message,
           to_name: 'Wang Ruipeng',
         },
         'YKgoX8p2niWODT4q4'
       );
 
       setStatus('success');
-      if (nameRef.current) nameRef.current.value = '';
-      if (emailRef.current) emailRef.current.value = '';
-      if (messageRef.current) messageRef.current.value = '';
+      setFormData({ name: '', email: '', message: '' });
       
       setTimeout(() => setStatus('idle'), 5000);
     } catch (error) {
@@ -115,19 +123,19 @@ const Contact = () => {
     {
       icon: <Mail size={20} />,
       label: "Email",
-      value: "wangruipeng_uk@163.com",
-      link: "mailto:wangruipeng_uk@163.com"
+      value: "wangruipeng@u.nus.edu",
+      link: "mailto:wangruipeng@u.nus.edu"
     },
     {
       icon: <Phone size={20} />,
       label: "Phone",
-      value: "+86 18991292857",
-      link: "tel:+8618991292857"
+      value: "+65 8544 5807",
+      link: "tel:+6585445807"
     },
     {
       icon: <MapPin size={20} />,
       label: "Location",
-      value: "Xi'an, China",
+      value: "NUS CDE, Singapore",
       link: "#"
     }
   ];
@@ -217,15 +225,17 @@ const Contact = () => {
                     <div className="flex items-center border-b border-black/[0.1] pb-1">
                       <span className="w-8 opacity-70 font-bold text-[9px]">LAT</span>
                       <div className="flex font-bold ml-2">
-                        <span className="w-7 text-right">34</span>
-                        <span>.2568264</span>
+                        <span className="w-7 text-right">1</span>
+                        <span>.3003857</span>
+                        <span className="ml-1 opacity-50">N</span>
                       </div>
                     </div>
                     <div className="flex items-center">
                       <span className="w-8 opacity-70 font-bold text-[9px]">LNG</span>
                       <div className="flex font-bold ml-2">
-                        <span className="w-7 text-right">108</span>
-                        <span>.6515306</span>
+                        <span className="w-7 text-right">103</span>
+                        <span>.7712593</span>
+                        <span className="ml-1 opacity-50">E</span>
                       </div>
                     </div>
                   </div>
@@ -273,21 +283,22 @@ const Contact = () => {
               {/* Inputs */}
               <motion.div variants={itemVariants} className="border-b border-black/20">
                 <div className="group p-6 md:p-8 border-b border-black/20 hover:bg-black/[0.02] focus-within:bg-black/[0.01] transition-colors">
-                  <label className="text-[10px] font-mono font-bold text-gray-800 uppercase tracking-widest block mb-4 group-hover:translate-x-1 transition-all">01. Name</label>
-                  <input ref={nameRef} type="text" className="w-full bg-transparent outline-none font-bold text-xl text-gray-900 placeholder:opacity-25 group-hover:placeholder:opacity-50 placeholder:text-gray-500 transition-all group-hover:translate-x-1" placeholder="Wang Ruipeng" />
+                  <label htmlFor="mobile-contact-name" className="text-[10px] font-mono font-bold text-gray-800 uppercase tracking-widest block mb-4 group-hover:translate-x-1 transition-all">01. Name</label>
+                  <input id="mobile-contact-name" name="name" value={formData.name} onChange={(event) => setFormData(current => ({ ...current, name: event.target.value }))} autoComplete="name" required type="text" className="w-full bg-transparent outline-none font-bold text-xl text-gray-900 placeholder:opacity-25 group-hover:placeholder:opacity-50 placeholder:text-gray-500 transition-all group-hover:translate-x-1" placeholder="Wang Ruipeng" />
                 </div>
                 <div className="group p-6 md:p-8 border-b border-black/20 hover:bg-black/[0.02] focus-within:bg-black/[0.01] transition-colors">
-                  <label className="text-[10px] font-mono font-bold text-gray-800 uppercase tracking-widest block mb-4 group-hover:translate-x-1 transition-all">02. Email</label>
-                  <input ref={emailRef} type="email" className="w-full bg-transparent outline-none font-bold text-xl text-gray-900 placeholder:opacity-25 group-hover:placeholder:opacity-50 placeholder:text-gray-500 transition-all group-hover:translate-x-1" placeholder="hello@domain.com" />
+                  <label htmlFor="mobile-contact-email" className="text-[10px] font-mono font-bold text-gray-800 uppercase tracking-widest block mb-4 group-hover:translate-x-1 transition-all">02. Email</label>
+                  <input id="mobile-contact-email" name="email" value={formData.email} onChange={(event) => setFormData(current => ({ ...current, email: event.target.value }))} autoComplete="email" required type="email" className="w-full bg-transparent outline-none font-bold text-xl text-gray-900 placeholder:opacity-25 group-hover:placeholder:opacity-50 placeholder:text-gray-500 transition-all group-hover:translate-x-1" placeholder="hello@domain.com" />
                 </div>
                 <div className="group p-6 md:p-8 hover:bg-black/[0.02] focus-within:bg-black/[0.01] transition-colors">
-                  <label className="text-[10px] font-mono font-bold text-gray-800 uppercase tracking-widest block mb-4 group-hover:translate-x-1 transition-all">03. Message</label>
-                  <textarea ref={messageRef} rows={6} className="w-full bg-transparent outline-none font-bold text-xl text-gray-900 placeholder:opacity-25 group-hover:placeholder:opacity-50 placeholder:text-gray-500 transition-all resize-none group-hover:translate-x-1" placeholder="What's on your mind?" />
+                  <label htmlFor="mobile-contact-message" className="text-[10px] font-mono font-bold text-gray-800 uppercase tracking-widest block mb-4 group-hover:translate-x-1 transition-all">03. Message</label>
+                  <textarea id="mobile-contact-message" name="message" value={formData.message} onChange={(event) => setFormData(current => ({ ...current, message: event.target.value }))} required rows={6} className="w-full bg-transparent outline-none font-bold text-xl text-gray-900 placeholder:opacity-25 group-hover:placeholder:opacity-50 placeholder:text-gray-500 transition-all resize-none group-hover:translate-x-1" placeholder="What's on your mind?" />
                 </div>
               </motion.div>
               {/* Submit */}
               <motion.div variants={itemVariants} className="p-6 md:p-8 flex justify-center items-center hover:bg-black/[0.02] transition-all">
                 <button 
+                  type="button"
                   onClick={handleSubmit}
                   disabled={status !== 'idle'}
                   className="group relative w-full px-10 py-5 overflow-hidden border border-black transition-all flex items-center justify-center gap-4 bg-white disabled:opacity-50"
@@ -347,7 +358,7 @@ const Contact = () => {
                 <div className="flex flex-col gap-4 relative z-10">
                   <div className="flex items-center gap-3 group-hover:translate-x-1 transition-transform">
                     <span className="text-[9px] font-mono text-gray-700 bg-gray-100 px-1.5 py-0.5 group-hover:bg-black group-hover:text-white transition-colors">STATUS: READY</span>
-                    <span className="text-[9px] font-mono text-gray-700">LOC: 34.2568°N 108.6515°E</span>
+                    <span className="text-[9px] font-mono text-gray-700">LOC: 1.3004°N 103.7713°E</span>
                   </div>
                   <h3 className="text-2xl font-black text-black uppercase tracking-tight flex items-center gap-4 group-hover:translate-x-2 transition-transform">
                     <span className="w-8 h-[1px] bg-black group-hover:w-12 transition-all"></span>
@@ -385,12 +396,12 @@ const Contact = () => {
               <motion.div variants={itemVariants} className="border-r border-black/20">
                 <div className="grid grid-cols-2 h-full">
                   <div className="group p-6 md:p-8 border-r border-black/20 hover:bg-black/[0.02] focus-within:bg-black/[0.01] transition-colors">
-                    <label className="text-[10px] font-mono font-bold text-gray-800 uppercase tracking-widest block mb-4 group-focus-within:text-black group-hover:translate-x-1 transition-all">01. Name</label>
-                    <input ref={nameRef} type="text" className="w-full bg-transparent outline-none font-bold text-xl text-gray-900 placeholder:opacity-25 group-hover:placeholder:opacity-50 placeholder:text-gray-500 transition-all group-hover:translate-x-1" placeholder="Wang Ruipeng" />
+                    <label htmlFor="desktop-contact-name" className="text-[10px] font-mono font-bold text-gray-800 uppercase tracking-widest block mb-4 group-focus-within:text-black group-hover:translate-x-1 transition-all">01. Name</label>
+                    <input id="desktop-contact-name" name="name" value={formData.name} onChange={(event) => setFormData(current => ({ ...current, name: event.target.value }))} autoComplete="name" required type="text" className="w-full bg-transparent outline-none font-bold text-xl text-gray-900 placeholder:opacity-25 group-hover:placeholder:opacity-50 placeholder:text-gray-500 transition-all group-hover:translate-x-1" placeholder="Wang Ruipeng" />
                   </div>
                   <div className="group p-6 md:p-8 hover:bg-black/[0.02] focus-within:bg-black/[0.01] transition-colors">
-                    <label className="text-[10px] font-mono font-bold text-gray-800 uppercase tracking-widest block mb-4 group-focus-within:text-black group-hover:translate-x-1 transition-all">02. Email</label>
-                    <input ref={emailRef} type="email" className="w-full bg-transparent outline-none font-bold text-xl text-gray-900 placeholder:opacity-25 group-hover:placeholder:opacity-50 placeholder:text-gray-500 transition-all group-hover:translate-x-1" placeholder="hello@domain.com" />
+                    <label htmlFor="desktop-contact-email" className="text-[10px] font-mono font-bold text-gray-800 uppercase tracking-widest block mb-4 group-focus-within:text-black group-hover:translate-x-1 transition-all">02. Email</label>
+                    <input id="desktop-contact-email" name="email" value={formData.email} onChange={(event) => setFormData(current => ({ ...current, email: event.target.value }))} autoComplete="email" required type="email" className="w-full bg-transparent outline-none font-bold text-xl text-gray-900 placeholder:opacity-25 group-hover:placeholder:opacity-50 placeholder:text-gray-500 transition-all group-hover:translate-x-1" placeholder="hello@domain.com" />
                   </div>
                 </div>
               </motion.div>
@@ -426,16 +437,16 @@ const Contact = () => {
                         <div className="flex items-center border-b border-black/[0.1] pb-1 group-hover:border-black/30 transition-colors duration-300 transform-gpu backface-hidden">
                           <span className="w-8 opacity-70 font-bold text-[9px]">LAT</span>
                           <div className="flex font-bold ml-2">
-                            <span className="w-7 text-right">34</span>
-                            <span>.2568264</span>
+                            <span className="w-7 text-right">1</span>
+                            <span>.3003857</span>
                             <span className="ml-1 opacity-50">N</span>
                           </div>
                         </div>
                         <div className="flex items-center">
                           <span className="w-8 opacity-70 font-bold text-[9px]">LNG</span>
                           <div className="flex font-bold ml-2">
-                            <span className="w-7 text-right">108</span>
-                            <span>.6515306</span>
+                            <span className="w-7 text-right">103</span>
+                            <span>.7712593</span>
                             <span className="ml-1 opacity-50">E</span>
                           </div>
                         </div>
@@ -447,8 +458,8 @@ const Contact = () => {
 
               {/* Message Cell */}
               <motion.div variants={itemVariants} className="group p-6 md:p-8 border-r border-black/20 hover:bg-black/[0.02] focus-within:bg-black/[0.01] transition-colors">
-                <label className="text-[10px] font-mono font-bold text-gray-800 uppercase tracking-widest block mb-4 group-focus-within:text-black group-hover:translate-x-1 transition-all">03. Message</label>
-                <textarea ref={messageRef} rows={6} className="w-full bg-transparent outline-none font-bold text-xl text-gray-900 placeholder:opacity-25 group-hover:placeholder:opacity-50 placeholder:text-gray-500 transition-all resize-none group-hover:translate-x-1" placeholder="What's on your mind?" />
+                <label htmlFor="desktop-contact-message" className="text-[10px] font-mono font-bold text-gray-800 uppercase tracking-widest block mb-4 group-focus-within:text-black group-hover:translate-x-1 transition-all">03. Message</label>
+                <textarea id="desktop-contact-message" name="message" value={formData.message} onChange={(event) => setFormData(current => ({ ...current, message: event.target.value }))} required rows={6} className="w-full bg-transparent outline-none font-bold text-xl text-gray-900 placeholder:opacity-25 group-hover:placeholder:opacity-50 placeholder:text-gray-500 transition-all resize-none group-hover:translate-x-1" placeholder="What's on your mind?" />
               </motion.div>
               
               <div className="hover:bg-black/[0.02] transition-all"></div>
@@ -500,6 +511,7 @@ const Contact = () => {
               {/* Submit Cell */}
               <motion.div variants={itemVariants} className="p-6 md:p-8 border-r border-black/20 flex justify-end items-center hover:bg-black/[0.02] transition-all">
                 <button 
+                  type="button"
                   onClick={handleSubmit}
                   disabled={status !== 'idle'}
                   className="group relative w-full md:w-auto px-10 py-5 overflow-hidden border border-black transition-all flex items-center justify-center gap-4 bg-white disabled:opacity-50"

@@ -1,21 +1,55 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import { AnimatePresence } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { AnimatePresence, MotionConfig } from 'framer-motion';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
 import GoogleAnalyticsTracker from './components/GoogleAnalyticsTracker';
-import Landing from './pages/Landing';
-import Design from './pages/Design';
-import Engineering from './pages/Engineering';
-import Humanities from './pages/Humanities';
-import Contact from './pages/Contact';
-import DesignProject from './pages/DesignProject';
-import EngineeringProject from './pages/EngineeringProject';
 import { PageWrapper } from './components/PageWrapper';
 import Navbar from './components/Navbar';
 import LoadingScreen from './components/LoadingScreen';
-import { LoadingProvider, useLoading } from './context/LoadingContext';
+import ErrorBoundary from './components/ErrorBoundary';
+import Seo from './components/Seo';
+import { LoadingProvider } from './context/LoadingProvider';
+import { useLoading } from './context/useLoading';
 import './index.css';
+
+const Landing = lazy(() => import('./pages/Landing'));
+const Design = lazy(() => import('./pages/Design'));
+const Engineering = lazy(() => import('./pages/Engineering'));
+const Humanities = lazy(() => import('./pages/Humanities'));
+const Contact = lazy(() => import('./pages/Contact'));
+const DesignProject = lazy(() => import('./pages/DesignProject'));
+const EngineeringProject = lazy(() => import('./pages/EngineeringProject'));
+const NotFound = lazy(() => import('./pages/NotFound'));
+
+const routeMetadata: Record<string, { title: string; description: string }> = {
+  '/': {
+    title: 'Ruipeng Wang | Designer & Creative Engineer',
+    description: 'Portfolio of Ruipeng Wang, exploring industrial design, engineering, interaction, photography and human-centred problem solving.',
+  },
+  '/design': {
+    title: 'Design Portfolio | Ruipeng Wang',
+    description: 'Industrial, interaction and product design case studies by Ruipeng Wang.',
+  },
+  '/engineering': {
+    title: 'Engineering Portfolio | Ruipeng Wang',
+    description: 'Mechanical engineering, simulation, electronics, robotics and creative technology projects by Ruipeng Wang.',
+  },
+  '/humanities': {
+    title: 'Humanities & Photography | Ruipeng Wang',
+    description: 'Photography, music and visual observations from Ruipeng Wang.',
+  },
+  '/contact': {
+    title: 'Contact | Ruipeng Wang',
+    description: 'Contact Ruipeng Wang for design, engineering and creative technology opportunities.',
+  },
+};
+
+const RouteMetadata = () => {
+  const { pathname } = useLocation();
+  const metadata = routeMetadata[pathname];
+  return metadata ? <Seo {...metadata} /> : null;
+};
 
 function AnimatedRoutes() {
   const location = useLocation();
@@ -39,23 +73,51 @@ function AnimatedRoutes() {
     // 模拟资源加载时间
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 2000);
+    }, 1400);
     return () => clearTimeout(timer);
   }, [backgroundColor]); // Add backgroundColor dependency
+
+  useEffect(() => {
+    if (!isLoading) return;
+
+    const lockedScrollY = window.scrollY;
+    const previousOverflow = document.body.style.overflow;
+    const previousPosition = document.body.style.position;
+    const previousTop = document.body.style.top;
+    const previousWidth = document.body.style.width;
+
+    document.body.style.overflow = 'hidden';
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${lockedScrollY}px`;
+    document.body.style.width = '100%';
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.body.style.position = previousPosition;
+      document.body.style.top = previousTop;
+      document.body.style.width = previousWidth;
+      window.scrollTo(0, lockedScrollY);
+    };
+  }, [isLoading]);
 
   return (
     <div style={{ backgroundColor, minHeight: '100vh' }}>
       {/* 始终渲染 Routes，确保 LoadingScreen 拉开时内容已就绪 */}
       <AnimatePresence mode="wait">
-        <Routes location={location} key={location.pathname}>
-          <Route path="/" element={<PageWrapper><Landing /></PageWrapper>} />
-          <Route path="/design" element={<PageWrapper><Design /></PageWrapper>} />
-          <Route path="/design/:id" element={<PageWrapper><DesignProject /></PageWrapper>} />
-          <Route path="/engineering" element={<PageWrapper><Engineering /></PageWrapper>} />
-          <Route path="/engineering/:id" element={<PageWrapper><EngineeringProject /></PageWrapper>} />
-          <Route path="/humanities" element={<PageWrapper><Humanities /></PageWrapper>} />
-          <Route path="/contact" element={<PageWrapper><Contact /></PageWrapper>} />
-        </Routes>
+        <ErrorBoundary key={location.pathname}>
+          <Suspense fallback={<div className="min-h-screen" aria-label="Loading page" />}>
+            <Routes location={location} key={location.pathname}>
+              <Route path="/" element={<PageWrapper><Landing /></PageWrapper>} />
+              <Route path="/design" element={<PageWrapper><Design /></PageWrapper>} />
+              <Route path="/design/:id" element={<PageWrapper><DesignProject /></PageWrapper>} />
+              <Route path="/engineering" element={<PageWrapper><Engineering /></PageWrapper>} />
+              <Route path="/engineering/:id" element={<PageWrapper><EngineeringProject /></PageWrapper>} />
+              <Route path="/humanities" element={<PageWrapper><Humanities /></PageWrapper>} />
+              <Route path="/contact" element={<PageWrapper><Contact /></PageWrapper>} />
+              <Route path="*" element={<PageWrapper><NotFound /></PageWrapper>} />
+            </Routes>
+          </Suspense>
+        </ErrorBoundary>
       </AnimatePresence>
 
       {/* LoadingScreen 覆盖在 Routes 之上 */}
@@ -76,13 +138,16 @@ function App() {
 
   return (
     <LoadingProvider>
-      <Router>
-        <GoogleAnalyticsTracker />
-        <Navbar />
-        <AnimatedRoutes />
-        <Analytics />
-        <SpeedInsights />
-      </Router>
+      <MotionConfig reducedMotion="user">
+        <Router>
+          <GoogleAnalyticsTracker />
+          <RouteMetadata />
+          <Navbar />
+          <AnimatedRoutes />
+          <Analytics />
+          <SpeedInsights />
+        </Router>
+      </MotionConfig>
     </LoadingProvider>
   );
 }

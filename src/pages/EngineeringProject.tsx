@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { ArrowLeft } from 'lucide-react';
 import { engineeringProjects } from '../data/engineeringProjects';
 import ContentBlockRenderer from '../components/ContentBlockRenderer';
+import Seo from '../components/Seo';
 
 const EngineeringProject = () => {
   const { id } = useParams();
@@ -11,7 +12,15 @@ const EngineeringProject = () => {
 
   const project = projects.find(p => p.id === Number(id));
 
-  if (!project) return <div className="p-20 text-center font-mono text-white bg-engineering-bg min-h-screen">Project not found</div>;
+  if (!project) return (
+    <main className="min-h-screen bg-engineering-bg text-white flex items-center justify-center px-6 text-center font-mono">
+      <Seo title="Engineering Project Not Found | Ruipeng Wang" description="The requested engineering project could not be found." />
+      <div>
+        <p className="text-engineering-muted mb-4">// Project not found</p>
+        <Link to="/engineering" className="text-engineering-accent underline underline-offset-4">cd ../engineering</Link>
+      </div>
+    </main>
+  );
 
   return (
     <motion.div 
@@ -20,6 +29,10 @@ const EngineeringProject = () => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
+      <Seo
+        title={`${project.title} | Engineering by Ruipeng Wang`}
+        description={project.description}
+      />
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         <div className="flex flex-col mb-16 border-b border-engineering-border pb-12">
           <Link to="/engineering" className="inline-flex items-center gap-2 text-engineering-muted hover:text-engineering-hover mb-12 transition-all group">

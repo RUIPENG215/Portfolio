@@ -43,7 +43,7 @@ const ContentBlockRenderer = ({ block, theme = 'light', projectId }: ContentBloc
   };
 
   switch (block.type) {
-    case 'text-full':
+    case 'text-full': {
       // Width logic: engineering theme (isDark) uses wider layout to match navbar
       const maxWidthClass = isDark ? 'max-w-7xl' : (block.width === 'full' ? 'w-full' : 'max-w-4xl');
 
@@ -59,6 +59,7 @@ const ContentBlockRenderer = ({ block, theme = 'light', projectId }: ContentBloc
           </div>
         </section>
       );
+    }
 
     case 'image-full':
       return (
@@ -80,7 +81,7 @@ const ContentBlockRenderer = ({ block, theme = 'light', projectId }: ContentBloc
         </section>
       );
 
-    case 'image-grid':
+    case 'image-grid': {
       const gridColsClass = block.columns === 2 ? 'md:grid-cols-2' :
                            block.columns === 3 ? 'md:grid-cols-3' :
                            block.columns === 4 ? 'md:grid-cols-4' :
@@ -110,8 +111,9 @@ const ContentBlockRenderer = ({ block, theme = 'light', projectId }: ContentBloc
           )}
         </section>
       );
+    }
 
-    case 'text-and-image':
+    case 'text-and-image': {
       const textSizeClass = block.textSize === 'sm' ? 'text-base' :
                            block.textSize === 'md' ? 'text-lg' :
                            'text-lg';
@@ -152,6 +154,7 @@ const ContentBlockRenderer = ({ block, theme = 'light', projectId }: ContentBloc
           </div>
         </section>
       );
+    }
 
     case 'quote':
       return (
@@ -167,7 +170,7 @@ const ContentBlockRenderer = ({ block, theme = 'light', projectId }: ContentBloc
         </section>
       );
 
-    case 'video':
+    case 'video': {
       const videoMaxWidthClass = isDark ? 'max-w-7xl' : (
         block.width === 'narrow' ? 'max-w-4xl' :
         block.width === 'standard' ? 'max-w-5xl' :
@@ -191,6 +194,7 @@ const ContentBlockRenderer = ({ block, theme = 'light', projectId }: ContentBloc
           {block.caption && <p className={`mt-4 text-center text-sm italic ${isDark ? 'text-engineering-muted' : 'text-gray-400'}`}>{block.caption}</p>}
         </section>
       );
+    }
 
     default:
       return null;

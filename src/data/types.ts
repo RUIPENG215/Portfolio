@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import type { LucideIcon } from 'lucide-react';
 
 export type ContentBlock = 
   | { type: 'text-full'; title?: string; content: string; subtitle?: string; align?: 'left' | 'center'; marginBottom?: 'none' | 'small' | 'medium' | 'normal'; width?: 'standard' | 'full' }
@@ -53,7 +54,7 @@ export interface Interest {
 
 export interface HeroField {
   label: string;
-  icon: any;
+  icon: LucideIcon;
   color: string;
 }
 

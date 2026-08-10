@@ -1,81 +1,82 @@
-# Ruipeng's Portfolio Website
+# Ruipeng Wang — Portfolio
 
-A modern, responsive personal portfolio website built to showcase my Industrial Design and Engineering projects. This project serves as both a showcase of my work and a demonstration of my frontend development capabilities.
+A responsive, multidisciplinary portfolio presenting industrial design, interaction design, engineering and humanities work through detailed project case studies.
 
-## 🚀 Tech Stack
+## Technology
 
-- **Framework**: [React](https://react.dev/) (v19)
-- **Language**: [TypeScript](https://www.typescriptlang.org/)
-- **Build Tool**: [Vite](https://vitejs.dev/)
-- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
-- **Animations**: [Framer Motion](https://www.framer.com/motion/)
-- **Routing**: [React Router](https://reactrouter.com/)
-- **Icons**: [Lucide React](https://lucide.dev/)
+- React 19 and TypeScript
+- Vite 7
+- Tailwind CSS
+- Framer Motion
+- React Router
+- Lucide React
+- EmailJS contact delivery
+- Vercel Analytics, Speed Insights and Google Analytics
 
-## ✨ Key Features
+## Requirements
 
-- **Interactive UI**: Smooth page transitions and element animations powered by Framer Motion.
-- **Responsive Design**: Fully adaptable layout that works seamlessly on desktop, tablet, and mobile devices.
-- **Modular Architecture**: Component-based structure with separated data layers for easy content management.
-- **Type Safety**: Strict TypeScript configuration for robust and maintainable code.
-- **Modern Styling**: Utility-first CSS approach using Tailwind for a consistent design system.
+- Node.js `20.19+` or `22.12+`
+- npm
 
-## 🛠️ Getting Started
+The repository includes an `.nvmrc` file. If you use nvm, run `nvm use` before installing dependencies.
 
-Follow these steps to set up the project locally on your machine.
-
-### Prerequisites
-
-- Node.js (Latest LTS version recommended)
-- npm or yarn
-
-### Installation
-
-1. Clone the repository:
-   ```bash
-   git clone <repository-url>
-   cd personal-web
-   ```
-
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-3. Start the development server:
-   ```bash
-   npm run dev
-   ```
-
-4. Open your browser and visit `http://localhost:5173`
-
-## 📁 Project Structure
-
-```
-src/
-├── components/     # Reusable UI components (Hero, Navbar, etc.)
-├── context/        # React Context (e.g., Loading state)
-├── data/           # Structured data for projects and content
-├── pages/          # Route components (Landing, Design, Engineering, etc.)
-└── App.tsx         # Main application entry point
-```
-
-## 📦 Build for Production
-
-To create a production-ready build:
+## Local development
 
 ```bash
-npm run build
+git clone https://github.com/RUIPENG215/Portfolio.git
+cd Portfolio
+nvm use
+npm install
+npm run dev
 ```
 
-This will generate static assets in the `dist` directory, ready for deployment.
+Vite prints the local preview URL, normally `http://localhost:5173`.
 
-## 🎨 Design System
+## Quality checks
 
-The project uses a clean, minimalist design language with:
-- **Typography**: JetBrains Mono (for code/technical feel) & Press Start 2P (for retro accents).
-- **Color Palette**: A neutral backdrop with project-specific accent colors to highlight individual works.
+```bash
+npm run lint
+npm run build
+npm run preview
+```
 
----
+The production build is written to `dist/`.
 
-Designed and Developed by Ruipeng.
+## Project structure
+
+```text
+src/
+├── components/   Shared navigation, layout, SEO and content renderers
+├── context/      Initial-loading state and hooks
+├── data/         Typed portfolio, résumé and social content
+├── pages/        Route-level pages and project detail views
+├── App.tsx       Routing, transitions, analytics and error recovery
+└── main.tsx      React application entry point
+```
+
+Project detail pages are data-driven. Design and engineering records live in `src/data/` and are rendered from typed content blocks such as text, images, grids, quotes and video. Route pages are lazy-loaded to keep the initial bundle small.
+
+## Routes
+
+- `/` — profile, selected fields and résumé
+- `/design` and `/design/:id` — design portfolio and case studies
+- `/engineering` and `/engineering/:id` — engineering portfolio and case studies
+- `/humanities` — photography and humanities work
+- `/contact` — contact details and EmailJS form
+
+Unknown routes render a dedicated 404 page. `vercel.json` rewrites direct route requests to the SPA entry point.
+
+## Content and assets
+
+- Portfolio copy and project structures: `src/data/`
+- Images, video, logos and social preview: `public/`
+- Theme tokens and typography: `tailwind.config.js`
+- Global CSS: `src/index.css`
+
+When adding a project, keep its numeric `id` unique and ensure referenced assets exist under `public/`.
+
+## Deployment
+
+The repository is configured for Vercel. Build with `npm run build` and publish `dist/`; the included rewrite rule preserves client-side routes on direct visits.
+
+Designed and developed by Ruipeng Wang.

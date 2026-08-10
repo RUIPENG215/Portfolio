@@ -1,15 +1,75 @@
-import { useState } from 'react';
+import { createContext, useContext, useRef, useState, type PropsWithChildren } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import type { MotionStyle } from 'framer-motion';
 import { Briefcase, GraduationCap, Award, Cpu, Layers, Star, ChevronDown, ChevronUp, Palette, Zap, Box, Terminal, Compass } from 'lucide-react';
 import { experiences, projectSummaries, education, skillGroups, honors } from '../data/resumeData';
+import { useScrollLinkedReveal } from '../hooks/useScrollLinkedReveal';
+
+interface RevealContextValue {
+  headingStyle: MotionStyle;
+  contentStyle: MotionStyle;
+}
+
+const RevealContext = createContext<RevealContextValue | null>(null);
+
+interface RevealBlockProps extends PropsWithChildren {
+  className?: string;
+}
+
+const ScrollLinkedSection = ({ children, className }: RevealBlockProps) => {
+  const targetRef = useRef<HTMLElement>(null);
+  const { headingStyle, contentStyle } = useScrollLinkedReveal(targetRef, {
+    headingX: -14,
+    headingOpacity: 0.62,
+    contentScale: 0.975,
+    contentOpacity: 0.66,
+  });
+
+  return (
+    <RevealContext.Provider value={{ headingStyle, contentStyle }}>
+      <section ref={targetRef} className={className}>
+        {children}
+      </section>
+    </RevealContext.Provider>
+  );
+};
+
+const ScrollLinkedHeading = ({ children, className }: RevealBlockProps) => {
+  const reveal = useContext(RevealContext);
+  return (
+    <motion.div className={className} style={reveal?.headingStyle}>
+      {children}
+    </motion.div>
+  );
+};
+
+const ScrollLinkedContent = ({ children, className }: RevealBlockProps) => {
+  const reveal = useContext(RevealContext);
+  return (
+    <motion.div className={className} style={reveal?.contentStyle}>
+      {children}
+    </motion.div>
+  );
+};
+
+const ScrollLinkedCard = ({ children, className }: RevealBlockProps) => {
+  const targetRef = useRef<HTMLDivElement>(null);
+  const { contentStyle } = useScrollLinkedReveal(targetRef, {
+    contentScale: 0.975,
+    contentOpacity: 0.66,
+  });
+
+  return (
+    <div ref={targetRef} className="h-full">
+      <motion.div className={`h-full ${className ?? ''}`} style={contentStyle}>
+        {children}
+      </motion.div>
+    </div>
+  );
+};
 
 const Resume = () => {
   const [showSecondaryEducation, setShowSecondaryEducation] = useState(false);
-
-  const fadeInUp = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
-  };
 
   const getCategoryIcon = (category: string) => {
     const lowerCategory = category.toLowerCase();
@@ -22,47 +82,30 @@ const Resume = () => {
     return <Star size={18} />;
   };
 
-  const staggerContainer = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1
-      }
-    }
-  };
-
   return (
     <div className="w-full py-6 md:py-10">
       
       <div className="space-y-12 md:space-y-20">
         
         {/* Section 1: Education - Moved to Top with Large Heading */}
-        <motion.section
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="relative"
-        >
+        <ScrollLinkedSection className="relative">
           {/* Section Background Decoration (Desktop) */}
           <div className="hidden md:block absolute -top-6 right-0 text-[6.5rem] font-black text-black/[0.02] select-none pointer-events-none tracking-tighter leading-none">
             ACADEMIC
           </div>
 
-          <div className="flex items-center gap-4 mb-8 relative z-10">
+          <ScrollLinkedHeading className="flex items-center gap-4 mb-8 relative z-10">
               <div className="p-3 bg-gray-900 text-white rounded-xl shadow-lg">
                 <GraduationCap size={24} />
               </div>
               <h3 className="text-3xl font-bold text-gray-900">Education</h3>
-          </div>
+          </ScrollLinkedHeading>
 
           <div className="grid grid-cols-1 gap-6">
             {education.filter(edu => !edu.isSecondary).map((edu, index) => (
-              <motion.div 
+              <ScrollLinkedCard
                 key={index}
-                variants={fadeInUp}
-                className="group relative bg-white rounded-[2rem] p-8 md:p-10 border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500 overflow-hidden"
+                className="group relative bg-white rounded-[2rem] p-8 md:p-10 border border-gray-100 shadow-sm hover:shadow-xl transition-[box-shadow,border-color,background-color] duration-500 overflow-hidden"
               >
                 <div className="absolute top-0 right-0 w-32 h-32 bg-gray-50 rounded-full -mr-16 -mt-16 transition-transform group-hover:scale-150 duration-700 ease-out"></div>
                 
@@ -73,6 +116,8 @@ const Resume = () => {
                         <img 
                           src={edu.logo} 
                           alt={`${edu.school} logo`} 
+                          loading="lazy"
+                          decoding="async"
                           style={{ transform: `translateX(${edu.logoOffsetX || 0}px) scale(${edu.logoScale || 1})` }}
                           className="max-w-full max-h-full object-contain object-left filter grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500 origin-left"
                           onError={(e) => {
@@ -105,7 +150,7 @@ const Resume = () => {
                     </div>
                   )}
                 </div>
-              </motion.div>
+              </ScrollLinkedCard>
             ))}
 
             {/* Collapsible Secondary Education (e.g. ECUST) */}
@@ -142,6 +187,8 @@ const Resume = () => {
                                   <img 
                                     src={edu.logo} 
                                     alt={`${edu.school} logo`} 
+                                    loading="lazy"
+                                    decoding="async"
                                     style={{ transform: `scale(${edu.logoScale || 1})` }}
                                     className="max-w-full max-h-full object-contain object-left filter grayscale group-hover:grayscale-0 transition-all duration-500"
                                   />
@@ -171,34 +218,28 @@ const Resume = () => {
               </AnimatePresence>
             </div>
           </div>
-        </motion.section>
+        </ScrollLinkedSection>
 
         {/* Section 2: Professional Experience */}
-        <motion.section
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="relative"
-        >
+        <ScrollLinkedSection className="relative">
           {/* Section Background Decoration (Desktop) */}
           <div className="hidden md:block absolute -top-6 right-0 text-[6.5rem] font-black text-black/[0.02] select-none pointer-events-none tracking-tighter leading-none">
             INTERN
           </div>
 
-          <div className="flex items-center gap-4 mb-8 relative z-10">
+          <ScrollLinkedHeading className="flex items-center gap-4 mb-8 relative z-10">
               <div className="p-3 bg-gray-900 text-white rounded-xl shadow-lg">
                 <Briefcase size={24} />
               </div>
               <h3 className="text-3xl font-bold text-gray-900">Experience</h3>
-          </div>
+          </ScrollLinkedHeading>
 
-          {experiences.map((exp, index) => (
-            <motion.div 
-              key={index}
-              variants={fadeInUp}
-              className="group relative bg-white rounded-[2rem] p-8 md:p-12 border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden mb-6 last:mb-0"
-            >
+          <ScrollLinkedContent>
+            {experiences.map((exp, index) => (
+              <div
+                key={index}
+                className="group relative bg-white rounded-[2rem] p-8 md:p-12 border border-gray-100 shadow-sm hover:shadow-2xl transition-[box-shadow,border-color,background-color] duration-500 overflow-hidden mb-6 last:mb-0"
+              >
               <div className="absolute top-0 right-0 w-64 h-64 bg-gray-50 rounded-full -mr-32 -mt-32 transition-transform group-hover:scale-150 duration-700 ease-out"></div>
               
               <div className="relative z-10">
@@ -228,36 +269,30 @@ const Resume = () => {
                   )}
                 </div>
               </div>
-            </motion.div>
-          ))}
-        </motion.section>
+              </div>
+            ))}
+          </ScrollLinkedContent>
+        </ScrollLinkedSection>
 
         {/* Section 3: Selected Projects */}
-        <motion.section
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="relative"
-        >
+        <ScrollLinkedSection className="relative">
           {/* Section Background Decoration (Desktop) */}
           <div className="hidden md:block absolute -top-6 right-0 text-[6.5rem] font-black text-black/[0.02] select-none pointer-events-none tracking-tighter leading-none">
             GALLERY
           </div>
 
-          <div className="flex items-center gap-4 mb-8 relative z-10">
+          <ScrollLinkedHeading className="flex items-center gap-4 mb-8 relative z-10">
               <div className="p-3 bg-gray-900 text-white rounded-xl shadow-lg">
                 <Layers size={24} />
               </div>
               <h3 className="text-3xl font-bold text-gray-900">Featured Projects</h3>
-          </div>
+          </ScrollLinkedHeading>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {projectSummaries.map((project, index) => (
-              <motion.div 
+              <ScrollLinkedCard
                 key={index}
-                variants={fadeInUp}
-                className={`group p-8 rounded-[2rem] border transition-all duration-500 relative overflow-hidden ${
+                className={`group p-8 rounded-[2rem] border transition-[box-shadow,border-color,background-color] duration-500 relative overflow-hidden ${
                   project.ongoing 
                     ? "bg-white border-purple-100 shadow-sm hover:shadow-2xl hover:border-purple-200" 
                     : "bg-white border-gray-100 shadow-sm hover:shadow-2xl"
@@ -305,38 +340,31 @@ const Resume = () => {
                     ))}
                   </div>
                 </div>
-              </motion.div>
+              </ScrollLinkedCard>
             ))}
           </div>
-        </motion.section>
+        </ScrollLinkedSection>
 
         {/* Section 4: Honors & Recognition */}
-        <motion.section
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="space-y-8 relative"
-        >
+        <ScrollLinkedSection className="space-y-8 relative">
           {/* Section Background Decoration (Desktop) */}
           <div className="hidden md:block absolute -top-6 right-0 text-[6.5rem] font-black text-black/[0.02] select-none pointer-events-none tracking-tighter leading-none">
             RECOGNITION
           </div>
 
-          <div className="flex items-center gap-4 mb-2 relative z-10">
+          <ScrollLinkedHeading className="flex items-center gap-4 mb-2 relative z-10">
               <div className="p-3 bg-gray-900 text-white rounded-xl shadow-lg">
                 <Award size={24} />
               </div>
               <h3 className="text-3xl font-bold text-gray-900">Honors & Awards</h3>
-          </div>
+          </ScrollLinkedHeading>
 
-          <div className="bg-white rounded-[2.5rem] p-8 md:p-12 border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500">
+          <ScrollLinkedContent className="bg-white rounded-[2.5rem] p-8 md:p-12 border border-gray-100 shadow-sm hover:shadow-xl transition-[box-shadow,border-color,background-color] duration-500">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {honors.map((honor, i) => (
-                <motion.div 
+                <div
                   key={i} 
-                  variants={fadeInUp}
-                  className="flex flex-col p-6 rounded-3xl bg-gray-50/50 border border-gray-100/50 hover:bg-white hover:shadow-xl hover:shadow-gray-200/50 transition-all duration-500 group"
+                  className="flex flex-col p-6 rounded-3xl bg-gray-50/50 border border-gray-100/50 hover:bg-white hover:shadow-xl hover:shadow-gray-200/50 transition-[box-shadow,border-color,background-color] duration-500 group"
                 >
                   <div className="mb-4">
                     <Star size={20} className="text-yellow-500 fill-yellow-500 opacity-40 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500" />
@@ -350,38 +378,31 @@ const Resume = () => {
                       {honor.year}
                     </div>
                   )}
-                </motion.div>
+                </div>
               ))}
             </div>
-          </div>
-        </motion.section>
+          </ScrollLinkedContent>
+        </ScrollLinkedSection>
 
         {/* Section 5: Skills & Expertise */}
-        <motion.section
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="space-y-8 relative"
-        >
+        <ScrollLinkedSection className="space-y-8 relative">
           {/* Section Background Decoration (Desktop) */}
           <div className="hidden md:block absolute -top-6 right-0 text-[6.5rem] font-black text-black/[0.02] select-none pointer-events-none tracking-tighter leading-none">
             CAPABILITY
           </div>
 
-          <div className="flex items-center gap-4 mb-2 relative z-10">
+          <ScrollLinkedHeading className="flex items-center gap-4 mb-2 relative z-10">
               <div className="p-3 bg-gray-900 text-white rounded-xl shadow-lg">
                 <Cpu size={24} />
               </div>
               <h3 className="text-3xl font-bold text-gray-900">Skills & Expertise</h3>
-          </div>
+          </ScrollLinkedHeading>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
+          <ScrollLinkedContent className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
             {skillGroups.map((group, i) => (
-              <motion.div 
+              <div
                 key={i} 
-                variants={fadeInUp}
-                className="group relative bg-white rounded-[2.5rem] p-10 md:p-12 border border-gray-100 shadow-sm hover:shadow-xl hover:border-gray-200 transition-all duration-500 flex flex-col h-full overflow-hidden"
+                className="group relative bg-white rounded-[2.5rem] p-10 md:p-12 border border-gray-100 shadow-sm hover:shadow-xl hover:border-gray-200 transition-[box-shadow,border-color,background-color] duration-500 flex flex-col h-full overflow-hidden"
               >
                 {/* Background Decoration */}
                 <div className="absolute top-0 right-0 -mr-32 -mt-32 w-64 h-64 bg-gray-50 rounded-full group-hover:scale-125 group-hover:bg-gray-100 transition-all duration-700 ease-out" />
@@ -425,10 +446,10 @@ const Resume = () => {
                     Expertise Area {i + 1}
                   </div>
                 </div>
-              </motion.div>
+              </div>
             ))}
-          </div>
-        </motion.section>
+          </ScrollLinkedContent>
+        </ScrollLinkedSection>
       </div>
     </div>
   );

@@ -6,7 +6,7 @@ const LoadingScreen = () => {
       initial={{ opacity: 1 }}
       exit={{ 
         y: "-100%",
-        transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1], delay: 0.2 }
+        transition: { duration: 0.68, ease: [0.76, 0, 0.24, 1] }
       }}
       className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#050505] text-white shadow-[0_10px_40px_-10px_rgba(255,255,255,0.2)] border-b border-white/5"
     >

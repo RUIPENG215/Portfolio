@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { ArrowLeft, ArrowRight, ExternalLink, Github } from 'lucide-react';
 import { designProjects } from '../data/designProjects';
 import ContentBlockRenderer from '../components/ContentBlockRenderer';
+import Seo from '../components/Seo';
 
 const DesignProject = () => {
   const { id } = useParams();
@@ -11,7 +12,15 @@ const DesignProject = () => {
   const nextProject = designProjects[(currentIndex + 1) % designProjects.length];
   const prevProject = designProjects[(currentIndex - 1 + designProjects.length) % designProjects.length];
 
-  if (!project) return <div className="p-20 text-center">Project not found</div>;
+  if (!project) return (
+    <main className="min-h-screen bg-white flex items-center justify-center px-6 text-center">
+      <Seo title="Design Project Not Found | Ruipeng Wang" description="The requested design project could not be found." />
+      <div>
+        <p className="text-sm uppercase tracking-[0.3em] text-gray-400 mb-4">Project not found</p>
+        <Link to="/design" className="font-bold underline underline-offset-4">Return to design portfolio</Link>
+      </div>
+    </main>
+  );
 
   const isInteractionProject = project.category === 'Interaction Design';
 
@@ -22,6 +31,10 @@ const DesignProject = () => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
+      <Seo
+        title={`${project.title} | Design by Ruipeng Wang`}
+        description={project.aboutProject || project.description}
+      />
       {/* 1. Hero Section */}
       {isInteractionProject ? (
         <div className="relative h-screen w-full overflow-hidden bg-gray-900 flex items-center">

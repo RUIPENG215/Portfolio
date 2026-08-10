@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import Hero from '../components/Hero';
@@ -5,18 +6,26 @@ import Resume from '../components/Resume';
 import Footer from '../components/Footer';
 import InterestCard from '../components/InterestCard';
 import { interests, heroFields } from '../data/landingData';
-import { useLoading } from '../context/LoadingContext';
+import { useLoading } from '../context/useLoading';
+import { useScrollLinkedReveal } from '../hooks/useScrollLinkedReveal';
 
 const Landing = () => {
   const { isLoaded } = useLoading();
-
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: { y: 0, opacity: 1, transition: { duration: 0.5 } }
-  };
+  const aboutRef = useRef<HTMLDivElement>(null);
+  const worksRef = useRef<HTMLDivElement>(null);
+  const cardsRef = useRef<HTMLDivElement>(null);
+  const aboutReveal = useScrollLinkedReveal(aboutRef);
+  const worksReveal = useScrollLinkedReveal(worksRef, {
+    contentScale: 0.99,
+    contentOpacity: 0.65,
+  });
+  const cardsReveal = useScrollLinkedReveal(cardsRef, {
+    contentScale: 0.96,
+    contentOpacity: 0.58,
+  });
 
   return (
-    <div className="min-h-screen overflow-x-hidden w-full">
+    <div className="relative isolate min-h-screen w-full overflow-x-clip bg-[#050505] pb-[10vh] md:pb-[20vw]">
       {/* SVG Filter for clean outline */}
       <svg width="0" height="0" style={{ position: 'absolute' }}>
         <defs>
@@ -29,7 +38,7 @@ const Landing = () => {
         </defs>
       </svg>
       {/* Main Content Wrapper - moves up to reveal footer */}
-      <div className="relative z-10 bg-gray-50 mb-[10vh] md:mb-[20vw] shadow-2xl">
+      <div className="relative z-10 bg-gray-50">
         <Hero>
           <motion.div 
             className="flex flex-col items-start text-left w-full"
@@ -61,7 +70,7 @@ const Landing = () => {
                     duration: 0.4,
                     ease: [0.23, 1, 0.32, 1] 
                   }}
-                  className="group flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-md hover:bg-white/10 hover:border-white/20 transition-all duration-300"
+                  className="group flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.07] px-4 py-1.5 transition-[background-color,border-color] duration-300 hover:border-white/20 hover:bg-white/10"
                 >
                   <field.icon size={14} className={`${field.color} opacity-80 group-hover:opacity-100 transition-opacity`} />
                   <span className="text-xs md:text-sm font-semibold tracking-wide text-white/90 group-hover:text-white transition-colors">
@@ -85,15 +94,12 @@ const Landing = () => {
 
         <div className="w-full max-w-7xl mx-auto px-4 md:px-8 pt-20 md:pt-32 pb-16 bg-gray-50">
           
-          <motion.div 
-            className="w-full mt-12 md:mt-24"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          >
+          <div className="w-full mt-12 md:mt-24">
             {/* Bold Profile Section */}
-            <div className="relative grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-0 items-center">
+            <motion.div
+              ref={aboutRef}
+              className="relative grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-0 items-center"
+            >
               {/* Massive Name Background (Desktop only) */}
               <div className="hidden md:block absolute -top-32 -left-10 text-[12rem] font-black text-black/[0.03] select-none pointer-events-none tracking-tighter leading-none">
                 ABOUT
@@ -102,9 +108,7 @@ const Landing = () => {
               {/* Text Content - Spans left and middle */}
                <div className="md:col-span-8 z-10">
                   <motion.div 
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.2, duration: 0.8 }}
+                    style={aboutReveal.headingStyle}
                     className="flex flex-col h-full justify-center"
                   >
                     <h2 className="text-5xl md:text-7xl font-black text-gray-900 mb-8 tracking-tight leading-[1.1]">
@@ -146,9 +150,8 @@ const Landing = () => {
                   
                   <motion.div 
                     className="relative w-full aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl bg-gray-100"
-                    whileHover={{ scale: 1.02 }}
-                    transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                    style={{ willChange: "transform" }}
+                    style={aboutReveal.contentStyle}
+                    whileHover={{ scale: 1.02, transition: { duration: 0.25 } }}
                   >
                     <img 
                       src="/profile.webp" 
@@ -162,11 +165,11 @@ const Landing = () => {
                   {/* Floating caption for photo */}
                   <div className="absolute -bottom-6 -right-6 md:-bottom-6 md:-right-4 bg-white p-4 md:p-5 shadow-xl rounded-xl max-w-[140px] md:max-w-[160px] z-20 border border-gray-100">
                     <p className="text-[9px] uppercase tracking-[0.2em] text-gray-400 mb-1">Based in</p>
-                    <p className="text-xs font-bold text-gray-900 text-right">Xi'an, China</p>
+                    <p className="text-xs font-bold text-gray-900 text-right">Singapore</p>
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Bold Transition to Interests - Grid Layout */}
             <div className="relative mt-40 md:mt-64 mb-24">
@@ -175,13 +178,13 @@ const Landing = () => {
                 FIELDS
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-12 gap-12 items-end relative z-10">
+              <motion.div
+                ref={worksRef}
+                className="grid grid-cols-1 md:grid-cols-12 gap-12 items-end relative z-10"
+              >
                 <motion.div 
                   className="md:col-span-5"
-                  initial={{ opacity: 0, x: -30 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.8 }}
+                  style={worksReveal.headingStyle}
                 >
                   <div className="flex items-center gap-4 mb-8">
                     <div className="w-12 h-px bg-gray-900" />
@@ -195,43 +198,43 @@ const Landing = () => {
 
                 <motion.div 
                   className="md:col-span-7 pb-2"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.8, delay: 0.2 }}
+                  style={worksReveal.contentStyle}
                 >
                   <p className="text-xl md:text-2xl text-gray-500 font-medium leading-tight max-w-2xl">
                     A multidisciplinary approach to <span className="text-gray-900">problem solving</span>, bridging human experience with technical logic.
                   </p>
                 </motion.div>
-              </div>
+              </motion.div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full mb-20">
-              {interests.map((interest) => (
-                <InterestCard key={interest.id} interest={interest} variants={itemVariants} />
+            <motion.div
+              ref={cardsRef}
+              className="grid w-full grid-cols-1 gap-8 mb-20 md:grid-cols-3"
+            >
+              {interests.map((interest, index) => (
+                <InterestCard
+                  key={interest.id}
+                  interest={interest}
+                  index={index}
+                  progress={cardsReveal.scrollYProgress}
+                />
               ))}
-            </div>
+            </motion.div>
 
           <Resume />
           <Footer />
-        </motion.div>
+        </div>
       </div>
     </div>
 
       {/* Fixed Footer Reveal */}
-      <motion.div 
-        className="fixed bottom-0 left-0 right-0 h-[10vh] md:h-[20vw] bg-[#050505] flex items-end justify-center z-0 pointer-events-none overflow-hidden pb-0"
-        initial={{ opacity: 1 }} // Force initial opacity to 1
-        animate={{ opacity: 1 }} // Maintain opacity
-        exit={{ opacity: 0, transition: { duration: 0 } }} 
-      >
+      <div className="absolute bottom-0 left-0 right-0 z-0 flex h-[10vh] items-end justify-center overflow-hidden bg-[#050505] pb-0 pointer-events-none [contain:paint] md:h-[20vw]">
         <div className="w-full flex justify-center items-end">
           <h1 className="text-[26.5vw] md:text-[25vw] font-black text-[#1a1a1a] select-none tracking-tighter leading-none whitespace-nowrap -mb-[1.5vh] md:-mb-10">
             RUIPENG
           </h1>
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 };

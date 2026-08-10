@@ -1,4 +1,5 @@
 import type { SocialLink } from './types';
+import { Linkedin } from 'lucide-react';
 
 export const socialLinks: SocialLink[] = [
   { 
@@ -17,8 +18,8 @@ export const socialLinks: SocialLink[] = [
         <path d="M251.904 366.592c0-8.704-3.072-15.872-9.216-20.48-6.144-4.608-15.36-7.168-26.624-7.168h-26.112v57.344h26.624c11.264 0 19.968-2.56 26.624-7.68 5.632-5.632 8.704-12.8 8.704-22.016zM225.28 776.192h179.2v20.48H225.28zM235.008 297.984c5.632-4.608 8.704-11.776 8.704-20.48 0-15.872-11.776-24.064-35.328-24.064H189.44v51.712h20.992c10.752 0 18.432-2.56 24.576-7.168zM225.28 726.016h179.2v20.48H225.28zM777.216 615.936h31.232v22.016h-31.232zM700.416 615.936h31.232v22.016h-31.232zM777.216 566.272h31.232v22.016h-31.232zM700.416 566.272h31.232v22.016h-31.232zM225.28 675.84h179.2v20.48H225.28zM570.368 754.176c8.704-1.536 17.92-3.072 27.648-4.608v-36.352h-27.648v40.96zM570.368 566.272h27.648v35.84h-27.648zM570.368 640h27.648v35.84h-27.648zM424.448 255.488c-17.408 0-31.232 6.656-41.472 19.456s-14.848 29.696-14.848 50.176c0 20.48 5.12 36.864 14.848 49.664 9.728 12.8 23.04 19.456 40.448 19.456 17.408 0 31.232-6.144 40.96-18.432 9.728-12.288 14.336-29.184 14.336-49.664 0-22.016-4.608-38.912-14.336-51.712s-23.04-18.944-39.936-18.944zM225.28 625.152h179.2v20.48H225.28z" />
       </svg>
     ), 
-    name: "Boss直聘", 
-    link: "https://m.zhipin.com/mpa/html/resume-detail?sid=self&securityId=36jYCltQ6yCHp-81OYmB9_6PZZaT-VKsRBeE5_Wg2Kge6KHHmWIFQmSwNqZncjb-Lc15x2EEWYJtCXX-xZ-ZAxQNr5c7hIgxeow_i65Culev5sc8cSQSixFChrBVLKFRe1fjKS1Kbye6eHnDti-NKYU37aiNEN03IyVdy2A~" 
+    name: "LinkedIn",
+    link: "https://www.linkedin.com/in/ruipeng-wang-23a6b03b9/zh/"
   },
   { 
     icon: (
@@ -39,4 +40,7 @@ export const socialLinks: SocialLink[] = [
     link: "#",
     qrCode: "/wechat-qr.webp"
   }
-];
+].map((social) => social.name === 'LinkedIn'
+  ? { ...social, icon: <Linkedin size={20} /> }
+  : social
+);

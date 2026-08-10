@@ -3,8 +3,8 @@ import { useLocation } from 'react-router-dom';
 
 declare global {
   interface Window {
-    dataLayer: any[];
-    gtag: (...args: any[]) => void;
+    dataLayer: unknown[];
+    gtag: (...args: unknown[]) => void;
   }
 }
 
@@ -20,7 +20,7 @@ const GoogleAnalyticsTracker = () => {
         page_path: location.pathname + location.search,
       });
     }
-  }, [location]);
+  }, [location.pathname, location.search]);
 
   return null;
 };

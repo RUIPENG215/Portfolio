@@ -1,21 +1,26 @@
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion, useTransform } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import type { MotionValue } from 'framer-motion';
 import type { Interest } from '../data/types';
 
 interface InterestCardProps {
   interest: Interest;
-  variants: any;
+  index: number;
+  progress: MotionValue<number>;
 }
 
-const InterestCard = ({ interest, variants }: InterestCardProps) => {
+const InterestCard = ({ interest, index, progress }: InterestCardProps) => {
+  const prefersReducedMotion = useReducedMotion();
+  const start = index * 0.12;
+  const end = 0.76 + index * 0.12;
+  const scale = useTransform(progress, [start, end], [0.96, 1]);
+  const opacity = useTransform(progress, [start, end], [0.58, 1]);
+
   return (
     <Link to={interest.path} className="group">
       <motion.div 
-        className={`h-96 ${interest.bgClass} ${interest.borderClass} ${interest.textClass} ${interest.isMono ? 'font-mono' : ''} border rounded-2xl p-8 flex flex-col justify-between shadow-sm hover:shadow-xl transition-all duration-500 relative overflow-hidden`}
-        variants={variants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
+        className={`h-96 ${interest.bgClass} ${interest.borderClass} ${interest.textClass} ${interest.isMono ? 'font-mono' : ''} border rounded-2xl p-8 flex flex-col justify-between shadow-sm hover:shadow-xl transition-[box-shadow,border-color,background-color] duration-500 relative overflow-hidden`}
+        style={prefersReducedMotion ? { opacity: 1, scale: 1 } : { opacity, scale }}
       >
         <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
           <div className={interest.accentClass}>

@@ -2,25 +2,35 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
-import { designProjects } from '../data/designProjects';
+
+const interactionDesignProjectIds = new Set(['5', '6', '7', '8']);
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [mobileMenuPath, setMobileMenuPath] = useState<string | null>(null);
   const location = useLocation();
+  const isMobileMenuOpen = mobileMenuPath === location.pathname;
 
   useEffect(() => {
+    let frameId: number | null = null;
+
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      if (frameId !== null) return;
+      frameId = window.requestAnimationFrame(() => {
+        const threshold = location.pathname === '/' ? window.innerHeight - 72 : 20;
+        setIsScrolled(window.scrollY > threshold);
+        frameId = null;
+      });
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  // Close mobile menu when route changes
-  useEffect(() => {
-    setIsMobileMenuOpen(false);
-  }, [location]);
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', handleScroll);
+    return () => {
+      if (frameId !== null) window.cancelAnimationFrame(frameId);
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleScroll);
+    };
+  }, [location.pathname]);
 
   const navItems = [
     { name: 'Home', path: '/' },
@@ -33,8 +43,7 @@ const Navbar = () => {
   const isPageDark = location.pathname.startsWith('/engineering');
   const isDesignProject = location.pathname.startsWith('/design/');
   const currentProjectId = isDesignProject ? location.pathname.split('/').pop() : null;
-  const currentProject = currentProjectId ? designProjects.find(p => p.id === Number(currentProjectId)) : null;
-  const isInteractionProject = currentProject?.category === 'Interaction Design';
+  const isInteractionProject = currentProjectId ? interactionDesignProjectIds.has(currentProjectId) : false;
   const isHumanities = location.pathname === '/humanities';
   
   const isNavbarDark = isPageDark || 
@@ -49,7 +58,6 @@ const Navbar = () => {
     >
       <div className={`
         w-full border-y border-x-transparent pointer-events-auto
-        backdrop-blur-sm transition-all duration-500
         ${isNavbarDark 
           ? `bg-transparent border-b border-white/10 text-[#e6edf3]` 
           : (isHumanities 
@@ -58,7 +66,7 @@ const Navbar = () => {
       `}>
         <div className="max-w-7xl mx-auto flex items-center justify-between py-3 px-4 md:px-8">
           {/* Logo */}
-          <Link to="/" className="text-lg md:text-xl font-black tracking-tighter uppercase shrink-0">
+          <Link to="/" onClick={() => setMobileMenuPath(null)} className="text-lg md:text-xl font-black tracking-tighter uppercase shrink-0">
             RUIPENG
           </Link>
 
@@ -72,13 +80,13 @@ const Navbar = () => {
                 <Link 
                   key={item.path} 
                   to={item.path}
-                  className="relative px-4 py-1.5 text-sm font-medium transition-colors"
+                  className="relative px-4 py-1.5 text-sm font-medium"
                 >
                   <span className={`relative z-10 ${
                     isActive 
                       ? (isNavbarDark ? 'text-white' : (isHumanities ? 'text-[#463220]' : 'text-black')) 
                       : (isNavbarDark ? 'text-gray-400' : (isHumanities ? 'text-[#8b7355]' : 'text-gray-500'))
-                  } hover:text-current transition-colors`}>
+                  } hover:text-current`}>
                     {item.name}
                   </span>
                   {isActive && (
@@ -97,12 +105,15 @@ const Navbar = () => {
 
           {/* Mobile Menu Toggle */}
           <button 
-            className={`md:hidden p-2 rounded-xl transition-colors ${
+            type="button"
+            aria-label={isMobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+            aria-expanded={isMobileMenuOpen}
+            className={`md:hidden p-2 rounded-xl ${
               isNavbarDark 
                 ? 'hover:bg-white/5 text-white' 
                 : (isHumanities ? 'hover:bg-black/5 text-[#463220]' : 'hover:bg-black/5 text-black')
             }`}
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            onClick={() => setMobileMenuPath(isMobileMenuOpen ? null : location.pathname)}
           >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -132,6 +143,7 @@ const Navbar = () => {
                   <Link
                     key={item.path}
                     to={item.path}
+                    onClick={() => setMobileMenuPath(null)}
                     className={`
                       px-4 py-3 rounded-xl text-lg font-bold transition-all
                       ${isActive 
