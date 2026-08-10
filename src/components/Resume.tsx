@@ -1,9 +1,10 @@
-import { createContext, useContext, useRef, useState, type PropsWithChildren } from 'react';
+import { createContext, useCallback, useContext, useRef, useState, type PropsWithChildren } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { MotionStyle } from 'framer-motion';
-import { Briefcase, GraduationCap, Award, Cpu, Layers, Star, ChevronDown, ChevronUp, Palette, Zap, Box, Terminal, Compass } from 'lucide-react';
+import { ArrowUpRight, Briefcase, GraduationCap, Award, Cpu, Layers, Star, ChevronDown, ChevronUp, Palette, Zap, Box, Terminal, Compass } from 'lucide-react';
 import { experiences, projectSummaries, education, skillGroups, honors } from '../data/resumeData';
 import { useScrollLinkedReveal } from '../hooks/useScrollLinkedReveal';
+import ResumeDetailPanel, { type ResumeDetailItem } from './ResumeDetailPanel';
 
 interface RevealContextValue {
   headingStyle: MotionStyle;
@@ -70,6 +71,8 @@ const ScrollLinkedCard = ({ children, className }: RevealBlockProps) => {
 
 const Resume = () => {
   const [showSecondaryEducation, setShowSecondaryEducation] = useState(false);
+  const [selectedDetail, setSelectedDetail] = useState<ResumeDetailItem | null>(null);
+  const closeDetail = useCallback(() => setSelectedDetail(null), []);
 
   const getCategoryIcon = (category: string) => {
     const lowerCategory = category.toLowerCase();
@@ -236,9 +239,23 @@ const Resume = () => {
 
           <ScrollLinkedContent>
             {experiences.map((exp, index) => (
-              <div
+              <button
+                type="button"
                 key={index}
-                className="group relative bg-white rounded-[2rem] p-8 md:p-12 border border-gray-100 shadow-sm hover:shadow-2xl transition-[box-shadow,border-color,background-color] duration-500 overflow-hidden mb-6 last:mb-0"
+                aria-haspopup="dialog"
+                aria-label={`Read more about ${exp.company}`}
+                onClick={() => setSelectedDetail({
+                  eyebrow: 'Experience',
+                  title: exp.company,
+                  subtitle: exp.role,
+                  period: exp.period,
+                  summary: exp.summary,
+                  sections: exp.details,
+                  tags: ['Automotive Design', 'Manufacturing', 'Cross-functional Practice'],
+                  icon: <Briefcase size={20} />,
+                  accentClass: 'bg-gray-900 text-white',
+                })}
+                className="group relative mb-6 w-full overflow-hidden rounded-[2rem] border border-gray-100 bg-white p-8 text-left shadow-sm transition-[box-shadow,border-color,background-color,transform] duration-500 last:mb-0 hover:-translate-y-0.5 hover:border-gray-200 hover:shadow-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-900 focus-visible:ring-offset-4 md:p-12"
               >
               <div className="absolute top-0 right-0 w-64 h-64 bg-gray-50 rounded-full -mr-32 -mt-32 transition-transform group-hover:scale-150 duration-700 ease-out"></div>
               
@@ -253,14 +270,18 @@ const Resume = () => {
                   </div>
                 </div>
                 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                  <div className="md:col-span-2 space-y-4 text-lg text-gray-600 leading-relaxed">
-                    {exp.description.map((p, i) => (
-                      <p key={i}>{p}</p>
-                    ))}
+                <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+                  <div className="md:col-span-2">
+                    <p className="max-w-3xl text-lg leading-relaxed text-gray-600 md:text-xl">
+                      {exp.summary}
+                    </p>
+                    <div className="mt-8 inline-flex items-center gap-3 text-xs font-black uppercase tracking-[0.18em] text-gray-900">
+                      View case notes
+                      <ArrowUpRight size={16} className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                    </div>
                   </div>
                   {exp.achievement && (
-                    <div className="bg-gray-50 rounded-2xl p-6 border border-gray-100">
+                    <div className="rounded-2xl border border-gray-100 bg-gray-50 p-6 transition-colors duration-500 group-hover:bg-white">
                       <strong className="block text-gray-900 mb-2 text-sm uppercase tracking-wider">{exp.achievement.label}</strong>
                       <p className="text-gray-700">
                         {exp.achievement.text}
@@ -269,7 +290,7 @@ const Resume = () => {
                   )}
                 </div>
               </div>
-              </div>
+              </button>
             ))}
           </ScrollLinkedContent>
         </ScrollLinkedSection>
@@ -292,20 +313,36 @@ const Resume = () => {
             {projectSummaries.map((project, index) => (
               <ScrollLinkedCard
                 key={index}
-                className={`group p-8 rounded-[2rem] border transition-[box-shadow,border-color,background-color] duration-500 relative overflow-hidden ${
+                className={`group rounded-[2rem] border transition-[box-shadow,border-color,background-color,transform] duration-500 relative overflow-hidden hover:-translate-y-0.5 ${
                   project.ongoing 
                     ? "bg-white border-purple-100 shadow-sm hover:shadow-2xl hover:border-purple-200" 
                     : "bg-white border-gray-100 shadow-sm hover:shadow-2xl"
                 }`}
               >
-                {/* Background Pattern */}
-                <div className={`absolute -right-4 -bottom-4 opacity-5 group-hover:opacity-10 transition-opacity duration-500 ${
-                  project.ongoing ? "text-purple-600" : "text-gray-900"
-                }`}>
-                  {project.icon}
-                </div>
+                <button
+                  type="button"
+                  aria-haspopup="dialog"
+                  aria-label={`Read more about ${project.title}`}
+                  onClick={() => setSelectedDetail({
+                    eyebrow: 'Featured project',
+                    title: project.title,
+                    subtitle: project.tags.slice(0, 2).join(' × '),
+                    period: project.period,
+                    summary: project.description,
+                    sections: project.details,
+                    tags: project.tags,
+                    icon: project.icon,
+                    accentClass: project.ongoing ? 'bg-purple-50 text-purple-600' : `${project.colorClass} ${project.textColorClass}`,
+                    ongoing: project.ongoing,
+                  })}
+                  className="relative z-10 flex h-full w-full flex-col p-8 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-gray-900"
+                >
+                  <div className={`pointer-events-none absolute -bottom-4 -right-4 opacity-5 transition-opacity duration-500 group-hover:opacity-10 ${
+                    project.ongoing ? "text-purple-600" : "text-gray-900"
+                  }`}>
+                    {project.icon}
+                  </div>
 
-                <div className="relative z-10 flex flex-col h-full">
                   <div className="flex justify-between items-start mb-6">
                     <div className={`p-4 rounded-2xl ${project.ongoing ? "bg-purple-50 text-purple-600" : project.colorClass}`}>
                       {project.icon}
@@ -339,7 +376,11 @@ const Resume = () => {
                       </span>
                     ))}
                   </div>
-                </div>
+                  <div className="mt-7 flex items-center justify-between border-t border-gray-100 pt-5 text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 transition-colors duration-300 group-hover:text-gray-900">
+                    View case notes
+                    <ArrowUpRight size={16} className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                  </div>
+                </button>
               </ScrollLinkedCard>
             ))}
           </div>
@@ -451,6 +492,8 @@ const Resume = () => {
           </ScrollLinkedContent>
         </ScrollLinkedSection>
       </div>
+
+      <ResumeDetailPanel item={selectedDetail} onClose={closeDetail} />
     </div>
   );
 };

@@ -82,11 +82,19 @@ export interface Experience {
   company: string;
   role: string;
   period: string;
+  summary: string;
   description: string[];
   achievement?: {
     label: string;
     text: string;
   };
+  details: DetailSection[];
+}
+
+export interface DetailSection {
+  label: string;
+  title: string;
+  body: string;
 }
 
 export interface ProjectSummary {
@@ -98,6 +106,7 @@ export interface ProjectSummary {
   colorClass: string;
   textColorClass: string;
   ongoing?: boolean;
+  details: DetailSection[];
 }
 
 export interface Education {
