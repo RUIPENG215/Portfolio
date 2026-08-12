@@ -69,6 +69,11 @@ const ScrollLinkedCard = ({ children, className }: RevealBlockProps) => {
   );
 };
 
+const skillRows = Array.from(
+  { length: Math.ceil(skillGroups.length / 2) },
+  (_, rowIndex) => skillGroups.slice(rowIndex * 2, rowIndex * 2 + 2),
+);
+
 const Resume = () => {
   const [showSecondaryEducation, setShowSecondaryEducation] = useState(false);
   const [selectedDetail, setSelectedDetail] = useState<ResumeDetailItem | null>(null);
@@ -313,7 +318,7 @@ const Resume = () => {
             {projectSummaries.map((project, index) => (
               <ScrollLinkedCard
                 key={index}
-                className={`group rounded-[2rem] border transition-[box-shadow,border-color,background-color,transform] duration-500 relative overflow-hidden hover:-translate-y-0.5 ${
+                className={`group rounded-[2rem] border transition-[box-shadow,border-color,background-color] duration-500 relative overflow-hidden ${
                   project.ongoing 
                     ? "bg-white border-purple-100 shadow-sm hover:shadow-2xl hover:border-purple-200" 
                     : "bg-white border-gray-100 shadow-sm hover:shadow-2xl"
@@ -439,57 +444,68 @@ const Resume = () => {
               <h3 className="text-3xl font-bold text-gray-900">Skills & Expertise</h3>
           </ScrollLinkedHeading>
 
-          <ScrollLinkedContent className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
-            {skillGroups.map((group, i) => (
-              <div
-                key={i} 
-                className="group relative bg-white rounded-[2.5rem] p-10 md:p-12 border border-gray-100 shadow-sm hover:shadow-xl hover:border-gray-200 transition-[box-shadow,border-color,background-color] duration-500 flex flex-col h-full overflow-hidden"
+          <div className="space-y-8">
+            {skillRows.map((row, rowIndex) => (
+              <ScrollLinkedCard
+                key={rowIndex}
+                className="grid grid-cols-1 items-stretch gap-8 md:grid-cols-2"
               >
-                {/* Background Decoration */}
-                <div className="absolute top-0 right-0 -mr-32 -mt-32 w-64 h-64 bg-gray-50 rounded-full group-hover:scale-125 group-hover:bg-gray-100 transition-all duration-700 ease-out" />
-                
-                <div className="relative z-10 flex items-center gap-4 mb-10 pb-6 border-b border-gray-50 min-h-[110px]">
-                  <div className="p-4 bg-gray-900 text-white rounded-2xl shadow-lg group-hover:scale-110 transition-transform duration-500 shrink-0">
-                    {getCategoryIcon(group.category)}
-                  </div>
-                  <h5 className="text-2xl font-bold text-gray-900 leading-tight">
-                    {group.category}
-                  </h5>
-                </div>
-                
-                <div className="relative z-10 space-y-10">
-                  {group.skills.map((skill, si) => {
-                    const [title, ...details] = skill.split(':');
-                    const detailText = details.join(':').trim();
-                    
-                    return (
-                      <div key={si} className="relative pl-6 group/item">
-                        {/* Vertical Accent Line */}
-                        <div className="absolute left-0 top-1.5 bottom-1.5 w-[2px] bg-gray-100 group-hover/item:bg-design-primary transition-colors duration-300" />
-                        
-                        <div className="text-gray-900 font-bold text-lg mb-2 leading-tight group-hover/item:translate-x-1 transition-transform duration-300">
-                          {title.trim()}
-                        </div>
-                        {detailText && (
-                          <p className="text-base text-gray-500 font-medium leading-relaxed">
-                            {detailText}
-                          </p>
-                        )}
-                      </div>
-                    );
-                  })}
-                </div>
+                {row.map((group, columnIndex) => {
+                  const expertiseIndex = rowIndex * 2 + columnIndex;
 
-                {/* Bottom Tag-like accent */}
-                <div className="mt-auto pt-10 relative z-10">
-                  <div className="inline-flex items-center gap-2 px-4 py-2 bg-gray-50 rounded-full text-[10px] font-black uppercase tracking-widest text-gray-400 group-hover:bg-gray-900 group-hover:text-white transition-all duration-500">
-                    <span className="w-1 h-1 rounded-full bg-current" />
-                    Expertise Area {i + 1}
-                  </div>
-                </div>
-              </div>
+                  return (
+                    <div
+                      key={group.category}
+                      className="group relative flex h-full flex-col overflow-hidden rounded-[2.5rem] border border-gray-100 bg-white p-10 shadow-sm transition-[box-shadow,border-color,background-color] duration-500 hover:border-gray-200 hover:shadow-xl md:p-12"
+                    >
+                      {/* Background Decoration */}
+                      <div className="absolute top-0 right-0 -mr-32 -mt-32 w-64 h-64 bg-gray-50 rounded-full group-hover:scale-125 group-hover:bg-gray-100 transition-all duration-700 ease-out" />
+
+                      <div className="relative z-10 flex items-center gap-4 mb-10 pb-6 border-b border-gray-50 min-h-[110px]">
+                        <div className="p-4 bg-gray-900 text-white rounded-2xl shadow-lg group-hover:scale-110 transition-transform duration-500 shrink-0">
+                          {getCategoryIcon(group.category)}
+                        </div>
+                        <h5 className="text-2xl font-bold text-gray-900 leading-tight">
+                          {group.category}
+                        </h5>
+                      </div>
+
+                      <div className="relative z-10 space-y-10">
+                        {group.skills.map((skill, si) => {
+                          const [title, ...details] = skill.split(':');
+                          const detailText = details.join(':').trim();
+
+                          return (
+                            <div key={si} className="relative pl-6 group/item">
+                              {/* Vertical Accent Line */}
+                              <div className="absolute left-0 top-1.5 bottom-1.5 w-[2px] bg-gray-100 group-hover/item:bg-design-primary transition-colors duration-300" />
+
+                              <div className="text-gray-900 font-bold text-lg mb-2 leading-tight group-hover/item:translate-x-1 transition-transform duration-300">
+                                {title.trim()}
+                              </div>
+                              {detailText && (
+                                <p className="text-base text-gray-500 font-medium leading-relaxed">
+                                  {detailText}
+                                </p>
+                              )}
+                            </div>
+                          );
+                        })}
+                      </div>
+
+                      {/* Bottom Tag-like accent */}
+                      <div className="mt-auto pt-10 relative z-10">
+                        <div className="inline-flex items-center gap-2 px-4 py-2 bg-gray-50 rounded-full text-[10px] font-black uppercase tracking-widest text-gray-400 group-hover:bg-gray-900 group-hover:text-white transition-all duration-500">
+                          <span className="w-1 h-1 rounded-full bg-current" />
+                          Expertise Area {expertiseIndex + 1}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </ScrollLinkedCard>
             ))}
-          </ScrollLinkedContent>
+          </div>
         </ScrollLinkedSection>
       </div>
 

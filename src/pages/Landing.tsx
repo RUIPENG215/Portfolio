@@ -25,7 +25,7 @@ const Landing = () => {
   });
 
   return (
-    <div className="relative isolate min-h-screen w-full overflow-x-clip bg-[#050505] pb-[10vh] md:pb-[20vw]">
+    <div className="relative isolate min-h-screen w-full overflow-x-clip bg-[#050505]">
       {/* SVG Filter for clean outline */}
       <svg width="0" height="0" style={{ position: 'absolute' }}>
         <defs>
@@ -38,7 +38,7 @@ const Landing = () => {
         </defs>
       </svg>
       {/* Main Content Wrapper - moves up to reveal footer */}
-      <div className="relative z-10 bg-gray-50">
+      <div className="relative z-10 mb-[10vh] bg-gray-50 shadow-2xl md:mb-[20vw]">
         <Hero>
           <motion.div 
             className="flex flex-col items-start text-left w-full"
@@ -228,7 +228,7 @@ const Landing = () => {
     </div>
 
       {/* Fixed Footer Reveal */}
-      <div className="absolute bottom-0 left-0 right-0 z-0 flex h-[10vh] items-end justify-center overflow-hidden bg-[#050505] pb-0 pointer-events-none [contain:paint] md:h-[20vw]">
+      <div className="fixed bottom-0 left-0 right-0 z-0 flex h-[10vh] items-end justify-center overflow-hidden bg-[#050505] pb-0 pointer-events-none [contain:paint] md:h-[20vw]">
         <div className="w-full flex justify-center items-end">
           <h1 className="text-[26.5vw] md:text-[25vw] font-black text-[#1a1a1a] select-none tracking-tighter leading-none whitespace-nowrap -mb-[1.5vh] md:-mb-10">
             RUIPENG

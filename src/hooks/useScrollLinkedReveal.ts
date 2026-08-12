@@ -25,7 +25,7 @@ export const useScrollLinkedReveal = <T extends HTMLElement = HTMLElement>(
   const prefersReducedMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({
     target: targetRef,
-    offset: ['start 92%', 'start 50%'],
+    offset: ['start 92%', 'start 62%'],
   });
 
   const linkedHeadingX = useTransform(scrollYProgress, [0, 1], [headingX, 0]);
