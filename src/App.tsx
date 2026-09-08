@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import { AnimatePresence, MotionConfig } from 'framer-motion';
+import { AnimatePresence, MotionConfig, motion } from 'framer-motion';
 import { lazy, Suspense, useEffect, useState } from 'react';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
@@ -11,9 +11,12 @@ import ErrorBoundary from './components/ErrorBoundary';
 import Seo from './components/Seo';
 import { LoadingProvider } from './context/LoadingProvider';
 import { useLoading } from './context/useLoading';
+import { LanguageProvider } from './context/LanguageProvider';
+import { useLanguage } from './context/useLanguage';
 import './index.css';
 
 const Landing = lazy(() => import('./pages/Landing'));
+const LandingZh = lazy(() => import('./pages/LandingZh'));
 const Design = lazy(() => import('./pages/Design'));
 const Engineering = lazy(() => import('./pages/Engineering'));
 const Humanities = lazy(() => import('./pages/Humanities'));
@@ -51,16 +54,36 @@ const RouteMetadata = () => {
   return metadata ? <Seo {...metadata} /> : null;
 };
 
+// 英文版 Landing 组件保持不变；中文版是完全独立的组件，通过语言状态切换，互不影响。
+// 切换语言时用一个淡入淡出包一层，避免两个版本硬切。
+const LandingRoute = () => {
+  const { language } = useLanguage();
+  return (
+    <AnimatePresence mode="wait">
+      <motion.div
+        key={language}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.35, ease: 'easeInOut' }}
+      >
+        {language === 'zh' ? <LandingZh /> : <Landing />}
+      </motion.div>
+    </AnimatePresence>
+  );
+};
+
 function AnimatedRoutes() {
   const location = useLocation();
   const [isLoading, setIsLoading] = useState(true);
   const { setIsLoaded } = useLoading();
-  
+  const { language } = useLanguage();
+
   // 动态设置背景色以匹配当前页面，防止转场闪白
   const getBackgroundColor = (pathname: string) => {
     if (pathname.includes('/engineering')) return '#0d1117'; // engineering-bg
     if (pathname.includes('/humanities')) return '#FEFAE0'; // humanities-bg
-    if (pathname === '/') return '#050505'; // Dark for Landing/Hero
+    if (pathname === '/') return language === 'zh' ? '#faf9f6' : '#050505'; // 中文首页浅色，英文 Hero 深色
     return '#f9fafb'; // Default light for others
   };
 
@@ -107,7 +130,7 @@ function AnimatedRoutes() {
         <ErrorBoundary key={location.pathname}>
           <Suspense fallback={<div className="min-h-screen" aria-label="Loading page" />}>
             <Routes location={location} key={location.pathname}>
-              <Route path="/" element={<PageWrapper><Landing /></PageWrapper>} />
+              <Route path="/" element={<PageWrapper><LandingRoute /></PageWrapper>} />
               <Route path="/design" element={<PageWrapper><Design /></PageWrapper>} />
               <Route path="/design/:id" element={<PageWrapper><DesignProject /></PageWrapper>} />
               <Route path="/engineering" element={<PageWrapper><Engineering /></PageWrapper>} />
@@ -137,18 +160,20 @@ function App() {
   }, []);
 
   return (
-    <LoadingProvider>
-      <MotionConfig reducedMotion="user">
-        <Router>
-          <GoogleAnalyticsTracker />
-          <RouteMetadata />
-          <Navbar />
-          <AnimatedRoutes />
-          <Analytics />
-          <SpeedInsights />
-        </Router>
-      </MotionConfig>
-    </LoadingProvider>
+    <LanguageProvider>
+      <LoadingProvider>
+        <MotionConfig reducedMotion="user">
+          <Router>
+            <GoogleAnalyticsTracker />
+            <RouteMetadata />
+            <Navbar />
+            <AnimatedRoutes />
+            <Analytics />
+            <SpeedInsights />
+          </Router>
+        </MotionConfig>
+      </LoadingProvider>
+    </LanguageProvider>
   );
 }
 
