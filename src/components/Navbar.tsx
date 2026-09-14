@@ -52,9 +52,13 @@ const Navbar = () => {
   const isHomeDark = location.pathname === '/' && language === 'en';
   const isNavbarDark = isPageDark ||
                        ((isHomeDark || isInteractionProject) && !isScrolled);
-  // 中文版整体是"细线切格"的版式语言，导航栏的圆角胶囊/毛玻璃跟这套风格不搭，
-  // 所以中文语境下换一套方角、细线的皮肤，英文版的导航栏样式完全不变。
+  // 语言切换是全局状态，但目前只有首页（LandingZh）真正有中文版式；
+  // /design、/engineering、/humanities、/contact 这些子页面还是英文内容，
+  // 背景色也是各自英文页面自己的（深色终端风、奶油色人文风等）。
+  // 所以导航栏的"细线切格"皮肤只在"中文 + 首页"同时成立时才启用，
+  // 切换语言时导航文字仍然翻译，但样式跟着当前页面本身走，不会跟页面背景色打架。
   const isZh = language === 'zh';
+  const isZhHome = isZh && location.pathname === '/';
   const RULE = '#d9d4c8';
 
   const navLinksBlock = (
@@ -69,14 +73,14 @@ const Navbar = () => {
             to={item.path}
             className="relative px-4 py-1.5 text-sm font-medium"
           >
-            <span className={`relative z-10 ${isZh ? 'font-serif tracking-[0.04em]' : ''} ${
+            <span className={`relative z-10 ${isZhHome ? 'font-serif tracking-[0.04em]' : ''} ${isZh ? 'transition-colors duration-300' : ''} ${
               isActive
-                ? (isNavbarDark ? 'text-white' : (isZh ? 'text-[#171310]' : (isHumanities ? 'text-[#463220]' : 'text-black')))
-                : (isNavbarDark ? 'text-gray-400' : (isZh ? 'text-[#a39c8f]' : (isHumanities ? 'text-[#8b7355]' : 'text-gray-500')))
+                ? (isNavbarDark ? 'text-white' : (isZhHome ? 'text-[#171310]' : (isHumanities ? 'text-[#463220]' : 'text-black')))
+                : (isNavbarDark ? 'text-gray-400' : (isZhHome ? 'text-[#a39c8f]' : (isHumanities ? 'text-[#8b7355]' : 'text-gray-500')))
             } hover:text-current`}>
               {isZh ? item.zhName : item.name}
             </span>
-            {isActive && (isZh && !isNavbarDark ? (
+            {isActive && (isZhHome && !isNavbarDark ? (
               <motion.div
                 layoutId="nav-active-zh"
                 className="absolute inset-x-4 bottom-0.5 z-0 h-px"
@@ -86,7 +90,7 @@ const Navbar = () => {
             ) : (
               <motion.div
                 layoutId="nav-active"
-                className={`absolute inset-0 rounded-lg z-0 ${
+                className={`absolute inset-0 rounded-lg z-0 ${isZh ? 'transition-colors duration-300' : ''} ${
                   isNavbarDark ? 'bg-white/10' : (isHumanities ? 'bg-[#463220]/5' : 'bg-black/5')
                 }`}
                 transition={{ type: "spring", stiffness: 380, damping: 30 }}
@@ -105,12 +109,12 @@ const Navbar = () => {
         type="button"
         onClick={toggleLanguage}
         aria-label={language === 'zh' ? 'Switch to English' : '切换到中文'}
-        className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold tracking-wide transition-colors ${
-          isZh && !isNavbarDark ? '' : 'border rounded-full'
+        className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold tracking-wide ${isZh ? 'transition-all duration-300 ease-out' : 'transition-colors'} ${
+          isZhHome && !isNavbarDark ? '' : 'border rounded-full'
         } ${
           isNavbarDark
             ? 'border-white/15 text-gray-300 hover:text-white hover:border-white/30'
-            : (isZh
+            : (isZhHome
               ? 'text-[#8a8378] hover:text-[#171310]'
               : (isHumanities
                 ? 'border-[#463220]/15 text-[#8b7355] hover:text-[#463220] hover:border-[#463220]/30'
@@ -126,10 +130,10 @@ const Navbar = () => {
         type="button"
         aria-label={isMobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
         aria-expanded={isMobileMenuOpen}
-        className={`md:hidden p-2 ${isZh && !isNavbarDark ? '' : 'rounded-xl'} ${
+        className={`md:hidden p-2 ${isZh ? 'transition-all duration-300 ease-out' : ''} ${isZhHome && !isNavbarDark ? '' : 'rounded-xl'} ${
           isNavbarDark
             ? 'hover:bg-white/5 text-white'
-            : (isZh ? 'hover:bg-black/5 text-[#171310]' : (isHumanities ? 'hover:bg-black/5 text-[#463220]' : 'hover:bg-black/5 text-black'))
+            : (isZhHome ? 'hover:bg-black/5 text-[#171310]' : (isHumanities ? 'hover:bg-black/5 text-[#463220]' : 'hover:bg-black/5 text-black'))
         }`}
         onClick={() => setMobileMenuPath(isMobileMenuOpen ? null : location.pathname)}
       >
@@ -143,30 +147,34 @@ const Navbar = () => {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      className={`fixed top-0 left-0 right-0 z-50 pointer-events-none ${isZh ? '' : 'pt-4 md:pt-6'}`}
+      className={`fixed top-0 left-0 right-0 z-50 pointer-events-none ${isZh ? 'transition-[padding] duration-300 ease-out' : ''} ${isZhHome ? '' : 'pt-4 md:pt-6'}`}
     >
       <div
         className={`
         w-full border-y border-x-transparent pointer-events-auto
-        ${isZh && !isNavbarDark ? '' : 'backdrop-blur-sm'}
-        ${isZh ? 'px-6 md:px-16' : ''}
+        ${isZh ? 'transition-all duration-300 ease-out' : ''}
+        ${isZhHome && !isNavbarDark ? '' : 'backdrop-blur-sm'}
+        ${isZhHome ? 'px-6 md:px-16' : ''}
         ${isNavbarDark
           ? `bg-transparent border-b border-white/10 text-[#e6edf3]`
-          : (isZh
+          : (isZhHome
             ? `bg-[#faf9f6] text-[#171310]`
             : (isHumanities
               ? `bg-transparent border-black/5 text-[#463220]`
               : `bg-transparent border-black/5 text-gray-900`))}
       `}
-        style={isZh && !isNavbarDark ? { borderBottomColor: RULE, borderBottomWidth: 1 } : undefined}
+        style={isZhHome && !isNavbarDark ? { borderBottomColor: RULE, borderBottomWidth: 1 } : undefined}
       >
-        <div className={`max-w-7xl mx-auto flex items-center justify-between py-3 ${isZh ? '' : 'px-4 md:px-8'}`}>
+        <div className={`max-w-7xl mx-auto flex items-center justify-between py-3 ${isZh ? 'transition-[padding] duration-300 ease-out' : ''} ${isZhHome ? '' : 'px-4 md:px-8'}`}>
           {/* Logo */}
           <Link to="/" onClick={() => setMobileMenuPath(null)} className="text-lg md:text-xl font-black tracking-tighter uppercase shrink-0">
             RUIPENG
           </Link>
 
-          {/* 中文版把导航链接和右侧功能区并成一组，贴右对齐；英文版保持原来三段式布局不变 */}
+          {/* 中文页面（不限首页）导航链接和右侧功能区始终并成一组、贴右对齐——
+              这样在中文页面之间跳转时，这一块的 DOM 结构保持不变，配合上面的
+              transition，颜色/内边距变化才能真正丝滑过渡，而不是结构互换导致的硬切。
+              英文页面完全不受影响，继续用原来的三段式布局。 */}
           {isZh ? (
             <div className="flex items-center gap-6 md:gap-10">
               {navLinksBlock}
@@ -207,7 +215,7 @@ const Navbar = () => {
                     onClick={() => setMobileMenuPath(null)}
                     className={`
                       px-4 py-3 rounded-xl text-lg font-bold transition-all
-                      ${isZh ? 'font-serif tracking-[0.04em]' : ''}
+                      ${isZhHome ? 'font-serif tracking-[0.04em]' : ''}
                       ${isActive
                         ? (isNavbarDark ? 'bg-white/10 text-white' : (isHumanities ? 'bg-[#463220]/5 text-[#463220]' : 'bg-black/5 text-black'))
                         : (isNavbarDark ? 'text-gray-400 hover:text-white' : (isHumanities ? 'text-[#8b7355] hover:text-[#463220]' : 'text-gray-500 hover:text-black'))}

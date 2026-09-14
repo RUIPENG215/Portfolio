@@ -19,10 +19,14 @@ const Landing = lazy(() => import('./pages/Landing'));
 const LandingZh = lazy(() => import('./pages/LandingZh'));
 const Design = lazy(() => import('./pages/Design'));
 const Engineering = lazy(() => import('./pages/Engineering'));
+const EngineeringZh = lazy(() => import('./pages/EngineeringZh'));
 const Humanities = lazy(() => import('./pages/Humanities'));
+const HumanitiesZh = lazy(() => import('./pages/HumanitiesZh'));
 const Contact = lazy(() => import('./pages/Contact'));
+const ContactZh = lazy(() => import('./pages/ContactZh'));
 const DesignProject = lazy(() => import('./pages/DesignProject'));
 const EngineeringProject = lazy(() => import('./pages/EngineeringProject'));
+const EngineeringProjectZh = lazy(() => import('./pages/EngineeringProjectZh'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
 const routeMetadata: Record<string, { title: string; description: string }> = {
@@ -68,6 +72,78 @@ const LandingRoute = () => {
         transition={{ duration: 0.35, ease: 'easeInOut' }}
       >
         {language === 'zh' ? <LandingZh /> : <Landing />}
+      </motion.div>
+    </AnimatePresence>
+  );
+};
+
+// 工程列表页同理：中文版是独立组件，英文版完全不变。
+const EngineeringRoute = () => {
+  const { language } = useLanguage();
+  return (
+    <AnimatePresence mode="wait">
+      <motion.div
+        key={language}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.35, ease: 'easeInOut' }}
+      >
+        {language === 'zh' ? <EngineeringZh /> : <Engineering />}
+      </motion.div>
+    </AnimatePresence>
+  );
+};
+
+// 工程项目详情页同理：中文版是独立组件，英文版完全不变。
+const EngineeringProjectRoute = () => {
+  const { language } = useLanguage();
+  return (
+    <AnimatePresence mode="wait">
+      <motion.div
+        key={language}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.35, ease: 'easeInOut' }}
+      >
+        {language === 'zh' ? <EngineeringProjectZh /> : <EngineeringProject />}
+      </motion.div>
+    </AnimatePresence>
+  );
+};
+
+// 人文页同理：中文版是独立组件，英文版完全不变。
+const HumanitiesRoute = () => {
+  const { language } = useLanguage();
+  return (
+    <AnimatePresence mode="wait">
+      <motion.div
+        key={language}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.35, ease: 'easeInOut' }}
+      >
+        {language === 'zh' ? <HumanitiesZh /> : <Humanities />}
+      </motion.div>
+    </AnimatePresence>
+  );
+};
+
+// 联系页同理：中文版是独立组件，英文版完全不变。
+const ContactRoute = () => {
+  const { language } = useLanguage();
+  return (
+    <AnimatePresence mode="wait">
+      <motion.div
+        key={language}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.35, ease: 'easeInOut' }}
+      >
+        {language === 'zh' ? <ContactZh /> : <Contact />}
       </motion.div>
     </AnimatePresence>
   );
@@ -133,10 +209,10 @@ function AnimatedRoutes() {
               <Route path="/" element={<PageWrapper><LandingRoute /></PageWrapper>} />
               <Route path="/design" element={<PageWrapper><Design /></PageWrapper>} />
               <Route path="/design/:id" element={<PageWrapper><DesignProject /></PageWrapper>} />
-              <Route path="/engineering" element={<PageWrapper><Engineering /></PageWrapper>} />
-              <Route path="/engineering/:id" element={<PageWrapper><EngineeringProject /></PageWrapper>} />
-              <Route path="/humanities" element={<PageWrapper><Humanities /></PageWrapper>} />
-              <Route path="/contact" element={<PageWrapper><Contact /></PageWrapper>} />
+              <Route path="/engineering" element={<PageWrapper><EngineeringRoute /></PageWrapper>} />
+              <Route path="/engineering/:id" element={<PageWrapper><EngineeringProjectRoute /></PageWrapper>} />
+              <Route path="/humanities" element={<PageWrapper><HumanitiesRoute /></PageWrapper>} />
+              <Route path="/contact" element={<PageWrapper><ContactRoute /></PageWrapper>} />
               <Route path="*" element={<PageWrapper><NotFound /></PageWrapper>} />
             </Routes>
           </Suspense>
