@@ -31,7 +31,7 @@ const Frame = ({
         type="button"
         data-cursor
         onClick={onClick}
-        className="group relative block h-[52vh] overflow-hidden rounded-sm bg-white/5 md:h-[62vh]"
+        className="group relative block h-[52svh] overflow-hidden rounded-sm bg-white/5 md:h-[62vh]"
         style={{ aspectRatio: aspectOf(photo) }}
       >
         <motion.img
@@ -91,8 +91,8 @@ const FilmMode = ({
   });
 
   return (
-    <div ref={sectionRef} style={{ height: `calc(100vh + ${distance}px)` }}>
-      <div className="sticky top-0 flex h-screen flex-col justify-center overflow-hidden">
+    <div ref={sectionRef} style={{ height: `calc(100svh + ${distance}px)` }}>
+      <div className="sticky top-0 flex h-[100svh] flex-col justify-center overflow-hidden">
         <motion.div ref={trackRef} style={{ x }} className="flex w-max items-center gap-14 px-[10vw] md:gap-28">
           {photos.map((photo, index) => (
             <Frame

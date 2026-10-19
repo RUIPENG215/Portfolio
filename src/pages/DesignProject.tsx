@@ -37,7 +37,7 @@ const DesignProject = () => {
       />
       {/* 1. Hero Section */}
       {isInteractionProject ? (
-        <div className="relative h-screen w-full overflow-hidden bg-gray-900 flex items-center">
+        <div className="relative h-[100svh] w-full overflow-hidden bg-gray-900 flex items-center">
           {/* Background Image */}
           <motion.div 
             initial={{ scale: 1.1, opacity: 0 }}
@@ -129,7 +129,7 @@ const DesignProject = () => {
           </div>
         </div>
       ) : (
-        <div className="relative h-screen w-full overflow-hidden bg-[#f8f8f8] flex items-center">
+        <div className="relative h-[100svh] w-full overflow-hidden bg-[#f8f8f8] flex items-center">
           <div className="absolute inset-0 z-[1] pointer-events-none shadow-[inset_0_0_150px_rgba(248,248,248,1)]" />
           <div className="max-w-7xl mx-auto w-full relative z-10 h-full flex flex-col justify-center px-4 md:px-8">
             <div className="absolute top-24 md:top-32">

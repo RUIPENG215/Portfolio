@@ -238,7 +238,7 @@ const HumanitiesHero = ({
   const panelLeft = mobile ? 12 : Math.round(vw * 0.46);
   const panelTop = mobile ? Math.round(heroHeight * 0.47) : PANEL_TOP_DESKTOP;
   const wvw = vw - panelLeft - (mobile ? 12 : 0);
-  const wvh = heroHeight - panelTop - (mobile ? 12 : 24);
+  const wvh = heroHeight - panelTop - (mobile ? 48 : 24);
   const { scrollY } = useScroll();
   const { cells, wallW, wallH } = useMemo(() => buildWall(photos, wvw, wvh, mobile), [photos, wvw, wvh, mobile]);
 
@@ -388,7 +388,7 @@ const HumanitiesHero = ({
         </div>
       </div>
 
-      <div className="pointer-events-none absolute bottom-6 left-4 z-10 flex flex-wrap items-center gap-x-4 gap-y-1 text-[10px] uppercase tracking-[0.35em] text-gray-500 md:left-8">
+      <div className="pointer-events-none absolute bottom-4 left-4 z-10 flex flex-wrap md:bottom-6 items-center gap-x-4 gap-y-1 text-[10px] uppercase tracking-[0.35em] text-gray-500 md:left-8">
         <span className="tabular-nums text-gray-900">{pad(photos.length)}</span>
         <span>{labels.frames}</span>
         <span className="mx-1 h-px w-8 bg-gray-400/60" />

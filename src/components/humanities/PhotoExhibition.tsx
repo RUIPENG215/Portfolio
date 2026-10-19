@@ -44,9 +44,9 @@ const PhotoExhibition = ({
       {/* 工具条：标题 + 分类 + 浏览方式，一行排开；吸附在导航栏下方 */}
       {/* 标题区：不吸附，随页面滚动，作为这一部分的章节标题 */}
       <div className="border-b border-white/10">
-        <div className="mx-auto flex max-w-[1600px] flex-col gap-5 px-5 pb-7 pt-10 md:flex-row md:items-end md:gap-14 md:px-16 md:pb-8 md:pt-14">
+        <div className="mx-auto grid max-w-[1600px] grid-cols-[1fr_auto] items-center gap-x-4 gap-y-4 px-5 pb-5 pt-8 md:flex md:flex-row md:items-end md:gap-14 md:px-16 md:pb-8 md:pt-14">
           <motion.h2
-            className="shrink-0 font-serif text-4xl italic md:text-5xl"
+            className="shrink-0 font-serif text-3xl italic md:text-5xl"
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -58,7 +58,7 @@ const PhotoExhibition = ({
             </span>
           </motion.h2>
 
-          <div className="flex flex-1 flex-wrap gap-x-6 gap-y-2 text-xs uppercase tracking-[0.25em]">
+          <div className="order-last col-span-2 -mx-5 flex flex-1 gap-x-6 gap-y-2 overflow-x-auto whitespace-nowrap px-5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden text-xs md:order-none md:col-span-1 md:mx-0 md:flex-wrap md:overflow-visible md:px-0 uppercase tracking-[0.25em]">
             {[{ key: null as string | null, label: labels.all, count: photos.length }, ...categories.map(([key, count]) => ({ key, label: key, count }))].map(
               (chip) => {
                 const active = category === chip.key;
@@ -85,14 +85,14 @@ const PhotoExhibition = ({
             )}
           </div>
 
-          <div className="relative flex shrink-0 self-start rounded-full border border-white/10 p-0.5 text-[11px] uppercase tracking-[0.2em] md:self-auto">
+          <div className="relative flex shrink-0 justify-self-end rounded-full border border-white/10 p-0.5 text-[11px] uppercase tracking-[0.2em]">
             {modes.map((item) => (
               <button
                 key={item.id}
                 type="button"
                 data-cursor
                 onClick={() => setMode(item.id)}
-                className={`relative rounded-full px-5 py-2 transition-colors ${mode === item.id ? 'text-black' : 'text-white/50 hover:text-white'}`}
+                className={`relative rounded-full px-3.5 py-2 md:px-5 transition-colors ${mode === item.id ? 'text-black' : 'text-white/50 hover:text-white'}`}
               >
                 {mode === item.id && (
                   <motion.span

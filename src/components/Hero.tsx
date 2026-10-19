@@ -66,7 +66,7 @@ const Hero = ({ children }: HeroProps) => {
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
   return (
-    <div ref={containerRef} className="relative h-screen w-full bg-[#050505] overflow-hidden flex flex-col text-white">
+    <div ref={containerRef} className="relative h-[100svh] w-full bg-[#050505] overflow-hidden flex flex-col text-white">
       <BackgroundElements isActive={isHeroInView} scopeRef={containerRef} />
 
       {/* Content positioned at bottom-left */}

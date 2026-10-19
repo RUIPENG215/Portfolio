@@ -483,11 +483,11 @@ const LandingZh = () => {
   const [selectedProject, setSelectedProject] = useState<FeaturedProject | null>(null);
 
   return (
-    <div className="relative min-h-screen w-full bg-[#faf9f6]">
+    <div className="relative min-h-[100svh] w-full bg-[#faf9f6]">
       {/* Hero -- 版式借鉴古籍界栏/界行：细线把内容切成规整的栏目，
           左侧留一道窄的"界行"缺口，姓名、题眼、领域各占一行，
           线条在加载时"写入"展开，取代之前深色底的光斑/尘埃动效。 */}
-      <section className="relative flex min-h-screen flex-col px-6 pb-8 pt-24 md:px-16 md:pb-10 md:pt-28">
+      <section className="relative flex min-h-[100svh] flex-col px-6 pb-8 pt-24 md:px-16 md:pb-10 md:pt-28">
         <GuideLines />
         <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 flex-col">
           {/* 顶部横线交给导航栏底边承担，这里不再重复画一条不同宽度的线 */}
@@ -620,7 +620,7 @@ const LandingZh = () => {
                 <Magnetic>
                   <Link
                     to="/contact"
-                    className="group inline-flex items-center gap-2.5 text-xs font-bold tracking-wide text-[#171310]"
+                    className="group inline-flex items-center gap-2.5 py-3 text-xs font-bold tracking-wide text-[#171310] md:py-0"
                   >
                     联系我
                     <span className="h-px w-6 bg-[#171310] transition-all group-hover:w-9" />
@@ -763,7 +763,7 @@ const LandingZh = () => {
                 <button
                   type="button"
                   onClick={() => setShowPriorEducation((v) => !v)}
-                  className="mt-5 text-xs tracking-wide text-[#a39c8f] underline decoration-[#d9d4c8] underline-offset-4 transition-colors hover:text-[#171310]"
+                  className="mt-5 py-3 text-xs tracking-wide text-[#a39c8f] underline md:py-0 decoration-[#d9d4c8] underline-offset-4 transition-colors hover:text-[#171310]"
                 >
                   {showPriorEducation ? '收起更早的教育经历' : '展开更早的教育经历'}
                 </button>
