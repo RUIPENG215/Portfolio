@@ -7,28 +7,22 @@ interface PageWrapperProps {
   children: ReactNode;
 }
 
+// 页面切换：旧页面轻轻上移、淡出并略微虚化；新页面从下方淡入、由虚到实。
+// 没有任何遮罩层，过渡期间不会出现整屏纯色。
 const pageVariants: Variants = {
-  initial: {
-    opacity: 0,
-    y: 20,
-  },
+  initial: { opacity: 0, y: 24, filter: 'blur(6px)' },
   enter: {
     opacity: 1,
     y: 0,
-    transition: {
-      duration: 0.6,
-      ease: [0.22, 1, 0.36, 1], // Quartic ease out
-    },
-    transitionEnd: {
-      transform: "none", 
-    },
+    filter: 'blur(0px)',
+    transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] },
+    transitionEnd: { transform: 'none', filter: 'none' },
   },
   exit: {
     opacity: 0,
-    transition: {
-      duration: 0.4,
-      ease: "easeIn",
-    },
+    y: -12,
+    filter: 'blur(4px)',
+    transition: { duration: 0.32, ease: [0.4, 0, 1, 1] },
   },
 };
 
@@ -78,14 +72,16 @@ export const PageWrapper = ({ children }: PageWrapperProps) => {
   }, [pathname]);
 
   return (
-    <motion.div
-      variants={pageVariants}
-      initial="initial"
-      animate="enter"
-      exit="exit"
-      className="w-full min-h-screen origin-top"
-    >
-      {children}
-    </motion.div>
+    <>
+      <motion.div
+        variants={pageVariants}
+        initial="initial"
+        animate="enter"
+        exit="exit"
+        className="w-full min-h-screen origin-top"
+      >
+        {children}
+      </motion.div>
+    </>
   );
 };

@@ -1,13 +1,13 @@
-import { useState, memo, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Music, Camera, X, MapPin, Calendar } from 'lucide-react';
+import { useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+import HumanitiesView from '../components/humanities/HumanitiesView';
+import type { HumanitiesLabels } from '../components/humanities/photoUtils';
 import { photography, musicTracks } from '../data/humanitiesData';
 import { socialLinks } from '../data/socialLinks';
-import type { HumanitiesPhotoData, HumanitiesMusicData } from '../data/types';
+import type { HumanitiesPhotoData } from '../data/types';
 
-// 人文页的中文版：布局、图片、动效和英文版完全一致，只是把界面文字换成中文。
-// 照片本身的标题/描述数据里已经是中文（诗化命名），中英文页面共用同一份数据；
-// 这里只额外翻译 category 标签和地点/日期，让弹窗信息也是中文。
+// 人文页中文版：版式、动效和英文版完全一致（共用 components/humanities 里的组件），只换界面文字。
+// 照片标题/描述在数据里本来就是中文，这里只翻译分类、地点和日期。
 
 const categoryZh: Record<string, string> = {
   Urban: '都市',
@@ -33,6 +33,7 @@ const dateZh: Record<string, string> = {
   'Dec 2024': '2024年12月',
 };
 
+
 const musicBioZh =
   '我痴迷于音乐辽阔的疆域——交响乐的宏大，爵士乐的流动，从当代流行到古典的深处，皆心向往之。作为单簧管演奏者，木管乐器独有的音色总能带给我最纯粹的愉悦；而声乐与乐理的学习，也让我对旋律与结构有了更深的理解。随着 AI 技术打开音乐创作的新边界，我也期待用智能工具，探索更自由、更贴近内心的音乐表达。';
 
@@ -43,385 +44,81 @@ const musicTags = [
   { label: 'AI 合成', icon: '04' },
 ];
 
-const PhotoCard = memo(({
-  photo,
-  index,
-  onClick,
-  priority = false,
-}: {
-  photo: HumanitiesPhotoData;
-  index: number;
-  onClick: (photo: HumanitiesPhotoData) => void;
-  priority?: boolean;
-}) => {
-  const aspectStyle = photo.ratio === 'horizontal'
-    ? { aspectRatio: '567 / 520' }
-    : photo.ratio === 'vertical'
-      ? { aspectRatio: '441 / 646' }
-      : { aspectRatio: '1 / 1' };
+const labels: HumanitiesLabels = {
+  eyebrow: '造物之心',
+  title: '人文',
+  quoteLines: ['「艺术，是删去一切多余。」', '用镜头丈量世界，用音符记录心境。'],
+  frames: '帧',
+  scroll: '向下',
+  hint: '移动鼠标，探索照片墙',
+  hintTouch: '拖动探索照片墙',
+  photography: '摄影',
+  all: '全部',
+  modes: { grid: '网格', film: '胶片', index: '索引' },
+  filmHint: '向下滚动，沿胶片前行',
+  lightbox: { close: '关闭', prev: '上一张', next: '下一张', info: '显示/隐藏信息', zoom: '放大' },
+};
 
-  return (
-    <motion.div
-      className="break-inside-avoid relative group cursor-pointer mb-6"
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-50px' }}
-      transition={{
-        delay: 0.3 + (index % 6) * 0.1,
-        duration: 0.8,
-        ease: [0.22, 1, 0.36, 1],
-      }}
-      style={{ willChange: 'transform, opacity' }}
-      onClick={() => onClick(photo)}
-    >
-      <div
-        className="bg-[#1a1a1a] rounded-sm overflow-hidden"
-        style={aspectStyle}
-      >
-        <img
-          src={photo.image}
-          alt={photo.title}
-          loading={priority ? 'eager' : 'lazy'}
-          decoding="async"
-          className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.02]"
-        />
-        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4 md:p-6">
-          <p className="text-white font-sans text-[10px] md:text-xs tracking-[0.2em] uppercase mb-1">{photo.title}</p>
-          <div className="w-6 h-px bg-humanities-primary"></div>
-        </div>
-      </div>
-    </motion.div>
-  );
-});
+const localizedPhotos: HumanitiesPhotoData[] = photography.map((photo) => ({
+  ...photo,
+  category: categoryZh[photo.category] ?? photo.category,
+  location: photo.location ? (locationZh[photo.location] ?? photo.location) : photo.location,
+  date: photo.date ? (dateZh[photo.date] ?? photo.date) : photo.date,
+}));
 
 const HumanitiesZh = () => {
-  const [selectedPhoto, setSelectedPhoto] = useState<HumanitiesPhotoData | null>(null);
   const [activeQr, setActiveQr] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (selectedPhoto) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
-  }, [selectedPhoto]);
-
-  return (
-    <div className="min-h-screen bg-humanities-bg text-gray-800 font-serif pt-32 pb-10 overflow-x-hidden w-full">
-      <div className="max-w-7xl mx-auto px-4 md:px-8">
-
-        <header className="mb-20 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
-            style={{ willChange: 'transform, opacity' }}
-          >
-            <span className="block text-humanities-primary italic text-xl mb-2">造物之心</span>
-            <h1 className="text-6xl md:text-8xl text-gray-900 mb-6">人文</h1>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto font-serif font-light leading-relaxed">
-              「艺术，是删去一切多余。」<br />
-              用镜头丈量世界，用音符记录心境。
-            </p>
-          </motion.div>
-        </header>
-
-        <section className="mb-24">
-          <motion.div
-            className="flex items-center gap-4 mb-8"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            <Camera className="text-humanities-primary" />
-            <h2 className="text-3xl italic">摄影</h2>
-          </motion.div>
-
-          <div className="columns-1 md:columns-2 lg:columns-3 gap-6 min-h-[400px]">
-            {photography.map((photo, i) => (
-              <PhotoCard
-                key={photo.id}
-                photo={photo}
-                index={i}
-                onClick={setSelectedPhoto}
-                priority={i < 6}
-              />
-            ))}
-          </div>
-        </section>
-
-        <section className="mb-24">
-          <motion.div
-            className="flex items-center gap-4 mb-8"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-          >
-            <Music className="text-humanities-primary" />
-            <h2 className="text-3xl italic">音乐</h2>
-          </motion.div>
-
-          <div className="relative">
-            <div className="absolute -top-20 -right-20 w-64 h-64 bg-humanities-primary/5 rounded-full blur-3xl -z-10" />
-
-            <motion.div
-              className="bg-white/40 backdrop-blur-sm border border-humanities-secondary/20 rounded-2xl p-8 md:p-12 shadow-[0_4px_20px_rgb(0,0,0,0.03)] relative overflow-hidden group"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <div className="absolute inset-0 opacity-[0.015] pointer-events-none"
-                   style={{ backgroundImage: 'radial-gradient(#000 1px, transparent 1px)', backgroundSize: '24px 24px' }} />
-
-              <div className="relative z-10 w-full">
-                <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.2, duration: 0.8 }}
-                  className="flex items-center gap-3 mb-8"
-                >
-                  <div className="h-px w-8 bg-humanities-primary/40" />
-                  <span className="text-xs tracking-[0.3em] uppercase text-humanities-primary/60 font-serif font-medium">
-                    音乐哲思
-                  </span>
-                </motion.div>
-
-                <p className="text-lg md:text-xl text-gray-700 leading-relaxed font-light mb-10 font-serif text-justify">
-                  {musicBioZh}
-                </p>
-
-                <div className="flex flex-wrap gap-x-8 gap-y-4">
-                  {musicTags.map((tag, idx) => (
-                    <motion.div
-                      key={tag.label}
-                      initial={{ opacity: 0, y: 10 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.4 + (idx * 0.1), duration: 0.5 }}
-                      className="flex items-baseline gap-2 group/tag"
+  const footer = (
+          <footer className="w-full mt-20 text-gray-700">
+            <div className="w-full h-[1px] mb-12 bg-gray-200" />
+            <div className="flex flex-col md:flex-row justify-between items-center gap-6 text-center md:text-left pb-4">
+              <div className="text-sm font-medium">© 2026 王睿鹏。用心打造，充满好奇。</div>
+              <div className="flex gap-6">
+                {socialLinks.map((social) => (
+                  <div key={social.name} className="relative flex flex-col items-center justify-center w-fit">
+                    <a
+                      href={social.link}
+                      className="transition-colors flex items-center justify-center text-gray-600 hover:text-gray-900"
+                      aria-label={social.name}
+                      onMouseEnter={() => social.qrCode && setActiveQr(social.name)}
+                      onMouseLeave={() => setActiveQr(null)}
+                      onClick={(e) => {
+                        if (social.qrCode) {
+                          e.preventDefault();
+                          setActiveQr(activeQr === social.name ? null : social.name);
+                        }
+                      }}
                     >
-                      <span className="text-[10px] font-serif text-humanities-primary/30 group-hover/tag:text-humanities-primary/60 transition-colors">
-                        {tag.icon}
-                      </span>
-                      <span className="text-sm tracking-widest uppercase text-gray-500 group-hover/tag:text-gray-900 transition-colors font-serif">
-                        {tag.label}
-                      </span>
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="absolute -bottom-10 -right-10 opacity-[0.02] text-humanities-primary rotate-[-15deg] group-hover:rotate-0 transition-transform duration-1000 pointer-events-none">
-                <Music size={220} strokeWidth={0.5} />
-              </div>
-            </motion.div>
-
-            {musicTracks.length > 0 && (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-16">
-                {musicTracks.map((track: HumanitiesMusicData, i) => (
-                  <motion.div
-                    key={track.id}
-                    className="group bg-white/60 backdrop-blur-sm p-8 rounded-2xl border border-humanities-secondary/10 hover:border-humanities-primary/20 hover:shadow-xl hover:shadow-humanities-primary/5 transition-all duration-500"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.1, duration: 0.8 }}
-                  >
-                    <div className="flex items-center gap-6">
-                      <div className="w-14 h-14 rounded-full bg-humanities-primary/5 flex items-center justify-center text-humanities-primary group-hover:bg-humanities-primary group-hover:text-white transition-all duration-500">
-                        {track.icon || <Music size={24} strokeWidth={1.5} />}
-                      </div>
-                      <div>
-                        <h3 className="text-lg font-medium text-gray-900 mb-1 group-hover:text-humanities-primary transition-colors">{track.title}</h3>
-                        <p className="text-xs tracking-widest uppercase text-gray-400">{track.type} • {track.duration}</p>
-                      </div>
-                    </div>
-                  </motion.div>
+                      {social.icon}
+                    </a>
+                    <AnimatePresence>
+                      {social.qrCode && activeQr === social.name && (
+                        <motion.div
+                          initial={{ opacity: 0, y: 10, scale: 0.9 }}
+                          animate={{ opacity: 1, y: 0, scale: 1 }}
+                          exit={{ opacity: 0, y: 10, scale: 0.9 }}
+                          className="absolute bottom-full mb-4 p-2 shadow-xl z-50 w-32 h-auto flex flex-col items-center bg-white border border-gray-200"
+                        >
+                          <img src={social.qrCode} alt={`${social.name} QR Code`} className="w-full h-auto object-contain" />
+                          <div className="absolute -bottom-2 w-4 h-4 rotate-45 left-1/2 -translate-x-1/2 bg-white border-r border-b border-gray-200" />
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
                 ))}
               </div>
-            )}
-          </div>
-        </section>
-
-        <footer className="w-full mt-20 text-gray-700">
-          <div className="w-full h-[1px] mb-12 bg-gray-200" />
-          <div className="flex flex-col md:flex-row justify-between items-center gap-6 text-center md:text-left pb-4">
-            <div className="text-sm font-medium">© 2026 王睿鹏。用心打造，充满好奇。</div>
-            <div className="flex gap-6">
-              {socialLinks.map((social) => (
-                <div key={social.name} className="relative flex flex-col items-center justify-center w-fit">
-                  <a
-                    href={social.link}
-                    className="transition-colors flex items-center justify-center text-gray-600 hover:text-gray-900"
-                    aria-label={social.name}
-                    onMouseEnter={() => social.qrCode && setActiveQr(social.name)}
-                    onMouseLeave={() => setActiveQr(null)}
-                    onClick={(e) => {
-                      if (social.qrCode) {
-                        e.preventDefault();
-                        setActiveQr(activeQr === social.name ? null : social.name);
-                      }
-                    }}
-                  >
-                    {social.icon}
-                  </a>
-                  <AnimatePresence>
-                    {social.qrCode && activeQr === social.name && (
-                      <motion.div
-                        initial={{ opacity: 0, y: 10, scale: 0.9 }}
-                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: 10, scale: 0.9 }}
-                        className="absolute bottom-full mb-4 p-2 shadow-xl z-50 w-32 h-auto flex flex-col items-center bg-white border border-gray-200"
-                      >
-                        <img src={social.qrCode} alt={`${social.name} QR Code`} className="w-full h-auto object-contain" />
-                        <div className="absolute -bottom-2 w-4 h-4 rotate-45 left-1/2 -translate-x-1/2 bg-white border-r border-b border-gray-200" />
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-              ))}
             </div>
-          </div>
-        </footer>
-      </div>
+          </footer>
+  );
 
-      <AnimatePresence>
-        {selectedPhoto && (
-          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8">
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.4 }}
-              onClick={() => setSelectedPhoto(null)}
-              className="absolute inset-0 bg-black/95"
-            />
-
-            <motion.div
-              initial={{ opacity: 0, scale: 0.98, y: 10 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.98, y: 10 }}
-              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-              className="relative w-full max-w-[95vw] md:max-w-fit h-[85vh] md:h-[90vh] md:max-h-[90vh] bg-[#121212] rounded-lg overflow-hidden flex flex-col md:flex-row border border-white/5 shadow-2xl"
-            >
-              <button
-                onClick={() => setSelectedPhoto(null)}
-                className="absolute top-4 right-4 md:top-6 md:right-6 z-20 p-2 text-white/40 hover:text-white transition-colors bg-black/40 backdrop-blur-md rounded-full"
-              >
-                <X size={20} />
-              </button>
-
-              <div className="md:hidden flex-1 overflow-y-auto scrollbar-hide">
-                <div className="w-full bg-[#121212] relative">
-                  <img
-                    src={selectedPhoto.image}
-                    alt={selectedPhoto.title}
-                    className="w-full h-auto object-contain block"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#121212]/50 pointer-events-none" />
-                </div>
-
-                <div className="bg-[#121212] p-8 pb-20">
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.2, duration: 0.5 }}
-                  >
-                    <span className="text-humanities-primary font-sans text-[10px] tracking-[0.4em] uppercase mb-4 block opacity-80">
-                      {categoryZh[selectedPhoto.category] ?? selectedPhoto.category}
-                    </span>
-                    <h2 className="text-3xl text-white font-light mb-6 leading-tight tracking-tight">
-                      {selectedPhoto.title}
-                    </h2>
-
-                    <div className="space-y-4 mb-8">
-                      {selectedPhoto.location && (
-                        <div className="flex items-center gap-3 text-white/50 font-sans text-xs tracking-wider">
-                          <MapPin size={12} className="text-humanities-primary" />
-                          {locationZh[selectedPhoto.location] ?? selectedPhoto.location}
-                        </div>
-                      )}
-                      {selectedPhoto.date && (
-                        <div className="flex items-center gap-3 text-white/50 font-sans text-xs tracking-wider">
-                          <Calendar size={12} className="text-humanities-primary" />
-                          {dateZh[selectedPhoto.date] ?? selectedPhoto.date}
-                        </div>
-                      )}
-                    </div>
-
-                    <div className="w-10 h-px bg-white/10 mb-8" />
-
-                    <p className="text-white/70 leading-relaxed font-sans font-light text-sm italic tracking-wide whitespace-pre-wrap">
-                      {selectedPhoto.description}
-                    </p>
-                  </motion.div>
-                </div>
-              </div>
-
-              <div className="hidden md:flex w-auto h-full bg-[#121212] items-center justify-center overflow-hidden">
-                <motion.img
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.1, duration: 0.5 }}
-                  src={selectedPhoto.image}
-                  alt={selectedPhoto.title}
-                  className="h-full w-auto max-w-[70vw] object-contain block"
-                />
-              </div>
-
-              <div
-                className={`hidden md:flex flex-shrink-0 flex-col bg-[#121212] transition-all duration-500 ease-in-out overflow-y-auto scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent ${
-                  selectedPhoto.description.length > 200 ? 'w-[450px] lg:w-[550px]' : 'w-80 lg:w-96'
-                }`}
-              >
-                <div className="p-14">
-                  <div className="max-w-xl mx-0">
-                    <motion.div
-                      initial={{ opacity: 0, x: 10 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.2, duration: 0.5 }}
-                    >
-                      <span className="text-humanities-primary font-sans text-[10px] tracking-[0.4em] uppercase mb-6 block opacity-80">
-                        {categoryZh[selectedPhoto.category] ?? selectedPhoto.category}
-                      </span>
-                      <h2 className="text-4xl text-white font-light mb-8 leading-tight tracking-tight">
-                        {selectedPhoto.title}
-                      </h2>
-
-                      <div className="space-y-5 mb-10">
-                        {selectedPhoto.location && (
-                          <div className="flex items-center gap-3 text-white/50 font-sans text-xs tracking-wider">
-                            <MapPin size={12} className="text-humanities-primary" />
-                            {locationZh[selectedPhoto.location] ?? selectedPhoto.location}
-                          </div>
-                        )}
-                        {selectedPhoto.date && (
-                          <div className="flex items-center gap-3 text-white/50 font-sans text-xs tracking-wider">
-                            <Calendar size={12} className="text-humanities-primary" />
-                            {dateZh[selectedPhoto.date] ?? selectedPhoto.date}
-                          </div>
-                        )}
-                      </div>
-
-                      <div className="w-10 h-px bg-white/10 mb-10" />
-
-                      <p className="text-white/70 leading-relaxed font-sans font-light text-base italic tracking-wide whitespace-pre-wrap">
-                        {selectedPhoto.description}
-                      </p>
-                    </motion.div>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
-    </div>
+  return (
+    <HumanitiesView
+      photos={localizedPhotos}
+      labels={labels}
+      music={{ title: '音乐', philosophy: '音乐哲思', bio: musicBioZh, tags: musicTags, tracks: musicTracks }}
+      footer={footer}
+    />
   );
 };
 

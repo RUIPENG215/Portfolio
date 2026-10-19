@@ -8,10 +8,28 @@
   }
 }
 
+/* 自定义光标启用后（首次移动鼠标时由 CustomCursor 加上 .has-custom-cursor）才隐藏系统光标；
+   输入框保留系统光标，方便看到输入位置。 */
+html.has-custom-cursor,
+html.has-custom-cursor * {
+  cursor: none !important;
+}
+html.has-custom-cursor :is(input, textarea, select, [contenteditable='true']) {
+  cursor: auto !important;
+}
+
 @layer utilities {
   .outline-text {
     color: white; /* Base color for the filter to work with Alpha */
     filter: url(#clean-outline);
     -webkit-font-smoothing: antialiased;
   }
+}
+
+/* 隐藏浏览器默认滚动条（页面照常可滚动），阅读进度由右侧竖尺表示 */
+html {
+  scrollbar-width: none;
+}
+html::-webkit-scrollbar {
+  display: none;
 }

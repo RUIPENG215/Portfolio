@@ -1,12 +1,19 @@
 import { motion, useInView, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
-import type { ReactNode } from 'react';
+import type { ReactNode, RefObject } from 'react';
+import HeroSpotlight from './motion/HeroSpotlight';
 
 interface HeroProps {
   children?: ReactNode;
 }
 
-const BackgroundElements = ({ isActive }: { isActive: boolean }) => {
+const BackgroundElements = ({
+  isActive,
+  scopeRef,
+}: {
+  isActive: boolean;
+  scopeRef: RefObject<HTMLElement | null>;
+}) => {
   const reduceMotion = useReducedMotion();
   const shouldAnimate = isActive && !reduceMotion;
 
@@ -32,13 +39,16 @@ const BackgroundElements = ({ isActive }: { isActive: boolean }) => {
           ? {
               x: ['0%', '-10%', '-3%', '0%'],
               y: ['0%', '16%', '30%', '0%'],
-              opacity: [0.42, 0.64, 0.5, 0.42],
+              opacity: [0.54, 0.8, 0.64, 0.54],
             }
-          : { x: '0%', y: '0%', opacity: 0.42 }}
+          : { x: '0%', y: '0%', opacity: 0.54 }}
         transition={shouldAnimate
           ? { duration: 18, repeat: Infinity, ease: 'easeInOut' }
           : { duration: 0.2 }}
       />
+
+      {/* 指针光场：网格在鼠标下被点亮（仅鼠标/触控板，且尊重减少动态效果） */}
+      <HeroSpotlight scopeRef={scopeRef} />
     </div>
   );
 };
@@ -57,7 +67,7 @@ const Hero = ({ children }: HeroProps) => {
 
   return (
     <div ref={containerRef} className="relative h-screen w-full bg-[#050505] overflow-hidden flex flex-col text-white">
-      <BackgroundElements isActive={isHeroInView} />
+      <BackgroundElements isActive={isHeroInView} scopeRef={containerRef} />
 
       {/* Content positioned at bottom-left */}
       <motion.div 

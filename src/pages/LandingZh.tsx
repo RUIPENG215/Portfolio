@@ -4,6 +4,11 @@ import { createPortal } from 'react-dom';
 import { Link } from 'react-router-dom';
 import { useLoading } from '../context/useLoading';
 import { socialLinks } from '../data/socialLinks';
+import SplitText from '../components/motion/SplitText';
+import type { SplitLine } from '../components/motion/SplitText';
+import GuideLines from '../components/motion/GuideLines';
+import Magnetic from '../components/motion/Magnetic';
+import ParallaxImage from '../components/motion/ParallaxImage';
 
 const educationMain = [
   { school: '新加坡国立大学', major: '机械工程', degree: '硕士', period: '2026 — 至今' },
@@ -360,6 +365,19 @@ const works = [
 
 const fields = ['设计', '工程', '人文'];
 
+// 标题逐字揭示用的行数据（放在模块级，引用稳定）
+const heroHeadlineLines: SplitLine[] = ['在美学与逻辑之间，', '寻找答案。'];
+const aboutHeadingLines: SplitLine[] = [
+  '设计与工程，',
+  [{ text: '始于人文关怀。', className: 'text-[#a39c8f]' }],
+];
+const worksHeadingLines: SplitLine[] = [
+  [
+    { text: '三个领域，' },
+    { text: '同一双手。', className: 'text-[#a39c8f]' },
+  ],
+];
+
 const RULE = '#d9d4c8';
 
 type FeaturedProject = (typeof featuredProjects)[number];
@@ -470,7 +488,8 @@ const LandingZh = () => {
           左侧留一道窄的"界行"缺口，姓名、题眼、领域各占一行，
           线条在加载时"写入"展开，取代之前深色底的光斑/尘埃动效。 */}
       <section className="relative flex min-h-screen flex-col px-6 pb-8 pt-24 md:px-16 md:pb-10 md:pt-28">
-        <div className="mx-auto flex w-full max-w-7xl flex-1 flex-col">
+        <GuideLines />
+        <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 flex-col">
           {/* 顶部横线交给导航栏底边承担，这里不再重复画一条不同宽度的线 */}
           <div className="grid flex-1 grid-cols-1 md:grid-cols-[56px_1px_1fr]">
             {/* 左侧界行缺口 */}
@@ -532,9 +551,13 @@ const LandingZh = () => {
                   永
                 </span>
                 <p className="relative max-w-2xl font-serif text-3xl font-medium leading-[1.65] tracking-wide text-[#171310] md:text-[44px]">
-                  在美学与逻辑之间，
-                  <br />
-                  寻找答案。
+                  <SplitText
+                    lines={heroHeadlineLines}
+                    active={isLoaded}
+                    delay={0.55}
+                    stagger={0.05}
+                    duration={1}
+                  />
                 </p>
               </motion.div>
 
@@ -576,17 +599,9 @@ const LandingZh = () => {
                 <span className="text-[13px] tracking-[0.08em] text-[#6b6459]">关于</span>
               </motion.div>
 
-              <motion.h2
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-80px' }}
-                transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-                className="mb-12 font-serif text-3xl font-medium leading-[1.6] tracking-wide text-[#171310] md:mb-16 md:text-[44px]"
-              >
-                设计与工程，
-                <br />
-                <span className="text-[#a39c8f]">始于人文关怀。</span>
-              </motion.h2>
+              <h2 className="mb-12 font-serif text-3xl font-medium leading-[1.6] tracking-wide text-[#171310] md:mb-16 md:text-[44px]">
+                <SplitText lines={aboutHeadingLines} inView stagger={0.045} />
+              </h2>
 
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -602,13 +617,15 @@ const LandingZh = () => {
                 <p className="mb-7 max-w-xl text-base font-light leading-[1.95] text-[#4a453e]">
                   用设计回应需求，用工程验证想法，用人文记录感受、表达自己。
                 </p>
-                <Link
-                  to="/contact"
-                  className="group inline-flex items-center gap-2.5 text-xs font-bold tracking-wide text-[#171310]"
-                >
-                  联系我
-                  <span className="h-px w-6 bg-[#171310] transition-all group-hover:w-9" />
-                </Link>
+                <Magnetic>
+                  <Link
+                    to="/contact"
+                    className="group inline-flex items-center gap-2.5 text-xs font-bold tracking-wide text-[#171310]"
+                  >
+                    联系我
+                    <span className="h-px w-6 bg-[#171310] transition-all group-hover:w-9" />
+                  </Link>
+                </Magnetic>
               </motion.div>
             </div>
 
@@ -619,15 +636,12 @@ const LandingZh = () => {
               transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
               className="w-32 md:w-[180px]"
             >
-              <div className="aspect-[3/4] overflow-hidden rounded-sm bg-[#e5e2dc]">
-                <img
-                  src="/profile.webp"
-                  alt="王睿鹏"
-                  className="h-full w-full object-cover grayscale-[15%]"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </div>
+              <ParallaxImage
+                src="/profile.webp"
+                alt="王睿鹏"
+                className="aspect-[3/4] rounded-sm bg-[#e5e2dc]"
+                imgClassName="grayscale-[15%]"
+              />
             </motion.div>
           </div>
         </div>
@@ -647,15 +661,9 @@ const LandingZh = () => {
             <span className="text-[13px] tracking-[0.08em] text-[#6b6459]">作品</span>
           </motion.div>
 
-          <motion.h2
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-80px' }}
-            transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-            className="font-serif text-3xl font-medium tracking-wide text-[#171310] md:text-[44px]"
-          >
-            三个领域，<span className="text-[#a39c8f]">同一双手。</span>
-          </motion.h2>
+          <h2 className="font-serif text-3xl font-medium tracking-wide text-[#171310] md:text-[44px]">
+            <SplitText lines={worksHeadingLines} inView stagger={0.05} />
+          </h2>
 
           <div className="mt-10 grid grid-cols-1 gap-14 md:mt-12 md:grid-cols-[1fr_1px_1fr_1px_1fr] md:gap-12">
             {works.map((work, i) => (
@@ -677,17 +685,19 @@ const LandingZh = () => {
                   <p className="mb-7 max-w-[280px] text-[15px] font-light leading-[1.85] text-[#4a453e]">
                     {work.desc}
                   </p>
-                  <Link
-                    to={work.href}
-                    className="group inline-flex items-center gap-2 text-xs font-bold tracking-wide"
-                    style={{ color: work.accent }}
-                  >
-                    查看{work.title}
-                    <span
-                      className="h-px w-5 transition-all group-hover:w-8"
-                      style={{ background: work.accent }}
-                    />
-                  </Link>
+                  <Magnetic>
+                    <Link
+                      to={work.href}
+                      className="group inline-flex items-center gap-2 text-xs font-bold tracking-wide"
+                      style={{ color: work.accent }}
+                    >
+                      查看{work.title}
+                      <span
+                        className="h-px w-5 transition-all group-hover:w-8"
+                        style={{ background: work.accent }}
+                      />
+                    </Link>
+                  </Magnetic>
                 </motion.div>
               </Fragment>
             ))}

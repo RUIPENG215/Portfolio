@@ -8,6 +8,10 @@ import InterestCard from '../components/InterestCard';
 import { interests, heroFields } from '../data/landingData';
 import { useLoading } from '../context/useLoading';
 import { useScrollLinkedReveal } from '../hooks/useScrollLinkedReveal';
+import SplitText from '../components/motion/SplitText';
+import ScrambleText from '../components/motion/ScrambleText';
+import Magnetic from '../components/motion/Magnetic';
+import ParallaxImage from '../components/motion/ParallaxImage';
 
 const Landing = () => {
   const { isLoaded } = useLoading();
@@ -52,10 +56,22 @@ const Landing = () => {
               transition={{ delay: 0.2, duration: 0.8 }}
               className="flex flex-col mb-6"
             >
-              <span className="text-white/40 text-xs md:text-sm tracking-[0.5em] uppercase mb-3">Creative Space</span>
+              <ScrambleText
+                text="Creative Space"
+                active={isLoaded}
+                delay={350}
+                duration={800}
+                className="text-white/40 text-xs md:text-sm tracking-[0.5em] uppercase mb-3"
+              />
               <h1 className="text-6xl md:text-9xl font-black tracking-tighter leading-[0.9] mb-2">
-                <span className="outline-text">WANG</span><br />
-                RUIPENG
+                <SplitText
+                  lines={['WANG', 'RUIPENG']}
+                  lineClassName={['outline-text', '']}
+                  active={isLoaded}
+                  delay={0.15}
+                  stagger={0.05}
+                  duration={1}
+                />
               </h1>
             </motion.div>
 
@@ -127,10 +143,12 @@ const Landing = () => {
                           Industrial Designer & <br/>
                           Creative Engineer
                         </p>
-                        <Link to="/contact" className="group inline-flex items-center gap-3 text-xs font-bold tracking-widest uppercase text-gray-900 hover:text-gray-600 transition-colors">
-                          Contact Me
-                          <span className="w-8 h-px bg-gray-900 group-hover:w-12 transition-all" />
-                        </Link>
+                        <Magnetic>
+                          <Link to="/contact" className="group inline-flex items-center gap-3 text-xs font-bold tracking-widest uppercase text-gray-900 hover:text-gray-600 transition-colors">
+                            Contact Me
+                            <span className="w-8 h-px bg-gray-900 group-hover:w-12 transition-all" />
+                          </Link>
+                        </Magnetic>
                       </div>
                       <div className="flex-1 flex flex-col justify-end">
                         <p className="text-base md:text-lg text-gray-500 leading-relaxed font-light">
@@ -153,13 +171,7 @@ const Landing = () => {
                     style={aboutReveal.contentStyle}
                     whileHover={{ scale: 1.02, transition: { duration: 0.25 } }}
                   >
-                    <img 
-                      src="/profile.webp" 
-                      alt="Wang Ruipeng" 
-                      className="w-full h-full object-cover"
-                      loading="lazy"
-                      decoding="async"
-                    />
+                    <ParallaxImage src="/profile.webp" alt="Wang Ruipeng" className="h-full w-full" />
                   </motion.div>
                   
                   {/* Floating caption for photo */}

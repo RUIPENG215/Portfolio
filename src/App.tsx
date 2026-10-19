@@ -9,6 +9,8 @@ import Navbar from './components/Navbar';
 import LoadingScreen from './components/LoadingScreen';
 import ErrorBoundary from './components/ErrorBoundary';
 import Seo from './components/Seo';
+import CustomCursor from './components/motion/CustomCursor';
+import ScrollProgress from './components/motion/ScrollProgress';
 import { LoadingProvider } from './context/LoadingProvider';
 import { useLoading } from './context/useLoading';
 import { LanguageProvider } from './context/LanguageProvider';
@@ -243,7 +245,9 @@ function App() {
             <GoogleAnalyticsTracker />
             <RouteMetadata />
             <Navbar />
+            <ScrollProgress />
             <AnimatedRoutes />
+            <CustomCursor />
             <Analytics />
             <SpeedInsights />
           </Router>
