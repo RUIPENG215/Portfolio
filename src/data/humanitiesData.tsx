@@ -128,7 +128,7 @@ export const photography: HumanitiesPhotoData[] = [
     image: "/Humanity/IMG_13.webp",
     ratio: 'vertical',
     description: "在斑驳的栏杆一角，这朵细小的干花像个沉默的旅人，独自定格了时间。身后是流动的、色彩模糊的人间烟火，它却以静止的姿态，守住了属于自己的方寸天地。喧嚣与寂静在此刻共存，不必真的拥有花期，也能在宏大的背景里，拥有独一无二的重量。",
-    location: "Shinjuku, Tokyo",
+    location: "Xi'an, China",
     date: "Dec 2023"
   },{ 
     id: 14, 
@@ -147,7 +147,7 @@ export const photography: HumanitiesPhotoData[] = [
     image: "/Humanity/IMG_15.webp",
     ratio: 'square',
     description: "余初入庠序，以三株仙掌置案头。塑料薄盆相叠，色已泛黄，针芒初展如新绿星芒。彼时书卷初启，墨香未盈室，唯此三物与余共守寒窗。每值夜读，台灯斜照，其影投于壁，若三友默立，虽无言而意自相通。\n\n四载倏忽，案头积尘渐厚。余或埋首典籍，或奔走课业，竟忘浇灌之事。偶见其色渐萎，犹自宽慰：“仙掌耐旱，何须多顾？”及至乙巳季冬，忽见一株倾颓，土干如焦石，根须蜷缩，针刺尽脱，恍若老者垂首。余抚其塑料薄盆，指间轻叩，声沉而闷，方知生死之隔，不过数月之疏。\n\n今将离庠，收拾行囊，见余二株犹存者：一者针刺半秃，色如败褐，干瘪之态难掩；一者歪斜倚壁，新叶仅存数片，苟延残喘之状可悯。忆昔同沐晨光，共听夜雨，而今一死二衰，竟与余同度毕业之期。余取瓷勺，以残茶沃之，水渗土中，无声无息，似知其不可复生，唯余心下恻然。\n\n鸿德楼后，有梧桐数株。余初至时皆为细枝，今已叶茂覆天也。",
-    location: "Lake District, UK",
+    location: "Xi'an, China",
     date: "Jan 2026"
   },
   { 
@@ -159,6 +159,56 @@ export const photography: HumanitiesPhotoData[] = [
     description: "朱门覆雪，檐角垂霜。雪片吻过金匾时，便懂了这城的旧梦与新章。此冬一别，长安是故园。",
     location: "Xi'an, China",
     date: "Jan 2026"
+  },
+  {
+    id: 17,
+    title: "暮光一隅",
+    category: "Documentary",
+    image: "/Humanity/IMG_17.webp",
+    ratio: 'vertical',
+    description: "一道斜阳翻过窗棂，落在剥了皮的旧墙上。汽水瓶、烟灰缸和一根垂下的充电线，在这半面暖光里各得其所。",
+    location: "Fufeng, Shaanxi, China",
+    date: "Feb 2026"
+  },
+  {
+    id: 18,
+    title: "除夕星火",
+    category: "Humanity",
+    image: "/Humanity/IMG_18.webp",
+    ratio: 'vertical',
+    description: "火花漫天落下，旧砖墙立在一旁，沉默地听了许多年的爆竹声。万家灯火，在老屋上空开成了花。",
+    location: "Fufeng, Shaanxi, China",
+    date: "Feb 2026"
+  },
+  {
+    id: 19,
+    title: "砖与天",
+    category: "Architecture",
+    image: "/Humanity/IMG_19.webp",
+    ratio: 'vertical',
+    description: "红砖一层压着一层，把日子垒成了墙。一道斜影切过去，墙外便是整片蓝天。",
+    location: "Fufeng, Shaanxi, China",
+    date: "Feb 2026"
+  },
+  {
+    id: 20,
+    title: "枝头客",
+    category: "Landscape",
+    image: "/Humanity/IMG_20.webp",
+    ratio: 'vertical',
+    description: "枯枝织成一张网，喜鹊停在网心。尾羽上一点紫蓝，是冬日里少有的亮色。",
+    location: "Fufeng, Shaanxi, China",
+    date: "Feb 2026"
+  },
+  {
+    id: 21,
+    title: "灯桥烟火",
+    category: "Urban",
+    image: "/Humanity/IMG_21.webp",
+    ratio: 'horizontal',
+    description: "暮色沉下来，彩旗在桥栏上轻晃。远处一朵烟花亮起，像是给毕业前的最后一个春节，写下的句点。",
+    location: "Fufeng, Shaanxi, China",
+    date: "Feb 2026"
   },
 ];
 

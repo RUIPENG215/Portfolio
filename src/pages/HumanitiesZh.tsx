@@ -22,13 +22,13 @@ const locationZh: Record<string, string> = {
   'Qingdao Zhanqiao, China': '中国 · 青岛栈桥',
   'Qingdao Music Square, China': '中国 · 青岛音乐广场',
   'Qingdao Coast, China': '中国 · 青岛海岸',
-  'Shinjuku, Tokyo': '日本 · 东京新宿',
   "Xi'an, China": '中国 · 西安',
-  'Lake District, UK': '英国 · 湖区',
+  'Fufeng, Shaanxi, China': '中国 · 陕西扶风',
 };
 
 const dateZh: Record<string, string> = {
   'Jan 2026': '2026年1月',
+  'Feb 2026': '2026年2月',
   'Dec 2023': '2023年12月',
   'Dec 2024': '2024年12月',
 };
