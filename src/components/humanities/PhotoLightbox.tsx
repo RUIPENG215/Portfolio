@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import type { PointerEvent as ReactPointerEvent } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Calendar, ChevronLeft, ChevronRight, Info, MapPin, X } from 'lucide-react';
-import { aspectOf, EASE, pad } from './photoUtils';
+import { aspectOf, EASE, pad, thumbOf } from './photoUtils';
 import type { HumanitiesLabels } from './photoUtils';
 import type { HumanitiesPhotoData } from '../../data/types';
 
@@ -305,7 +305,7 @@ const PhotoLightbox = ({
                 itemIndex === index ? 'opacity-100 ring-1 ring-humanities-primary' : 'opacity-40 hover:opacity-80'
               }`}
             >
-              <img src={item.image} alt="" loading="lazy" className="h-full w-full object-cover" />
+              <img src={thumbOf(item)} alt="" loading="lazy" className="h-full w-full object-cover" />
             </button>
           ))}
         </div>

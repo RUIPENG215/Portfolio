@@ -11,6 +11,12 @@ export const aspectOf = (photo: HumanitiesPhotoData): number => {
 
 export const pad = (value: number) => String(value).padStart(2, '0');
 
+/**
+ * 小尺寸缩略图（长边 480px，位于 public/Humanity/thumb/，文件名与原图一致）。
+ * 照片墙和小图列表用它，避免为了几十像素的小格子加载、解码整张大图。
+ */
+export const thumbOf = (photo: HumanitiesPhotoData): string => photo.image.replace('/Humanity/', '/Humanity/thumb/');
+
 export type OpenPhoto = (photo: HumanitiesPhotoData, list: HumanitiesPhotoData[]) => void;
 
 export interface HumanitiesLabels {

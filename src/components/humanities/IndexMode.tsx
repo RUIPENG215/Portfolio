@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { EASE, pad } from './photoUtils';
+import { EASE, pad, thumbOf } from './photoUtils';
 import type { OpenPhoto } from './photoUtils';
 import type { HumanitiesPhotoData } from '../../data/types';
 
@@ -49,7 +49,7 @@ const IndexMode = ({ photos, onOpen }: { photos: HumanitiesPhotoData[]; onOpen: 
                 <span className="text-xs text-white/40">{photo.date}</span>
               </span>
               <span className="col-span-2 flex justify-end md:hidden">
-                <img src={photo.image} alt="" loading="lazy" className="h-12 w-12 rounded-sm object-cover" />
+                <img src={thumbOf(photo)} alt="" loading="lazy" className="h-12 w-12 rounded-sm object-cover" />
               </span>
             </motion.button>
           );

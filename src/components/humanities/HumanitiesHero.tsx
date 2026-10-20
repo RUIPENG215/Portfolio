@@ -4,7 +4,7 @@ import { motion, useMotionValue, useReducedMotion, useScroll, useSpring, useTran
 import type { MotionValue } from 'framer-motion';
 import SplitText from '../motion/SplitText';
 import { useFinePointer } from '../../hooks/useFinePointer';
-import { aspectOf, EASE, pad } from './photoUtils';
+import { aspectOf, EASE, pad, thumbOf } from './photoUtils';
 import type { HumanitiesLabels, OpenPhoto } from './photoUtils';
 import type { HumanitiesPhotoData } from '../../data/types';
 
@@ -197,7 +197,7 @@ const WallPhoto = ({
         whileHover={{ rotate: 0, transition: { duration: 0.35, ease: EASE } }}
       >
         <img
-          src={cell.photo.image}
+          src={thumbOf(cell.photo)}
           alt={cell.photo.title}
           loading="eager"
           decoding="async"
