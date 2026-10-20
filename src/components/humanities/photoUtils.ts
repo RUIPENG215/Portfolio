@@ -6,6 +6,8 @@ export const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 export const aspectOf = (photo: HumanitiesPhotoData): number => {
   if (photo.ratio === 'horizontal') return 567 / 520;
   if (photo.ratio === 'vertical') return 441 / 646;
+  // 超宽幅（带薄边的胶片边框，如西湖那张）：2576 × 1161
+  if (photo.ratio === 'wide') return 2576 / 1161;
   return 1;
 };
 

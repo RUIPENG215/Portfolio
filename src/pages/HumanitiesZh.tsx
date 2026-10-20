@@ -27,12 +27,14 @@ const locationZh: Record<string, string> = {
   'Xianyang, Shaanxi, China': '中国 · 陕西咸阳',
   'Hancheng, Shaanxi, China': '中国 · 陕西韩城',
   'Dangjia Village, Hancheng, China': '中国 · 韩城党家村',
+  'West Lake, Hangzhou, China': '中国 · 杭州西湖',
 };
 
 const dateZh: Record<string, string> = {
   'Jan 2026': '2026年1月',
   'Feb 2026': '2026年2月',
   'Mar 2026': '2026年3月',
+  'Apr 2026': '2026年4月',
   'Dec 2023': '2023年12月',
   'Dec 2024': '2024年12月',
 };

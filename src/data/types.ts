@@ -66,7 +66,7 @@ export interface HumanitiesPhotoData {
   description: string;
   location?: string;
   date?: string;
-  ratio?: 'horizontal' | 'vertical' | 'square';
+  ratio?: 'horizontal' | 'vertical' | 'square' | 'wide';
 }
 
 export interface HumanitiesMusicData {
