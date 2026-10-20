@@ -210,6 +210,86 @@ export const photography: HumanitiesPhotoData[] = [
     location: "Fufeng, Shaanxi, China",
     date: "Feb 2026"
   },
+  {
+    id: 22,
+    title: "柳桥",
+    category: "Landscape",
+    image: "/Humanity/IMG_22.webp",
+    ratio: 'horizontal',
+    description: "垂柳半掩着廊桥，水面把拱洞补成一个圆。远处楼房隐在薄雾里，旧时光与新城市，隔着一弯水相望。",
+    location: "Jinan, China",
+    date: "Mar 2026"
+  },
+  {
+    id: 23,
+    title: "月台",
+    category: "Urban",
+    image: "/Humanity/IMG_23.webp",
+    ratio: 'vertical',
+    description: "铁轨向远处收拢，行人提着行李往前走。每一次出发之前，总要先在这样的站台上，等一阵风。",
+    location: "Xianyang, Shaanxi, China",
+    date: "Mar 2026"
+  },
+  {
+    id: 24,
+    title: "街角一碗面",
+    category: "Humanity",
+    image: "/Humanity/IMG_24.webp",
+    ratio: 'horizontal',
+    description: "红招牌下，红塑料凳一排排摆开。春日的阳光斜过来，一碗面的工夫，足够把一条街的人间烟火看完。",
+    location: "Xi'an, China",
+    date: "Mar 2026"
+  },
+  {
+    id: 25,
+    title: "狮前春",
+    category: "Humanity",
+    image: "/Humanity/IMG_25.webp",
+    ratio: 'vertical',
+    description: "石狮系着红绸，门前的老人低头摆弄着手里的小玩意。身后的孩子也低着头，一老一小，把春节的光阴过得很慢。",
+    location: "Dangjia Village, Hancheng, China",
+    date: "Mar 2026"
+  },
+  {
+    id: 26,
+    title: "春联下",
+    category: "Humanity",
+    image: "/Humanity/IMG_26.webp",
+    ratio: 'horizontal',
+    description: "春联红着，砖墙黑着，阳光斜斜落在父母身上。母亲笑得直不起腰，父亲眯着眼，把整个午后都晒暖了。",
+    location: "Dangjia Village, Hancheng, China",
+    date: "Mar 2026"
+  },
+  {
+    id: 27,
+    title: "旧宅红",
+    category: "Architecture",
+    image: "/Humanity/IMG_27.webp",
+    ratio: 'vertical',
+    description: "红灯笼悬在白墙与木檐之间，斜阳在墙上画出一道影子。老宅的颜色很旧，唯有这一点红，仍是年的模样。",
+    location: "Dangjia Village, Hancheng, China",
+    date: "Mar 2026"
+  },
+  {
+    id: 28,
+    title: "晒暖",
+    category: "Documentary",
+    image: "/Humanity/IMG_28.webp",
+    ratio: 'vertical',
+    description: "它趴在被日光晒透的石台上，耳朵立着，视线落向远处。墙皮斑驳，毛色却暖得像刚出炉。",
+    location: "Dangjia Village, Hancheng, China",
+    date: "Mar 2026"
+  },
+  {
+    id: 29,
+    title: "归途雨",
+    category: "Landscape",
+    image: "/Humanity/IMG_29.webp",
+    ratio: 'vertical',
+    description: "返程的路上忽然落起大雨。隔着带水的玻璃，太阳成了一枚模糊的白点，路面反着光，枯树站在远处，世界被雨点重新画了一遍。",
+    location: "Hancheng, Shaanxi, China",
+    date: "Mar 2026"
+  },
 ];
 
 export const musicBio = "I am passionate about exploring the boundless frontiers of music—from the grandeur of symphonies to the fluid rhythms of jazz, and from contemporary pop to classical depths. As a clarinetist, I find profound joy in the unique timber of woodwinds, while my studies in vocal performance and music theory have deepened my understanding of melody and structure. With the rapid evolution of AI opening new creative horizons, I look forward to utilizing intelligent tools to forge a more liberated and deeply personal musical expression in the future.";
