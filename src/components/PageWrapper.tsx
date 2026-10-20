@@ -7,21 +7,19 @@ interface PageWrapperProps {
   children: ReactNode;
 }
 
-// 页面切换：旧页面轻轻上移、淡出并略微虚化；新页面从下方淡入、由虚到实。
+// 页面切换：旧页面轻轻上移、淡出；新页面从下方淡入。不用整页 blur 滤镜——线上整页滤镜是掉帧的主要来源。
 // 没有任何遮罩层，过渡期间不会出现整屏纯色。
 const pageVariants: Variants = {
-  initial: { opacity: 0, y: 24, filter: 'blur(6px)' },
+  initial: { opacity: 0, y: 24 },
   enter: {
     opacity: 1,
     y: 0,
-    filter: 'blur(0px)',
     transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] },
-    transitionEnd: { transform: 'none', filter: 'none' },
+    transitionEnd: { transform: 'none' },
   },
   exit: {
     opacity: 0,
     y: -12,
-    filter: 'blur(4px)',
     transition: { duration: 0.32, ease: [0.4, 0, 1, 1] },
   },
 };
