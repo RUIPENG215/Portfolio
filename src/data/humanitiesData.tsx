@@ -290,6 +290,16 @@ export const photography: HumanitiesPhotoData[] = [
     location: "Hancheng, Shaanxi, China",
     date: "Mar 2026"
   },
+  {
+    id: 30,
+    title: "背影",
+    category: "Humanity",
+    image: "/Humanity/IMG_30.webp",
+    ratio: 'vertical',
+    description: "她走在前面，牌坊在远处，人来人往都退成了背景。这一趟，我始终跟在这个背影后面。",
+    location: "Hancheng, Shaanxi, China",
+    date: "Mar 2026"
+  },
 ];
 
 export const musicBio = "I am passionate about exploring the boundless frontiers of music—from the grandeur of symphonies to the fluid rhythms of jazz, and from contemporary pop to classical depths. As a clarinetist, I find profound joy in the unique timber of woodwinds, while my studies in vocal performance and music theory have deepened my understanding of melody and structure. With the rapid evolution of AI opening new creative horizons, I look forward to utilizing intelligent tools to forge a more liberated and deeply personal musical expression in the future.";
