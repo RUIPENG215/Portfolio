@@ -306,7 +306,97 @@ export const photography: HumanitiesPhotoData[] = [
     category: "Humanity",
     image: "/Humanity/IMG_31.webp",
     ratio: 'wide',
-    description: "薄雾把远山和小岛都洇进了灰里。长椅上的人背对着镜头，各自望着水面，只有左边站着的两个人，把目光投向了别处。",
+    description: "薄雾把远山和小岛都洇进了灰里。人们坐成一排，面朝同一片水，安静得像湖面本身。",
+    location: "West Lake, Hangzhou, China",
+    date: "Apr 2026"
+  },
+  {
+    id: 32,
+    title: "金线",
+    category: "Urban",
+    image: "/Humanity/IMG_32.webp",
+    ratio: 'vertical',
+    description: "白线被夕阳烧成了金色，单车和行人都退进了逆光里。路一直向前，像是通往傍晚更深的地方。",
+    location: "Xi'an, China",
+    date: "Jan 2026"
+  },
+  {
+    id: 33,
+    title: "檐下光",
+    category: "Documentary",
+    image: "/Humanity/IMG_33.webp",
+    ratio: 'vertical',
+    description: "冬日的阳光从檐隙斜切下来，把砖墙照得发暖，把摊位留在阴影里。人们站在光与影的交界，慢慢过着自己的一天。",
+    location: "Xi'an, China",
+    date: "Jan 2026"
+  },
+  {
+    id: 34,
+    title: "灯影",
+    category: "Urban",
+    image: "/Humanity/IMG_34.webp",
+    ratio: 'vertical',
+    description: "一盏旧灯在墙上投下弯弯的影子，比灯本身更像一幅画。斜阳很轻，轻得连粗糙的墙面也变得温柔。",
+    location: "Xi'an, China",
+    date: "Jan 2026"
+  },
+  {
+    id: 35,
+    title: "雨船",
+    category: "Landscape",
+    image: "/Humanity/IMG_35.webp",
+    ratio: 'horizontal',
+    description: "细雨把水面和树影都洇成了青绿，乌篷船安静地靠着岸。桥上有人撑伞走过，远得像一笔淡墨。",
+    location: "Wuzhen, Zhejiang, China",
+    date: "Apr 2026"
+  },
+  {
+    id: 36,
+    title: "水巷",
+    category: "Architecture",
+    image: "/Humanity/IMG_36.webp",
+    ratio: 'horizontal',
+    description: "去掉颜色，木楼、石阶和水面只剩下深浅。小船缓缓滑过，水乡的时间好像从来没有快过。",
+    location: "Wuzhen, Zhejiang, China",
+    date: "Apr 2026"
+  },
+  {
+    id: 37,
+    title: "檐下",
+    category: "Humanity",
+    image: "/Humanity/IMG_37.webp",
+    ratio: 'horizontal',
+    description: "廊柱把河框成了一幅画。撑伞的人低头看着手机，长椅上的两个人也低着头，各自守着一小块发亮的屏幕。",
+    location: "Wuzhen, Zhejiang, China",
+    date: "Apr 2026"
+  },
+  {
+    id: 38,
+    title: "取景",
+    category: "Humanity",
+    image: "/Humanity/IMG_38.webp",
+    ratio: 'horizontal',
+    description: "枝叶挡着，石桥上白衣的人只露出一角，旁边有人弯着腰，正在为她找角度。我隔着一层绿，看了他们一眼。",
+    location: "Wuzhen, Zhejiang, China",
+    date: "Apr 2026"
+  },
+  {
+    id: 39,
+    title: "整衣",
+    category: "Humanity",
+    image: "/Humanity/IMG_39.webp",
+    ratio: 'horizontal',
+    description: "雾里的湖边，她抬手替他理了理肩头。老树弯成一道拱，把远处的游船和这个小动作一起框了起来。",
+    location: "West Lake, Hangzhou, China",
+    date: "Apr 2026"
+  },
+  {
+    id: 40,
+    title: "鸽起",
+    category: "Humanity",
+    image: "/Humanity/IMG_40.webp",
+    ratio: 'horizontal',
+    description: "鸽群忽然从水边飞起，有人举起手机，有人只是望着。雾里的西湖，被这一刻的翅膀轻轻搅动。",
     location: "West Lake, Hangzhou, China",
     date: "Apr 2026"
   },
