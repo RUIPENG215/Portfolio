@@ -28,6 +28,7 @@ const locationZh: Record<string, string> = {
   'Hancheng, Shaanxi, China': '中国 · 陕西韩城',
   'Dangjia Village, Hancheng, China': '中国 · 韩城党家村',
   'West Lake, Hangzhou, China': '中国 · 杭州西湖',
+  'Hangzhou, China': '中国 · 杭州',
   'Wuzhen, Zhejiang, China': '中国 · 浙江乌镇',
 };
 
