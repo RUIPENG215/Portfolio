@@ -4,7 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Languages } from 'lucide-react';
 import { useLanguage } from '../context/useLanguage';
 
-const interactionDesignProjectIds = new Set(['5', '6', '7', '8']);
+const interactionDesignProjectIds = new Set(['5', '6', '7', '8', '9']);
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -23,13 +23,14 @@ const Navbar = () => {
         const threshold = location.pathname === '/' ? window.innerHeight - 72 : 20;
         setIsScrolled(window.scrollY > threshold);
         // 人文页中段的深色展厅（带 data-nav-dark）经过导航栏时，导航栏换成浅色文字
-        const darkZone = document.querySelector('[data-nav-dark]');
-        if (darkZone) {
-          const rect = darkZone.getBoundingClientRect();
-          setOverDark(rect.top <= 48 && rect.bottom >= 48);
-        } else {
-          setOverDark(false);
-        }
+        // 也用于 Wisp 等设计项目页的深色色带：任一深色区域经过导航栏都算
+        const darkZones = document.querySelectorAll('[data-nav-dark]');
+        let isOver = false;
+        darkZones.forEach((zone) => {
+          const rect = zone.getBoundingClientRect();
+          if (rect.top <= 48 && rect.bottom >= 48) isOver = true;
+        });
+        setOverDark(isOver);
         frameId = null;
       });
     };
@@ -64,7 +65,7 @@ const Navbar = () => {
   const isHomeDark = location.pathname === '/' && language === 'en';
   const isNavbarDark = isPageDark ||
                        ((isHomeDark || isInteractionProject) && !isScrolled) ||
-                       (isHumanities && overDark);
+                       ((isHumanities || isDesignProject) && overDark);
   // 语言切换是全局状态，但目前只有首页（LandingZh）真正有中文版式；
   // /design、/engineering、/humanities、/contact 这些子页面还是英文内容，
   // 背景色也是各自英文页面自己的（深色终端风、奶油色人文风等）。

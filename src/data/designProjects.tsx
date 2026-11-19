@@ -1,7 +1,27 @@
-import { Lamp, Utensils, DoorOpen, Zap, Activity, Car, Plane, Cpu } from 'lucide-react';
+import { Lamp, Utensils, DoorOpen, Zap, Activity, Car, Plane, Cpu, Sparkles } from 'lucide-react';
 import type { ProjectData } from './types';
 
 export const designProjects: ProjectData[] = [
+  {
+    // Wisp — id must stay 9: the poster, slides, report and film link to /design/9.
+    // The page itself is src/pages/WispCaseStudy.tsx; media in /public/Design_9.
+    id: 9,
+    title: "Wisp",
+    subtitle: "An Ambient Lamp as the Body of an AI Agent",
+    category: "Interaction Design",
+    description: "A paper lamp and a ring floating on the screen share one body of light, driven by sound, music, presence and a language-model agent.",
+    aboutProject: "Wisp gives a large language model a physical body. The agent inhabits a lamp: it senses the room through the laptop and answers through the behaviour of light, with a small glowing ring on the screen as its face.",
+    image: "/Design_9/cover.webp",
+    heroImage: "/Design_9/hero.webp",
+    icon: <Sparkles size={40} />,
+    color: "bg-amber-100 text-amber-600",
+    status: "COMPLETED",
+    tags: ["Interaction Design", "Embodied AI", "Ambient Light", "LLM Agent", "Physical Computing"],
+    time: "2026.10 - 2026.11",
+    externalLink: "https://github.com/RUIPENG215/ambient-light",
+    layout: 'case-study',
+    content: [],
+  },
   {
     id: 1,
     title: "Luminous Tower Crane",
@@ -608,6 +628,7 @@ export const designProjects: ProjectData[] = [
   },
   {
     id: 7,
+    hidden: true, // unfinished; shown again once the project is ready
     title: "AeroVertex",
     subtitle: "Adaptive Urban Docking for Low-Altitude Mobility",
     category: "Interaction Design",
@@ -743,3 +764,6 @@ export const designProjects: ProjectData[] = [
     ]
   }
 ];
+
+/** Projects shown in the Design list and used for prev/next navigation. */
+export const visibleDesignProjects = designProjects.filter(p => !p.hidden);

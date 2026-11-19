@@ -1,10 +1,10 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
-import { designProjects } from '../data/designProjects';
+import { visibleDesignProjects } from '../data/designProjects';
 
 const Design = () => {
-  const projects = designProjects;
+  const projects = visibleDesignProjects;
 
   return (
     <div className="min-h-screen bg-design-bg text-gray-800 pt-24 md:pt-32 pb-10">

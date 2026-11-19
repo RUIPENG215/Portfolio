@@ -35,6 +35,10 @@ export interface ProjectData {
   time: string;
   externalLink?: string;
   content: ContentBlock[];
+  /** Kept in the data but left out of the Design list and prev/next navigation. */
+  hidden?: boolean;
+  /** 'case-study' pages render their own bespoke layout instead of content blocks. */
+  layout?: 'blocks' | 'case-study';
 }
 
 export interface Interest {

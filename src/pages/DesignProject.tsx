@@ -1,16 +1,19 @@
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, ArrowRight, ExternalLink, Github } from 'lucide-react';
-import { designProjects } from '../data/designProjects';
+import { designProjects, visibleDesignProjects } from '../data/designProjects';
+import WispCaseStudy from './WispCaseStudy';
 import ContentBlockRenderer from '../components/ContentBlockRenderer';
 import Seo from '../components/Seo';
 
 const DesignProject = () => {
   const { id } = useParams();
   const project = designProjects.find(p => p.id === Number(id));
-  const currentIndex = designProjects.findIndex(p => p.id === Number(id));
-  const nextProject = designProjects[(currentIndex + 1) % designProjects.length];
-  const prevProject = designProjects[(currentIndex - 1 + designProjects.length) % designProjects.length];
+  const list = visibleDesignProjects;
+  const currentIndex = list.findIndex(p => p.id === Number(id));
+  // Hidden projects (still reachable by URL) navigate as if they sat at the start of the list.
+  const nextProject = list[(currentIndex + 1) % list.length];
+  const prevProject = list[(Math.max(currentIndex, 0) - 1 + list.length) % list.length];
 
   if (!project) return (
     <main className="min-h-screen bg-white flex items-center justify-center px-6 text-center">
@@ -21,6 +24,10 @@ const DesignProject = () => {
       </div>
     </main>
   );
+
+  if (project.layout === 'case-study' && project.id === 9) {
+    return <WispCaseStudy project={project} prev={prevProject} next={nextProject} />;
+  }
 
   const isInteractionProject = project.category === 'Interaction Design';
 
