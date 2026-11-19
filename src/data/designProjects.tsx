@@ -12,6 +12,7 @@ export const designProjects: ProjectData[] = [
     description: "A paper lamp and a ring floating on the screen share one body of light, driven by sound, music, presence and a language-model agent.",
     aboutProject: "Wisp gives a large language model a physical body. The agent inhabits a lamp: it senses the room through the laptop and answers through the behaviour of light, with a small glowing ring on the screen as its face.",
     image: "/Design_9/cover.webp",
+    thumb: "/Design_9/thumb.webp",
     heroImage: "/Design_9/hero.webp",
     icon: <Sparkles size={40} />,
     color: "bg-amber-100 text-amber-600",
@@ -111,7 +112,7 @@ export const designProjects: ProjectData[] = [
   },
  {
     "id": 2,
-    "title": "FOODBOX",
+    "title": "Foodbox",
     "category": "Industrial Design",
     "description": "For space station astronauts, interrupting missions to dine is inefficient. FOODBOX is a portable, heatable container that automates meal pairing, heating, and serving—letting astronauts eat at workstations without delays.",
     "aboutProject": "Space missions demand every moment count. FOODBOX reimagines astronaut dining as a seamless, human-centered solution: merging functionality with zero-gravity usability to support both productivity and well-being in extreme environments.",
@@ -192,7 +193,7 @@ export const designProjects: ProjectData[] = [
   },
  {
   "id": 3,
-  "title": "KONBER",
+  "title": "Konber",
   "category": "Industrial Design",
   "description": "Dormitory door handles face three key pain points: inconvenient operation with full hands, frequent battery failures of electric models, and outdated aesthetics. KONBER integrates mechanical durability with smart card-swiping functionality to solve these daily frustrations for students.",
   "aboutProject": "Derived from in-depth research on student dormitory life, KONBER adheres to the design concept of 'simplicity solves complexity'. It abandons redundant functions, retains core needs of convenience and reliability, and adds a minimalist aesthetic design. The product not only optimizes the door-opening experience but also fits the youthful atmosphere of dormitories, proving that small daily necessities can be upgraded through human-centered design to enhance quality of life.",
@@ -368,7 +369,7 @@ export const designProjects: ProjectData[] = [
   },
   {
   "id": 4,
-  "title": "XIDIE PORTABLE CHARGER",
+  "title": "Xidie Portable Charger",
   "category": "Industrial Design",
   "description": "Blending Xi'an food culture with 65W GaN fast-charging tech, XIDIE breaks the 'decorative-only' stereotype of cultural and creative products.",
   "aboutProject": "XIDIE reimagines the fusion of traditional culture and modern technology: extracting iconic elements from Xi'an's dietary culture (hand-pulled noodles, old porcelain bowls, ancient city walls) and integrating them into GaN charger design, making traditional culture a tangible part of daily life while meeting the practical needs of young consumers.",
@@ -765,5 +766,8 @@ export const designProjects: ProjectData[] = [
   }
 ];
 
-/** Projects shown in the Design list and used for prev/next navigation. */
-export const visibleDesignProjects = designProjects.filter(p => !p.hidden);
+/** Projects shown in the Design list and used for prev/next navigation, newest first. */
+const startKey = (time: string) => time.match(/\d{4}\.\d{2}/)?.[0] ?? '';
+export const visibleDesignProjects = designProjects
+  .filter(p => !p.hidden)
+  .sort((a, b) => startKey(b.time).localeCompare(startKey(a.time)));

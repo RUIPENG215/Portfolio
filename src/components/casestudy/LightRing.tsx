@@ -86,11 +86,21 @@ const toRgb = ([h, s, v]: HSV) => {
   return [Math.round((r + m) * 255), Math.round((g + m) * 255), Math.round((b + m) * 255)];
 };
 
-const LightRing = ({ state, className }: { state: RingState; className?: string }) => {
+/**
+ * tone 'dark': additive glow for dark backgrounds (the default).
+ * tone 'light': the same light seen on paper in daylight — colour laid over a light ground.
+ */
+const LightRing = ({ state, className, tone = 'dark' }: { state: RingState; className?: string; tone?: 'dark' | 'light' }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const stateRef = useRef(state);
   const startRef = useRef(0);
   const drawRef = useRef<(() => void) | null>(null);
+  const toneRef = useRef(tone);
+
+  useEffect(() => {
+    toneRef.current = tone;
+    drawRef.current?.();
+  }, [tone]);
 
   useEffect(() => {
     stateRef.current = state;
@@ -118,13 +128,18 @@ const LightRing = ({ state, className }: { state: RingState; className?: string 
       if (!size) return;
       const t = reduce ? 0.9 : (performance.now() - startRef.current) / 1000;
       const fn = shade[stateRef.current];
+      const light = toneRef.current === 'light';
       const cx = size / 2, cy = size / 2, R = size * 0.3;
       ctx.clearRect(0, 0, size, size);
-      ctx.globalCompositeOperation = 'lighter';
+      ctx.globalCompositeOperation = light ? 'source-over' : 'lighter';
+      // On a dark ground brightness is the colour itself; on paper it becomes how much colour is laid down.
       const colours: number[][] = [];
+      const weight: number[] = [];
       for (let i = 0; i < N; i++) {
         const [h, s, v] = fn(i, t);
-        colours.push(toRgb([h, s, Math.max(0, Math.min(1, v))]));
+        const vv = Math.max(0, Math.min(1, v));
+        colours.push(toRgb([h, s, light ? 1 : vv]));
+        weight.push(light ? vv * vv : 1);
       }
       // The paper shade blurs the 32 LEDs into one continuous band, so the ring is drawn from
       // colours interpolated between neighbouring LEDs rather than from 32 separate points.
@@ -135,21 +150,31 @@ const LightRing = ({ state, className }: { state: RingState; className?: string 
         const c0 = colours[k], c1 = colours[(k + 1) % N];
         return [c0[0] + (c1[0] - c0[0]) * f, c0[1] + (c1[1] - c0[1]) * f, c0[2] + (c1[2] - c0[2]) * f].map(Math.round);
       };
+      const wAt = (j: number) => {
+        const k = Math.floor(j / S), f = (j % S) / S;
+        return weight[k] + (weight[(k + 1) % N] - weight[k]) * f;
+      };
       const pass = (radius: number, alpha: number, step: number) => {
         for (let j = 0; j < M; j += step) {
           const a = (j / M) * Math.PI * 2 - Math.PI / 2;
           const x = cx + Math.cos(a) * R, y = cy + Math.sin(a) * R;
           const [r, g, b] = sample(j);
+          const al = alpha * wAt(j);
           const grd = ctx.createRadialGradient(x, y, 0, x, y, radius);
-          grd.addColorStop(0, `rgba(${r},${g},${b},${alpha})`);
-          grd.addColorStop(0.45, `rgba(${r},${g},${b},${alpha * 0.35})`);
+          grd.addColorStop(0, `rgba(${r},${g},${b},${al})`);
+          grd.addColorStop(0.45, `rgba(${r},${g},${b},${al * 0.35})`);
           grd.addColorStop(1, `rgba(${r},${g},${b},0)`);
           ctx.fillStyle = grd;
           ctx.fillRect(x - radius, y - radius, radius * 2, radius * 2);
         }
       };
-      pass(size * 0.2, 0.11, 2);       // wide halo, light spilling through the paper
-      pass(size * 0.075, 0.2, 1);      // the bright band itself
+      if (light) {
+        pass(size * 0.2, 0.09, 2);
+        pass(size * 0.075, 0.24, 1);
+      } else {
+        pass(size * 0.2, 0.11, 2);     // wide halo, light spilling through the paper
+        pass(size * 0.075, 0.2, 1);    // the bright band itself
+      }
       ctx.globalCompositeOperation = 'source-over';
     };
     drawRef.current = draw;

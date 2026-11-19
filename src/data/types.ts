@@ -27,6 +27,8 @@ export interface ProjectData {
   description: string;
   aboutProject?: string;
   image?: string;
+  /** Image for the Design list (4:3). Falls back to `image`. */
+  thumb?: string;
   heroImage?: string;
   icon: ReactNode;
   color?: string;
