@@ -20,21 +20,21 @@
 .kn-hero { position: relative; height: 100svh; min-height: 620px; overflow: hidden; background: #e9e7e2; color: var(--ink); }
 .kn-hero-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 25% 50%; animation: kn-fade 1.4s var(--ease) both; }
 @keyframes kn-fade { from { opacity: 0; } to { opacity: 1; } }
-.kn-hero-in { position: relative; height: 100%; padding-top: clamp(88px, 12vh, 112px); padding-bottom: clamp(32px, 6vh, 72px); display: flex; flex-direction: column; justify-content: space-between; }
+.kn-hero-in { position: static; height: 100%; padding-top: clamp(88px, 12vh, 112px); padding-bottom: clamp(32px, 6vh, 72px); display: flex; flex-direction: column; justify-content: space-between; }
 .kn-hero .cs-back, .kn-hero .cs-label { color: rgba(26, 24, 22, 0.6); }
 .kn-hero .cs-back:hover { color: var(--ink); }
-.kn-hero-text { align-self: flex-end; width: min(44%, 620px); }
+.kn-hero-text { position: absolute; left: 63vw; right: var(--pad); bottom: clamp(32px, 6vh, 72px); }
 .kn-hero-text > * { animation: cs-rise 1.1s var(--ease) both; }
 .kn-hero-text > :nth-child(2) { animation-delay: 0.08s; }
 .kn-hero-text > :nth-child(3) { animation-delay: 0.16s; }
-.kn-title { font-weight: 200; font-size: clamp(72px, 10vw, 184px); line-height: 0.86; letter-spacing: -0.03em; margin: 16px 0 0 -0.04em; }
+.kn-title { font-weight: 200; font-size: clamp(64px, 8vw, 168px); line-height: 0.86; letter-spacing: -0.03em; margin: 16px 0 0 -0.04em; }
 .kn-hero .cs-hero-sub { margin-top: 22px; max-width: 24ch; }
 @media (prefers-reduced-motion: reduce) { .kn-hero-img, .kn-hero-text > * { animation: none; } }
 @media (max-width: 899px) {
   .kn-hero { height: auto; min-height: 0; display: flex; flex-direction: column; }
   .kn-hero-img { position: relative; order: 2; height: auto; aspect-ratio: 4 / 3; object-position: 22% 50%; }
   .kn-hero-in { order: 1; height: auto; padding-bottom: 28px; gap: 28px; }
-  .kn-hero-text { align-self: auto; width: auto; }
+  .kn-hero-text { position: static; }
 }
 
 /* ---------- overview ---------- */
@@ -146,3 +146,21 @@
 .kn-close { padding: clamp(96px, 12vw, 168px) 0 clamp(72px, 9vw, 120px); text-align: center; }
 .kn-close img { display: block; width: min(1320px, calc(100% - 2 * var(--pad))); margin: 0 auto clamp(56px, 7vw, 96px); border-radius: 4px; }
 .kn-close .cs-lead { font-size: clamp(28px, 3.6vw, 52px); line-height: 1.25; max-width: 22ch; margin: 0 auto; }
+
+/* ---------- main render ---------- */
+.kn-main { padding: clamp(24px, 4vw, 56px) 0 0; }
+.kn-main-img { display: block; width: min(1600px, calc(100% - 2 * var(--pad))); margin: 0 auto; aspect-ratio: 1.6; border-radius: 4px; overflow: hidden; background: #ddd6d4; }
+.kn-main-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* ---------- ergonomics ---------- */
+.kn-ergo { display: grid; grid-template-columns: 1fr; gap: 36px; align-items: center; }
+@media (min-width: 900px) { .kn-ergo { grid-template-columns: 6fr 6fr; gap: 64px; } }
+.kn-ergo .kn-stats { grid-template-columns: 1fr 1fr; }
+.kn-table-wrap { overflow-x: auto; }
+.kn-table { width: 100%; min-width: 560px; border-collapse: collapse; font-size: 14.5px; }
+.kn-table caption { text-align: left; padding-bottom: 14px; }
+.kn-table th, .kn-table td { text-align: left; padding: 14px 16px 14px 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
+.kn-table thead th { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); font-weight: 400; border-bottom-color: var(--ink); }
+.kn-table tbody th { font-weight: 500; }
+.kn-table td { font-variant-numeric: tabular-nums; }
+.kn-table td span { display: block; font-size: 12.5px; color: var(--muted); margin-top: 2px; }

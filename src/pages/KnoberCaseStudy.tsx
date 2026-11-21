@@ -71,12 +71,14 @@ const SCENES = [
 ];
 
 const GALLERY: StoryImage[] = [
+  img('k_main', 1920, 1200, 'The KNOBER handle on a pale door, a common room blurred behind', 'On a dormitory door.'),
   ...SKETCHES,
   img('k_concept1', 1175, 931, 'Concept 01: a lever on a round knob, with a separate plate', 'Concept 01.'),
   img('k_concept2', 380, 901, 'Concept 02: a long vertical grip between two round ends', 'Concept 02.'),
   img('k_final', 1446, 1144, 'Final concepts: the room handle and the gate handle', 'Final concepts.'),
   ...MODELS,
-  img('k_model7', 958, 974, 'A hand on the foam grip', 'Grip.'),
+  img('k_model7', 958, 974, 'A hand on the foam grip', 'Grip state.'),
+  img('k_model8', 770, 1372, 'A student standing at a door, using the foam handle', 'Standing use.'),
   img('k_down', 941, 1173, 'The handle at rest', 'At rest.'),
   img('k_up', 1274, 1600, 'The handle lifted', 'Lifted.'),
   ...STEPS.map(s => ({ ...s.i, caption: s.t })),
@@ -106,7 +108,7 @@ const g = (name: string) => GALLERY.find(x => x.src === `${M}/${name}.webp`)!;
 
 /* ── The status ring: the same render in its two colours ── */
 const Ring = ({ open }: { open: Open }) => {
-  const [green, setGreen] = useState(false);
+  const [green, setGreen] = useState(true);
   return (
     <div className="kn-ring">
       <Reveal>
@@ -121,7 +123,7 @@ const Ring = ({ open }: { open: Open }) => {
           <button type="button" role="radio" aria-checked={green} onClick={() => setGreen(true)}><span className="dot green" />Green</button>
         </div>
         <div className="kn-ring-text" key={String(green)}>
-          <h3 className="cs-h3">{green ? 'Green: discharged, locked.' : 'Red: charged, unlocked.'}</h3>
+          <h3 className="cs-h3">{green ? 'Green: charged, unlocked.' : 'Red: discharged, locked.'}</h3>
           <p className="cs-body">
             A standard 1 mm light strip runs around the card pad and changes colour by recognising the card read
             at the reader.
@@ -185,6 +187,15 @@ const KnoberCaseStudy = ({ project, prev, next }: { project: ProjectData; prev: 
         </div>
       </section>
 
+      {/* ── The main render, on a dormitory door ── */}
+      <section className="kn-main">
+        <Reveal>
+          <button type="button" className="cs-zoom kn-main-img" onClick={() => open(`${M}/k_main.webp`)} aria-label="View larger: the handle on a dormitory door">
+            <img src={`${M}/k_main.webp`} alt="The KNOBER handle on a pale door, a common room blurred behind" loading="lazy" />
+          </button>
+        </Reveal>
+      </section>
+
       {/* ── 01 Problem ── */}
       <section className="cs-sec kn-tint">
         <div className="cs-wrap">
@@ -234,10 +245,10 @@ const KnoberCaseStudy = ({ project, prev, next }: { project: ProjectData; prev: 
         </div>
       </section>
 
-      {/* ── 03 Models ── */}
+      {/* ── 03 Models and ergonomics ── */}
       <section className="cs-sec">
         <div className="cs-wrap">
-          <SectionHead index="03" label="Physical models" title="Tried on real doors." />
+          <SectionHead index="03" label="Models and ergonomics" title="Tried on real doors, sized to real bodies." />
           <Reveal>
             <div className="cs-row">
               <Shot i={MODELS[0]} open={open} />
@@ -245,7 +256,44 @@ const KnoberCaseStudy = ({ project, prev, next }: { project: ProjectData; prev: 
             </div>
             <div className="cs-row kn-row2">
               {MODELS.slice(2).map(m => <Shot key={m.src} i={m} open={open} ratio={3 / 4} />)}
-              <Shot i={img('k_model7', 958, 974, 'A hand on the foam grip', 'Grip.')} open={open} ratio={3 / 4} />
+            </div>
+          </Reveal>
+
+          <div className="kn-ergo cs-gap-top">
+            <Reveal>
+              <div className="cs-row">
+                <Shot i={g('k_model8')} open={open} ratio={3 / 4} />
+                <Shot i={g('k_model7')} open={open} ratio={3 / 4} />
+              </div>
+            </Reveal>
+            <Reveal delay={100}>
+              <h3 className="cs-h3">Elbow height and finger breadth.</h3>
+              <p className="cs-body">
+                The handle is used standing, often with a bent arm and a full hand, so two measures set its size: the
+                height of the elbow from the ground when standing, and the breadth of the fingers. Using the DINED
+                anthropometric database (dined.nl), the team chose 1,100 mm as the height of the knob and 34 mm as the
+                inner width of the grip.
+              </p>
+              <div className="cs-stats kn-stats">
+                <div><div className="cs-num">1,100<small> mm</small></div><p>Knob height, from standing elbow height.</p></div>
+                <div><div className="cs-num">34<small> mm</small></div><p>Inner width of the grip, from finger breadth.</p></div>
+              </div>
+            </Reveal>
+          </div>
+
+          <Reveal>
+            <div className="kn-table-wrap cs-gap-top">
+              <table className="kn-table">
+                <caption className="cs-label">DINED reference values, mm · mean (sd) and P1–P99</caption>
+                <thead>
+                  <tr><th scope="col">Measure</th><th scope="col">Dutch adults 20–30</th><th scope="col">Dutch adults 18–30</th><th scope="col">Dutch students 19–36</th></tr>
+                </thead>
+                <tbody>
+                  <tr><th scope="row">Elbow height, standing</th><td>1097 (74)<span>925–1269</span></td><td>1133 (66)<span>979–1287</span></td><td>1076 (55)<span>948–1204</span></td></tr>
+                  <tr><th scope="row">Forefinger breadth</th><td>16 (2)<span>11–21</span></td><td>17 (2)<span>12–22</span></td><td>14 (1)<span>12–16</span></td></tr>
+                </tbody>
+              </table>
+              <p className="cs-cap">Source: DINED, TU Delft (dined.nl). Mixed populations.</p>
             </div>
           </Reveal>
         </div>
@@ -278,33 +326,10 @@ const KnoberCaseStudy = ({ project, prev, next }: { project: ProjectData; prev: 
         </div>
       </section>
 
-      {/* ── 05 Sized ── */}
-      <section className="cs-sec">
-        <div className="cs-wrap">
-          <SectionHead index="05" label="Ergonomics" title="Sized for a full hand." />
-          <div className="cs-split">
-            <div />
-            <Reveal>
-              <p className="cs-body">
-                Using the DINED anthropometric database (dined.nl), the team looked at standing elbow height and finger
-                thickness, and set the knob at 110 mm and the inner width of the grip at 34 mm.
-              </p>
-            </Reveal>
-          </div>
-          <Reveal>
-            <div className="cs-stats kn-stats">
-              <div><div className="cs-num">110<small> mm</small></div><p>Knob, from elbow height.</p></div>
-              <div><div className="cs-num">34<small> mm</small></div><p>Inner width of the grip, from finger thickness.</p></div>
-              <div><div className="cs-num">10<small>°</small></div><p>The lift that opens the door.</p></div>
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
       {/* ── 06 One system ── */}
       <section className="cs-sec kn-tint">
         <div className="cs-wrap">
-          <SectionHead index="06" label="Modular" title="One system, two doors." />
+          <SectionHead index="05" label="Modular" title="One system, two doors." />
           <div className="kn-system">
             <Reveal>
               <figure className="cs-fig kn-module">
@@ -352,7 +377,7 @@ const KnoberCaseStudy = ({ project, prev, next }: { project: ProjectData; prev: 
       {/* ── 07 Inside ── */}
       <section className="cs-sec">
         <div className="cs-wrap">
-          <SectionHead index="07" label="Inside" title="A mechanical handle with a battery in its knob." />
+          <SectionHead index="06" label="Inside" title="A mechanical handle with a battery in its knob." />
           <Reveal><Shot i={g('k_exploded')} open={open} /></Reveal>
           <Reveal>
             <div className="kn-materials cs-gap-top">
@@ -379,7 +404,7 @@ const KnoberCaseStudy = ({ project, prev, next }: { project: ProjectData; prev: 
       {/* ── 08 Ring ── */}
       <section className="cs-sec cs-dark" data-nav-dark>
         <div className="cs-wrap">
-          <SectionHead index="08" label="Status" title="A ring of light that reads the card." />
+          <SectionHead index="07" label="Status" title="A ring of light that reads the card." />
           <Ring open={open} />
         </div>
       </section>
@@ -387,7 +412,7 @@ const KnoberCaseStudy = ({ project, prev, next }: { project: ProjectData; prev: 
       {/* ── 09 Maps ── */}
       <section className="cs-sec kn-tint">
         <div className="cs-wrap">
-          <SectionHead index="09" label="Systems" title="Who makes it, and how it works." />
+          <SectionHead index="08" label="Systems" title="Who makes it, and how it works." />
           <Reveal>
             <div className="kn-maps">
               <Shot i={g('k_business')} open={open} />
@@ -400,7 +425,7 @@ const KnoberCaseStudy = ({ project, prev, next }: { project: ProjectData; prev: 
       {/* ── 10 On the door ── */}
       <section className="cs-sec">
         <div className="cs-wrap">
-          <SectionHead index="10" label="On the door" title="At home on any door." />
+          <SectionHead index="09" label="On the door" title="At home on any door." />
           <Reveal>
             <div className="kn-scenes">
               {SCENES.map(s => <Shot key={s.src} i={s} open={open} ratio={s.ratio > 1.2 ? 16 / 9 : 1} />)}
