@@ -179,6 +179,7 @@ const LampCaseStudy = ({ project, prev, next }: { project: ProjectData; prev: Pr
             <Reveal>
               <dl className="cs-facts lt-facts">
                 <div><dt>Course</dt><dd>Project Work 3<br /><span>Politecnico di Milano ×<br />Xi'an Jiaotong University</span></dd></div>
+                <div><dt>Role</dt><dd>Team leader</dd></div>
                 <div><dt>Tutors</dt><dd>Giorgio Colombo<br />Marco Rossoni<br /><span>Politecnico di Milano</span><br />Li Hongwei<br /><span>Xi'an Jiaotong University</span></dd></div>
                 <div><dt>Team</dt><dd><span className="lt-names">{['Wang Ruipeng', 'Li Haozhuo', 'Xiao Yuhan', 'Pu Chunlin', 'Gu Yuntian', 'Chen Jiawang'].map(n => <span key={n}>{n}</span>)}</span><span>Group 10</span></dd></div>
                 <div><dt>Timeline</dt><dd>{project.time.replace(' - ', ' – ')}</dd></div>
@@ -361,7 +362,7 @@ const LampCaseStudy = ({ project, prev, next }: { project: ProjectData; prev: Pr
             <span className="lt-close-dot" aria-hidden="true" />
             <p className="cs-lead">Wherever you go, your glow follows.</p>
             <p className="cs-credits">
-              Group 10 · Wang Ruipeng, Li Haozhuo, Xiao Yuhan, Pu Chunlin, Gu Yuntian, Chen Jiawang<br />
+              Group 10 · Wang Ruipeng (team leader), Li Haozhuo, Xiao Yuhan, Pu Chunlin, Gu Yuntian, Chen Jiawang<br />
               Project Work 3, Politecnico di Milano × Xi'an Jiaotong University
             </p>
           </Reveal>

@@ -166,6 +166,7 @@ const KnoberCaseStudy = ({ project, prev, next }: { project: ProjectData; prev: 
             <Reveal>
               <dl className="cs-facts kn-facts">
                 <div><dt>Course</dt><dd>Project Work 5<br /><span>Xi'an Jiaotong University ×<br />Politecnico di Milano</span></dd></div>
+                <div><dt>Role</dt><dd>Team leader</dd></div>
                 <div><dt>Professor</dt><dd>Patrizia Bolzan</dd></div>
                 <div><dt>Team</dt><dd><span className="kn-names">{['Wang Ruipeng', 'Gu Yuntian', 'Chen Jiawang', 'Pu Chunlin', 'Xiao Yuhan', 'Liu Zhuoran', 'Qiao Zhining', 'Li Haozhuo'].map(n => <span key={n}>{n}</span>)}</span><span>Group 1</span></dd></div>
                 <div><dt>Timeline</dt><dd>{project.time.replace(' - ', ' – ')}</dd></div>
@@ -414,7 +415,7 @@ const KnoberCaseStudy = ({ project, prev, next }: { project: ProjectData; prev: 
         <div className="cs-wrap">
           <SectionHead index="08" label="Systems" title="Who makes it, and how it works." />
           <Reveal>
-            <div className="kn-maps">
+            <div className="cs-row kn-maps">
               <Shot i={g('k_business')} open={open} />
               <Shot i={g('k_system')} open={open} />
             </div>
@@ -427,8 +428,13 @@ const KnoberCaseStudy = ({ project, prev, next }: { project: ProjectData; prev: 
         <div className="cs-wrap">
           <SectionHead index="09" label="On the door" title="At home on any door." />
           <Reveal>
-            <div className="kn-scenes">
-              {SCENES.map(s => <Shot key={s.src} i={s} open={open} ratio={s.ratio > 1.2 ? 16 / 9 : 1} />)}
+            <div className="cs-row">
+              <Shot i={SCENES[0]} open={open} />
+              <Shot i={SCENES[1]} open={open} />
+            </div>
+            <div className="cs-row kn-row2">
+              <Shot i={SCENES[2]} open={open} />
+              <Shot i={SCENES[3]} open={open} />
             </div>
           </Reveal>
         </div>
@@ -441,7 +447,7 @@ const KnoberCaseStudy = ({ project, prev, next }: { project: ProjectData; prev: 
           <Reveal>
             <p className="cs-lead">Hands full? No problem. Unlock with ease.</p>
             <p className="cs-credits">
-              Group 1 · Wang Ruipeng, Gu Yuntian, Chen Jiawang, Pu Chunlin, Xiao Yuhan, Liu Zhuoran, Qiao Zhining, Li Haozhuo<br />
+              Group 1 · Wang Ruipeng (team leader), Gu Yuntian, Chen Jiawang, Pu Chunlin, Xiao Yuhan, Liu Zhuoran, Qiao Zhining, Li Haozhuo<br />
               Project Work 5, Xi'an Jiaotong University × Politecnico di Milano · Professor Patrizia Bolzan
             </p>
           </Reveal>

@@ -71,7 +71,7 @@
 @media (max-width: 699px) { .kn-concepts { flex-wrap: wrap; } .kn-arrow { width: 100%; } }
 
 /* ---------- models ---------- */
-.kn-row2 { margin-top: clamp(10px, 1.4vw, 20px); }
+.kn-row2 { margin-top: clamp(28px, 3vw, 44px); }
 
 /* ---------- lift to open ---------- */
 .kn-lift-head { margin-bottom: clamp(40px, 6vw, 80px); }
@@ -138,11 +138,7 @@
 .kn-ring-text { margin-top: 28px; animation: cs-rise 0.8s var(--ease) both; }
 
 /* ---------- maps, scenes, close ---------- */
-.kn-maps { display: grid; grid-template-columns: 1fr; gap: clamp(16px, 2vw, 32px); }
-@media (min-width: 900px) { .kn-maps { grid-template-columns: 1fr 1fr; } }
 .kn-maps .cs-frame { background: #fff; }
-.kn-scenes { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(28px, 3vw, 44px) clamp(10px, 1.4vw, 20px); }
-@media (max-width: 699px) { .kn-scenes { grid-template-columns: 1fr; } }
 .kn-close { padding: clamp(96px, 12vw, 168px) 0 clamp(72px, 9vw, 120px); text-align: center; }
 .kn-close img { display: block; width: min(1320px, calc(100% - 2 * var(--pad))); margin: 0 auto clamp(56px, 7vw, 96px); border-radius: 4px; }
 .kn-close .cs-lead { font-size: clamp(28px, 3.6vw, 52px); line-height: 1.25; max-width: 22ch; margin: 0 auto; }
