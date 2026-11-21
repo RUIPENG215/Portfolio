@@ -10,7 +10,7 @@
   --amber: #b8322a;          /* Xi'an red: section indexes, accents */
   --wheat: #c49a6c;
   --cobalt: #2d4f9e;
-  --hero-bg: #c9c9c9;        /* the render's own backdrop */
+  --hero-bg: #cfcfcf;        /* the render's own backdrop */
 }
 .xd .cs-nav a:hover span:last-child { color: var(--amber); }
 .xd ::selection { background: var(--wheat); color: var(--ink); }

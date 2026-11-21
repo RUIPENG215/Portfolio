@@ -11,29 +11,29 @@ import '../components/casestudy/xidie.css';
   XIDIE — /design/4. Media in /public/Design_4.
   Palette taken from the object: porcelain white, the earth yellow of the city wall,
   calligraphy ink, Qinghua cobalt and the "Xi'an red" of the port.
-  hero_clean.webp is D4_2 with the baked-in caption removed; xidie_film.mp4 is Video.mp4 in H.264.
+  x_*.webp are the 2560 px renders; xidie_film.mp4 is Video.mp4 in H.264.
 */
 
 const M = '/Design_4';
 
 const MOTIFS = [
   {
-    zh: '青花瓷碗', en: 'Porcelain bowl', src: `${M}/D4_9.webp`,
+    zh: '青花瓷碗', en: 'Porcelain bowl', src: `${M}/x_bowl.webp`,
     alt: 'Close-up of the blue-and-white pattern on the round cable case',
     text: 'The retractable cable case takes its shape and pattern from the blue-and-white bowls that hand-pulled noodles are served in. A familiar thing from the table, holding the cable.',
   },
   {
-    zh: '扯面', en: 'Pulled noodle', src: `${M}/D4_8.webp`,
-    alt: 'The cable plug, marked with a drawn ribbon of noodle',
+    zh: '扯面', en: 'Pulled noodle', src: `${M}/x_noodle.webp`,
+    alt: 'The cable plug, marked with a drawn ribbon of noodle and a red ring, entering the cable case',
     text: 'The cable is the noodle: long and pliable, pulled out of the bowl and wound back into it. Its plug carries a single drawn ribbon of noodle.',
   },
   {
-    zh: '城墙', en: 'City wall', src: `${M}/D4_10.webp`,
+    zh: '城墙', en: 'City wall', src: `${M}/x_wall.webp`,
     alt: 'The side of the charger, banded with an abstract crenellation pattern',
     text: 'The earth-yellow body takes the colour of the Xi\'an city wall, and its side carries an abstract band of the wall\'s crenellations, kept shallow so it never gets in the way of the grip.',
   },
   {
-    zh: '咥', en: 'The word for eating', src: `${M}/D4_12.webp`,
+    zh: '咥', en: 'The word for eating', src: `${M}/x_die.webp`,
     alt: 'Three-quarter view of the charger with the character 咥 on its top',
     text: 'The top carries 咥 (diē), the Shaanxi word for eating, said every day across the city. Written large in ink, it names what the object is for.',
   },
@@ -83,9 +83,9 @@ const GALLERY: StoryImage[] = [
   ...MOTIFS.map(m => ({ src: m.src, alt: m.alt, ratio: 16 / 9, caption: `${m.zh} · ${m.en}` })),
   { src: `${M}/D4_3.webp`, alt: 'A shop display of cultural souvenirs: prints, boxes and figurines', ratio: 1000 / 667, caption: 'Market: cultural products that stop at decoration.' },
   { src: `${M}/D4_4.webp`, alt: 'Affinity map of user-research notes', ratio: 1100 / 612, caption: 'User research: notes clustered into insights.' },
-  { src: `${M}/D4_6.webp`, alt: 'The cable case lifted off the charger, showing the magnetic contacts', ratio: 16 / 9, caption: 'Detachable: the cable case lifts off; magnetic contacts keep it seated and powered.' },
-  { src: `${M}/D4_7.webp`, alt: 'The charger with its cable wound around the bowl', ratio: 16 / 9, caption: 'Coiled: the cable winds into the bowl.' },
-  { src: `${M}/D4_11.webp`, alt: 'The charger from below with its plug folded out', ratio: 16 / 9, caption: 'Foldable plug: compact enough for a pocket.' },
+  { src: `${M}/x_detach.webp`, alt: 'The cable case lifted off the charger, showing the magnetic contacts', ratio: 16 / 9, caption: 'Detachable: the cable case lifts off; magnetic contacts keep it seated and powered.' },
+  { src: `${M}/x_three_quarter.webp`, alt: 'The charger with its cable wound around the bowl', ratio: 16 / 9, caption: 'Coiled: the cable winds into the bowl.' },
+  { src: `${M}/x_plug.webp`, alt: 'The charger from below with its plug pins folded out', ratio: 16 / 9, caption: 'Foldable plug: compact enough for a pocket.' },
   { src: `${M}/D4_5.webp`, alt: 'Technical study: exploded cable case, GaN chip datasheet, teardown of a GaN power board, output specification', ratio: 1600 / 860, caption: 'Technical study: a GaN power board and planar transformer, the chip datasheet and the output specification.' },
 ];
 
@@ -113,7 +113,7 @@ const XidieCaseStudy = ({ project, prev, next }: { project: ProjectData; prev: P
 
       {/* ── Hero: the object from above, the dialect line set vertically ── */}
       <header className="xd-hero">
-        <img className="xd-hero-img" src={`${M}/hero_clean.webp`} alt="XIDIE from above: a porcelain-patterned cable case on an earth-yellow body marked 咥" fetchPriority="high" />
+        <img className="xd-hero-img" src={`${M}/x_top.webp`} alt="XIDIE from above: a porcelain-patterned cable case on an earth-yellow body marked 咥" fetchPriority="high" />
         <div className="xd-hero-in cs-wrap">
           <Link to="/design" className="cs-back"><ArrowLeft /><span className="cs-label" style={{ color: 'inherit' }}>Design</span></Link>
           <p className="xd-vert" lang="zh-CN">
@@ -247,9 +247,9 @@ const XidieCaseStudy = ({ project, prev, next }: { project: ProjectData; prev: P
           </Reveal>
           <Reveal>
             <ul className="cs-features xd-features" style={{ '--cols': 3 } as CSSProperties}>
-              <li><Shot {...img(`${M}/D4_6.webp`)} open={open} caption={undefined} /><h4>Detachable</h4><p>The cable case lifts off for replacement. Magnetic contacts keep it seated and powered.</p></li>
-              <li><Shot {...img(`${M}/D4_7.webp`)} open={open} caption={undefined} /><h4>Coiled</h4><p>The cable winds into the bowl, and comes out to the length you need.</p></li>
-              <li><Shot {...img(`${M}/D4_11.webp`)} open={open} caption={undefined} /><h4>Folded</h4><p>The plug folds flat. Its smooth, wall-inspired shape keeps the cultural look without giving up practicality.</p></li>
+              <li><Shot {...img(`${M}/x_detach.webp`)} open={open} caption={undefined} /><h4>Detachable</h4><p>The cable case lifts off for replacement. Magnetic contacts keep it seated and powered.</p></li>
+              <li><Shot {...img(`${M}/x_three_quarter.webp`)} open={open} caption={undefined} /><h4>Coiled</h4><p>The cable winds into the bowl, and comes out to the length you need.</p></li>
+              <li><Shot {...img(`${M}/x_plug.webp`)} open={open} caption={undefined} /><h4>Folded</h4><p>The plug folds flat. Its smooth, wall-inspired shape keeps the cultural look without giving up practicality.</p></li>
             </ul>
           </Reveal>
           <Reveal>
@@ -262,7 +262,7 @@ const XidieCaseStudy = ({ project, prev, next }: { project: ProjectData; prev: P
 
       {/* ── Close ── */}
       <section className="xd-close">
-        <img src={`${M}/D4_7.webp`} alt="" aria-hidden="true" loading="lazy" />
+        <img src={`${M}/x_front.webp`} alt="" aria-hidden="true" loading="lazy" />
         <div className="cs-wrap">
           <Reveal>
             <p className="cs-lead">The energy of Xi'an's food, powering your digital life.</p>
