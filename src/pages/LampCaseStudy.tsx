@@ -59,7 +59,6 @@ const COLOURS = [
 ];
 
 const GALLERY: StoryImage[] = [
-  { src: `${M}/l_context.webp`, alt: 'A student working at a table in a shared apartment', ratio: 1400 / 2100, caption: 'The user: a student living off campus.' },
   { src: MODES.work.src, alt: MODES.work.alt, ratio: 1.5, caption: 'Work light.' },
   { src: MODES.ambient.src, alt: MODES.ambient.alt, ratio: 1.5, caption: 'Ambient light.' },
   { src: `${M}/l_front.webp`, alt: 'The folded lamp from the front', ratio: 1.5, caption: 'Folded, front.' },
@@ -162,20 +161,24 @@ const LampCaseStudy = ({ project, prev, next }: { project: ProjectData; prev: Pr
 
       {/* ── Hero: the lamp folded, lights off ── */}
       <header className="lt-hero">
-        <img className="lt-hero-img" src={`${M}/Hero_lamp.webp`} alt="The lamp folded, standing on a white shelf beside a potted plant" fetchPriority="high" />
         <div className="cs-wrap lt-hero-in">
           <Link to="/design" className="cs-back"><ArrowLeft /><span className="cs-label" style={{ color: 'inherit' }}>Design</span></Link>
-          <div className="lt-hero-text">
-            <div className="cs-label">Industrial Design — 2024</div>
-            <h1 className="lt-title">Luminous<br />Tower Crane</h1>
-            <p className="cs-hero-sub">A portable lamp that swings out a work light, and folds back into a glow.</p>
-            <div className="cs-hero-meta">
-              <span><b>Course</b>Project Work 3</span>
-              <span><b>Schools</b>PoliMi × XJTU</span>
-              <span><b>Team</b>Group 10, six</span>
+          <div className="lt-hero-top">
+            <div className="lt-hero-text">
+              <div className="cs-label">Industrial Design — 2024</div>
+              <h1 className="lt-title">Luminous<br />Tower Crane</h1>
+            </div>
+            <div className="lt-hero-side">
+              <p className="cs-hero-sub">A portable lamp that swings out a work light, and folds back into a glow.</p>
+              <div className="cs-hero-meta">
+                <span><b>Course</b>Project Work 3</span>
+                <span><b>Schools</b>PoliMi × XJTU</span>
+                <span><b>Team</b>Group 10, six</span>
+              </div>
             </div>
           </div>
         </div>
+        <img className="lt-hero-img" src={`${M}/Hero_lamp.webp`} alt="The lamp folded, standing on a white shelf beside a potted plant" fetchPriority="high" />
       </header>
 
       {/* ── Overview ── */}
@@ -209,21 +212,23 @@ const LampCaseStudy = ({ project, prev, next }: { project: ProjectData; prev: Pr
       <section className="cs-sec lt-tint">
         <div className="cs-wrap">
           <SectionHead index="01" label="Context" title="One lamp for a shared room." />
-          <div className="cs-split cs-split--wide lt-context">
-            <Reveal><Shot img={g(`${M}/l_context.webp`)} open={open} /></Reveal>
-            <Reveal delay={100}>
+          <div className="cs-split">
+            <div />
+            <Reveal>
               <p className="cs-body">
                 The user attends university and lives off campus, in a shared apartment or a small studio. One desk has
                 to serve every purpose, so they want a single lamp that does several things: more than one kind of
                 light, easy to move, with adjustable brightness and colour temperature.
               </p>
-              <ol className="lt-uses">
-                {USES.map((u, i) => (
-                  <li key={u.k}><span className="n">{String(i + 1).padStart(2, '0')}</span><h4>{u.k}</h4><p>{u.v}</p></li>
-                ))}
-              </ol>
             </Reveal>
           </div>
+          <Reveal>
+            <ol className="lt-uses">
+              {USES.map((u, i) => (
+                <li key={u.k}><span className="n">{String(i + 1).padStart(2, '0')}</span><h4>{u.k}</h4><p>{u.v}</p></li>
+              ))}
+            </ol>
+          </Reveal>
         </div>
       </section>
 
