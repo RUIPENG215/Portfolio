@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import type { CSSProperties } from 'react';
 import { Link } from 'react-router-dom';
 import Seo from '../components/Seo';
@@ -41,15 +41,14 @@ const MOTIFS = [
 
 const Motifs = ({ open }: { open: (src: string) => void }) => {
   const [at, setAt] = useState(0);
-  const touched = useRef(false);
+  // Walks through the four on its own until someone picks one.
+  const [auto, setAuto] = useState(() => !window.matchMedia('(prefers-reduced-motion: reduce)').matches);
   useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    const id = window.setInterval(() => {
-      if (!touched.current) setAt(i => (i + 1) % MOTIFS.length);
-    }, 6000);
-    return () => window.clearInterval(id);
-  }, []);
-  const pick = (i: number) => { touched.current = true; setAt(i); };
+    if (!auto) return;
+    const id = window.setTimeout(() => setAt(i => (i + 1) % MOTIFS.length), 6000);
+    return () => window.clearTimeout(id);
+  }, [auto, at]);
+  const pick = (i: number) => { setAuto(false); setAt(i); };
   return (
     <div className="xd-motifs">
       <Reveal>
@@ -57,8 +56,18 @@ const Motifs = ({ open }: { open: (src: string) => void }) => {
           {MOTIFS.map((m, i) => (
             <img key={m.src} src={m.src} alt={i === at ? m.alt : ''} className={i === at ? 'is-on' : ''} loading="lazy" decoding="async" />
           ))}
-          <span className="xd-stage-zh" aria-hidden="true">{MOTIFS[at].zh}</span>
         </button>
+        <div className="xd-progress" aria-hidden="true">
+          <span className="cs-label">{String(at + 1).padStart(2, '0')} / {String(MOTIFS.length).padStart(2, '0')}</span>
+          <div className="xd-bars">
+            {MOTIFS.map((m, i) => (
+              <span key={m.zh} className={i < at ? 'is-done' : i === at ? (auto ? 'is-run' : 'is-done') : ''}>
+                {i === at && <i key={`${at}-${auto}`} />}
+              </span>
+            ))}
+          </div>
+          <span className="cs-label xd-progress-name">{MOTIFS[at].en}</span>
+        </div>
       </Reveal>
       <Reveal delay={120}>
         <ol className="xd-list">
