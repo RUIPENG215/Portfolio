@@ -9,7 +9,7 @@ import '../components/casestudy/xidie.css';
 
 /*
   XIDIE — /design/4. Media in /public/Design_4.
-  Palette taken from the object: porcelain white, the wheat of hand-pulled noodles,
+  Palette taken from the object: porcelain white, the earth yellow of the city wall,
   calligraphy ink, Qinghua cobalt and the "Xi'an red" of the port.
   hero_clean.webp is D4_2 with the baked-in caption removed; xidie_film.mp4 is Video.mp4 in H.264.
 */
@@ -20,22 +20,22 @@ const MOTIFS = [
   {
     zh: '青花瓷碗', en: 'Porcelain bowl', src: `${M}/D4_9.webp`,
     alt: 'Close-up of the blue-and-white pattern on the round cable case',
-    text: 'The retractable cable case takes its shape and pattern from the blue-and-white bowls that hand-pulled noodles are served in. A familiar thing from the table, wrapped around a cable.',
+    text: 'The retractable cable case takes its shape and pattern from the blue-and-white bowls that hand-pulled noodles are served in. A familiar thing from the table, holding the cable.',
   },
   {
-    zh: '咥', en: 'The word for eating', src: `${M}/D4_12.webp`,
-    alt: 'Three-quarter view of the charger with the character 咥 on its wheat-coloured top',
-    text: 'The top carries 咥 (diē), the Shaanxi word for eating, said every day across the city. The wheat-beige surface is the colour of the noodles themselves.',
+    zh: '扯面', en: 'Pulled noodle', src: `${M}/D4_8.webp`,
+    alt: 'The cable plug, marked with a drawn ribbon of noodle',
+    text: 'The cable is the noodle: long and pliable, pulled out of the bowl and wound back into it. Its plug carries a single drawn ribbon of noodle.',
   },
   {
     zh: '城墙', en: 'City wall', src: `${M}/D4_10.webp`,
     alt: 'The side of the charger, banded with an abstract crenellation pattern',
-    text: 'The side carries an abstract band of the Xi’an city wall’s crenellations. It is kept shallow, so it never gets in the way of the grip: present, but unobtrusive, as users asked.',
+    text: 'The earth-yellow body takes the colour of the Xi\'an city wall, and its side carries an abstract band of the wall\'s crenellations, kept shallow so it never gets in the way of the grip.',
   },
   {
-    zh: '西安红', en: 'Xi’an red', src: `${M}/D4_8.webp`,
-    alt: 'The red-lined port and the cable plug marked with a ribbon of noodle',
-    text: 'The interface is picked out in Xi’an red, and the cable plug carries a single drawn ribbon of noodle.',
+    zh: '咥', en: 'The word for eating', src: `${M}/D4_12.webp`,
+    alt: 'Three-quarter view of the charger with the character 咥 on its top',
+    text: 'The top carries 咥 (diē), the Shaanxi word for eating, said every day across the city. Written large in ink, it names what the object is for.',
   },
 ];
 
@@ -109,21 +109,21 @@ const XidieCaseStudy = ({ project, prev, next }: { project: ProjectData; prev: P
 
   return (
     <main className="cs xd">
-      <Seo title="XIDIE — Xi’an Food Culture in a 65 W GaN Charger | Ruipeng Wang" description={project.description} />
+      <Seo title="XIDIE — Xi'an Food Culture in a 65 W GaN Charger | Ruipeng Wang" description={project.description} />
 
       {/* ── Hero: the object from above, the dialect line set vertically ── */}
       <header className="xd-hero">
-        <img className="xd-hero-img" src={`${M}/hero_clean.webp`} alt="XIDIE from above: a porcelain-patterned cable case on a wheat-coloured body marked 咥" fetchPriority="high" />
+        <img className="xd-hero-img" src={`${M}/hero_clean.webp`} alt="XIDIE from above: a porcelain-patterned cable case on an earth-yellow body marked 咥" fetchPriority="high" />
         <div className="xd-hero-in cs-wrap">
           <Link to="/design" className="cs-back"><ArrowLeft /><span className="cs-label" style={{ color: 'inherit' }}>Design</span></Link>
           <p className="xd-vert" lang="zh-CN">
-            <span className="xd-vert-k">“咥”｜西安方言</span>
+            <span className="xd-vert-k">「咥」西安方言</span>
             <span>藏古城烟火，裹美食与生活的热忱。</span>
           </p>
           <div className="xd-hero-text">
             <div className="cs-label">Industrial Design — 2025</div>
             <h1 className="xd-title">XIDIE</h1>
-            <p className="cs-hero-sub">Xi’an’s food culture, built into a 65 W charger.</p>
+            <p className="cs-hero-sub">Xi'an's food culture, built into a 65 W charger.</p>
           </div>
           <div className="cs-hero-meta xd-hero-meta">
             <span><b>Type</b>Concept</span>
@@ -148,13 +148,13 @@ const XidieCaseStudy = ({ project, prev, next }: { project: ProjectData; prev: P
             </Reveal>
             <Reveal delay={100}>
               <p className="cs-lead">
-                Most cultural products are printed with a pattern and put on a shelf. XIDIE takes the food of Xi’an,
+                Most cultural products are printed with a pattern and put on a shelf. XIDIE takes the food of Xi'an,
                 its hand-pulled noodles, old porcelain bowls and city wall, and builds it into a charger you use every day.
               </p>
               <div style={{ height: 32 }} />
               <p className="cs-body">
-                The city’s food culture becomes a tangible part of daily life, paired with the practical needs of young
-                users: a GaN charger thin enough for a pocket, with a cable that winds into a porcelain bowl.
+                The city's food culture becomes a tangible part of daily life, paired with the practical needs of young
+                users: a GaN charger thin enough for a pocket, with a cable that winds into a porcelain bowl like a pulled noodle.
               </p>
             </Reveal>
           </div>
@@ -167,12 +167,12 @@ const XidieCaseStudy = ({ project, prev, next }: { project: ProjectData; prev: P
           <SectionHead index="01" label="Film" title="One take, around the object." />
           <Reveal>
             <Film src={`${M}/xidie_film.mp4`} poster={`${M}/film_poster.webp`} label="Play film — 0:34" />
-            <p className="cs-cap">A single continuous shot that traces the product’s contours, connecting form, material and function.</p>
+            <p className="cs-cap">A single continuous shot that traces the product's contours, connecting form, material and function.</p>
           </Reveal>
         </div>
       </section>
 
-      {/* ── 02 咥: the idea, set on the colour of noodles ── */}
+      {/* ── 02 咥: the idea, set on the earth-yellow of the city wall ── */}
       <section className="cs-sec xd-wheat">
         <div className="cs-wrap xd-die">
           <Reveal className="xd-die-char">
@@ -183,12 +183,12 @@ const XidieCaseStudy = ({ project, prev, next }: { project: ProjectData; prev: P
             <div className="cs-label xd-die-label"><span>02</span><span>Concept</span></div>
             <h2 className="cs-h2">Food energy, device energy.</h2>
             <p className="cs-body" style={{ marginTop: 28 }}>
-              Xi’an is known for hearty food, the hand-pulled noodles that carry locals through the day. XIDIE borrows
-              that idea: just as the city’s dishes give people energy, the charger gives it to their devices.
+              Xi'an is known for hearty food, the hand-pulled noodles that carry locals through the day. XIDIE borrows
+              that idea: just as the city's dishes give people energy, the charger gives it to their devices.
             </p>
             <p className="cs-body">
-              The concept is a food energy station: a pocket charger built from the bowl, the noodle and the word for
-              eating, rather than one with a picture of them printed on it.
+              The concept is a food energy station: a pocket charger built from the bowl, the noodle, the city wall and
+              the word for eating, rather than one with a picture of them printed on it.
             </p>
           </Reveal>
         </div>
@@ -222,7 +222,7 @@ const XidieCaseStudy = ({ project, prev, next }: { project: ProjectData; prev: P
             <div className="xd-brief">
               <div className="xd-brief-head">
                 <div className="cs-label">Brief</div>
-                <p>A portable charger that merges Xi’an’s food culture with GaN fast charging, and breaks the decorative-only habit of cultural products.</p>
+                <p>A portable charger that merges Xi'an's food culture with GaN fast charging, and breaks the decorative-only habit of cultural products.</p>
               </div>
               <ol>
                 <li><span className="n">01</span><h4>Blend, not print</h4><p>Cultural elements sit naturally in the form of a working charger, and never feel forced.</p></li>
@@ -265,7 +265,7 @@ const XidieCaseStudy = ({ project, prev, next }: { project: ProjectData; prev: P
         <img src={`${M}/D4_7.webp`} alt="" aria-hidden="true" loading="lazy" />
         <div className="cs-wrap">
           <Reveal>
-            <p className="cs-lead">The energy of Xi’an’s food, powering your digital life.</p>
+            <p className="cs-lead">The energy of Xi'an's food, powering your digital life.</p>
             <p className="xd-close-zh" lang="zh-CN">藏古城烟火，裹美食与生活的热忱。</p>
           </Reveal>
         </div>

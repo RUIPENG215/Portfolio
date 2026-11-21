@@ -1,6 +1,6 @@
 /*
   XIDIE (/design/4). Builds on casestudy.css (.cs).
-  Porcelain white, noodle wheat, calligraphy ink, Qinghua cobalt, Xi'an red.
+  Porcelain white, city-wall earth yellow, calligraphy ink, Qinghua cobalt, Xi'an red.
 */
 
 .xd {
@@ -53,7 +53,7 @@
   .xd-hero-text { bottom: calc(clamp(28px, 4vh, 48px) + 92px); }
 }
 
-/* ---------- 咥 on noodle wheat ---------- */
+/* ---------- 咥 on city-wall earth yellow ---------- */
 .xd-wheat { background: var(--wheat); color: var(--ink); }
 .cs-sec + .xd-wheat, .xd-wheat + .cs-sec { border-top: 0 !important; }
 .xd-wheat .cs-body { color: rgba(26, 24, 22, 0.82); }
