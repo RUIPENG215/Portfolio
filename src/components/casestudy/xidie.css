@@ -18,7 +18,13 @@
 
 /* ---------- hero ---------- */
 .xd-hero { position: relative; height: 100svh; min-height: 620px; background: var(--hero-bg); overflow: hidden; color: var(--ink); }
-.xd-hero-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; display: block; animation: cs-settle 1.8s var(--ease) both; }
+.xd-hero-img {
+  position: absolute; left: 0; top: 0; width: 100%; height: auto; display: block; max-width: none;
+  /* fade the render's edges into the backdrop when it is smaller than the window */
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 58%, transparent 71%);
+          mask-image: radial-gradient(ellipse at center, #000 58%, transparent 71%);
+  animation: xd-fade 1.4s var(--ease) both;   /* opacity only: no scaling of the bitmap */
+}
 .xd-hero-in { position: relative; height: 100%; padding-top: clamp(88px, 12vh, 112px); padding-bottom: clamp(28px, 4vh, 48px); }
 .xd-hero .cs-back { color: rgba(26, 24, 22, 0.6); }
 .xd-hero .cs-back:hover { color: var(--ink); }
@@ -47,7 +53,6 @@
 @media (max-width: 899px) {
   .xd-hero { min-height: 640px; }
   /* phones: let the object sit large in the top half, the backdrop fills the rest */
-  .xd-hero-img { inset: auto; top: 12svh; left: -50%; width: 200%; height: auto; object-fit: initial; }
   .xd-vert { display: none; }
   .xd-hero-meta { left: var(--pad); right: auto; bottom: auto; top: calc(100% - clamp(28px, 4vh, 48px)); transform: translateY(-100%); }
   .xd-hero-text { bottom: calc(clamp(28px, 4vh, 48px) + 92px); }

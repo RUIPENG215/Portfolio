@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import type { CSSProperties } from 'react';
 import { Link } from 'react-router-dom';
 import Seo from '../components/Seo';
@@ -98,6 +98,39 @@ const GALLERY: StoryImage[] = [
   { src: `${M}/D4_5.webp`, alt: 'Technical study: exploded cable case, GaN chip datasheet, teardown of a GaN power board, output specification', ratio: 1600 / 860, caption: 'Technical study: a GaN power board and planar transformer, the chip datasheet and the output specification.' },
 ];
 
+/*
+  The hero render is 2560 × 1440. A plain `cover` would stretch it past its own pixels on
+  any window taller than 16:9 and blur it, so it is sized here instead: as large as cover,
+  but never more than one image pixel per screen pixel, and placed on whole screen pixels.
+  Where it ends up smaller than the window, its edges fade into the same grey.
+*/
+const HERO_W = 2560, HERO_H = 1440;
+const HeroImage = ({ src, alt, fetchPriority }: { src: string; alt: string; fetchPriority?: 'high' }) => {
+  const ref = useRef<HTMLImageElement>(null);
+  useEffect(() => {
+    const el = ref.current;
+    const box = el?.parentElement;
+    if (!el || !box) return;
+    const place = () => {
+      const dpr = window.devicePixelRatio || 1;
+      const bw = box.clientWidth, bh = box.clientHeight;
+      const phone = bw < 900;
+      const cover = phone ? (bw * 2) / HERO_W : Math.max(bw / HERO_W, bh / HERO_H);
+      const scale = Math.min(cover, 1 / dpr);           // CSS px per image px
+      const snap = (v: number) => Math.round(v * dpr) / dpr;
+      const w = snap(HERO_W * scale), h = snap(HERO_H * scale);
+      const top = phone ? snap(bh * 0.1) : snap((bh - h) / 2);
+      Object.assign(el.style, { width: `${w}px`, height: `${h}px`, left: `${snap((bw - w) / 2)}px`, top: `${top}px` });
+    };
+    place();
+    const ro = new ResizeObserver(place);
+    ro.observe(box);
+    window.addEventListener('resize', place);
+    return () => { ro.disconnect(); window.removeEventListener('resize', place); };
+  }, []);
+  return <img ref={ref} className="xd-hero-img" src={src} alt={alt} fetchPriority={fetchPriority} width={HERO_W} height={HERO_H} />;
+};
+
 const Shot = ({ src, ratio, open, caption, alt }: { src: string; ratio: number; open: (s: string) => void; caption?: string; alt: string }) => (
   <figure className="cs-fig">
     <button type="button" className="cs-frame cs-zoom" style={{ aspectRatio: String(ratio) }} onClick={() => open(src)} aria-label={`View larger: ${alt}`}>
@@ -122,7 +155,7 @@ const XidieCaseStudy = ({ project, prev, next }: { project: ProjectData; prev: P
 
       {/* ── Hero: the object from above, the dialect line set vertically ── */}
       <header className="xd-hero">
-        <img className="xd-hero-img" src={`${M}/x_top.webp`} alt="XIDIE from above: a porcelain-patterned cable case on an earth-yellow body marked 咥" fetchPriority="high" />
+        <HeroImage src={`${M}/x_top.webp`} alt="XIDIE from above: a porcelain-patterned cable case on an earth-yellow body marked 咥" fetchPriority="high" />
         <div className="xd-hero-in cs-wrap">
           <Link to="/design" className="cs-back"><ArrowLeft /><span className="cs-label" style={{ color: 'inherit' }}>Design</span></Link>
           <p className="xd-vert" lang="zh-CN">
