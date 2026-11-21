@@ -114,6 +114,7 @@ export const designProjects: ProjectData[] = [
   },
  {
     "id": 2,
+    hidden: true, // early concept, kept reachable by URL but out of the list
     "title": "Foodbox",
     "category": "Industrial Design",
     "description": "For space station astronauts, interrupting missions to dine is inefficient. FOODBOX is a portable, heatable container that automates meal pairing, heating, and serving—letting astronauts eat at workstations without delays.",
