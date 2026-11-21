@@ -1,5 +1,6 @@
 import { Lamp, Utensils, DoorOpen, Zap, Activity, Car, Plane, Cpu, Sparkles } from 'lucide-react';
 import type { ProjectData } from './types';
+import { lampStory, microclimateStory } from './designStories';
 
 export const designProjects: ProjectData[] = [
   {
@@ -36,6 +37,7 @@ export const designProjects: ProjectData[] = [
     status: "COMPLETED",
     tags: ["Industrial Design", "Lighting", "Portability", "Mechanism"],
     time: "2024.06 - 2024.07",
+    story: lampStory,
     content: [
       {
         type: 'text-and-image',
@@ -509,6 +511,7 @@ export const designProjects: ProjectData[] = [
     status: "RESEARCH PROJECT",
     tags: ["Interaction Design", "Medical Design", "Sensor Integration", "Thermal Comfort"],
     time: "2025.01 - 2025.04",
+    story: microclimateStory,
     content: [
       {
         type: 'image-full',

@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { ArrowLeft, ArrowRight, ExternalLink, Github } from 'lucide-react';
 import { designProjects, visibleDesignProjects } from '../data/designProjects';
 import WispCaseStudy from './WispCaseStudy';
+import ProjectCaseStudy from './ProjectCaseStudy';
 import ContentBlockRenderer from '../components/ContentBlockRenderer';
 import Seo from '../components/Seo';
 
@@ -27,6 +28,9 @@ const DesignProject = () => {
 
   if (project.layout === 'case-study' && project.id === 9) {
     return <WispCaseStudy project={project} prev={prevProject} next={nextProject} />;
+  }
+  if (project.story) {
+    return <ProjectCaseStudy project={project} story={project.story} prev={prevProject} next={nextProject} />;
   }
 
   const isInteractionProject = project.category === 'Interaction Design';
