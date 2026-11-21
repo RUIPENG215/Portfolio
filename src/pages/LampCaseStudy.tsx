@@ -161,35 +161,26 @@ const LampCaseStudy = ({ project, prev, next }: { project: ProjectData; prev: Pr
 
       {/* ── Hero: the lamp folded, lights off ── */}
       <header className="lt-hero">
+        <img className="lt-hero-img" src={`${M}/Hero_lamp.webp`} alt="The lamp folded, standing on a white shelf beside a potted plant" fetchPriority="high" />
         <div className="cs-wrap lt-hero-in">
           <Link to="/design" className="cs-back"><ArrowLeft /><span className="cs-label" style={{ color: 'inherit' }}>Design</span></Link>
-          <div className="lt-hero-top">
-            <div className="lt-hero-text">
-              <div className="cs-label">Industrial Design — 2024</div>
-              <h1 className="lt-title">Luminous<br />Tower Crane</h1>
-            </div>
-            <div className="lt-hero-side">
-              <p className="cs-hero-sub">A portable lamp that swings out a work light, and folds back into a glow.</p>
-              <div className="cs-hero-meta">
-                <span><b>Course</b>Project Work 3</span>
-                <span><b>Schools</b>PoliMi × XJTU</span>
-                <span><b>Team</b>Group 10, six</span>
-              </div>
-            </div>
+          <div className="lt-hero-text">
+            <div className="cs-label">Industrial Design — 2024 · PoliMi × XJTU</div>
+            <h1 className="lt-title">Luminous Tower Crane</h1>
+            <p className="cs-hero-sub">A portable lamp that swings out a work light, and folds back into a glow.</p>
           </div>
         </div>
-        <img className="lt-hero-img" src={`${M}/Hero_lamp.webp`} alt="The lamp folded, standing on a white shelf beside a potted plant" fetchPriority="high" />
       </header>
 
       {/* ── Overview ── */}
       <section className="cs-sec">
         <div className="cs-wrap">
-          <div className="cs-split">
+          <div className="cs-split lt-overview">
             <Reveal>
-              <dl className="cs-facts">
-                <div><dt>Course</dt><dd>Project Work 3, Politecnico di Milano and Xi'an Jiaotong University</dd></div>
-                <div><dt>Tutors</dt><dd>Giorgio Colombo and Marco Rossoni (Politecnico di Milano); Li Hongwei (Xi'an Jiaotong University)</dd></div>
-                <div><dt>Team</dt><dd>Group 10: Wang Ruipeng, Li Haozhuo, Xiao Yuhan, Pu Chunlin, Gu Yuntian, Chen Jiawang</dd></div>
+              <dl className="cs-facts lt-facts">
+                <div><dt>Course</dt><dd>Project Work 3<br /><span>Politecnico di Milano ×<br />Xi'an Jiaotong University</span></dd></div>
+                <div><dt>Tutors</dt><dd>Giorgio Colombo<br />Marco Rossoni<br /><span>Politecnico di Milano</span><br />Li Hongwei<br /><span>Xi'an Jiaotong University</span></dd></div>
+                <div><dt>Team</dt><dd><span className="lt-names">{['Wang Ruipeng', 'Li Haozhuo', 'Xiao Yuhan', 'Pu Chunlin', 'Gu Yuntian', 'Chen Jiawang'].map(n => <span key={n}>{n}</span>)}</span><span>Group 10</span></dd></div>
                 <div><dt>Timeline</dt><dd>{project.time.replace(' - ', ' – ')}</dd></div>
               </dl>
             </Reveal>
