@@ -162,7 +162,7 @@ const LampCaseStudy = ({ project, prev, next }: { project: ProjectData; prev: Pr
 
       {/* ── Hero: the lamp folded, lights off ── */}
       <header className="lt-hero">
-        <img className="lt-hero-img" src={`${M}/l_hero.webp`} alt="The lamp folded, standing on a white table against a grey wall" fetchPriority="high" />
+        <img className="lt-hero-img" src={`${M}/Hero_lamp.webp`} alt="The lamp folded, standing on a white shelf beside a potted plant" fetchPriority="high" />
         <div className="cs-wrap lt-hero-in">
           <Link to="/design" className="cs-back"><ArrowLeft /><span className="cs-label" style={{ color: 'inherit' }}>Design</span></Link>
           <div className="lt-hero-text">

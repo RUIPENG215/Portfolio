@@ -9,7 +9,7 @@
   --rule: #d3d1cd;
   --amber: #e8722e;            /* the dial */
   --night: #0d1022;            /* the ambient render's room */
-  --hero-wall: #b3b3b3;
+  --hero-wall: #e7e7e5;
   --hero-floor: #ececec;
 }
 .lt .cs-nav a:hover span:last-child { color: var(--amber); }
@@ -20,9 +20,9 @@
 
 /* ---------- hero: the lamp, lights off ---------- */
 .lt-hero { position: relative; height: 100svh; min-height: 640px; overflow: hidden; background: var(--hero-wall); color: var(--ink); }
-.lt-hero-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 58%; display: block; animation: lt-fade 1.4s var(--ease) both; }
+.lt-hero-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 75%; display: block; animation: lt-fade 1.4s var(--ease) both; }
 @keyframes lt-fade { from { opacity: 0; } to { opacity: 1; } }
-.lt-hero-in { position: relative; height: 100%; padding-top: clamp(88px, 12vh, 112px); padding-bottom: clamp(28px, 5vh, 56px); display: flex; flex-direction: column; justify-content: space-between; }
+.lt-hero-in { position: relative; height: 100%; padding-top: clamp(88px, 12vh, 112px); padding-bottom: clamp(28px, 5vh, 56px); display: flex; flex-direction: column; justify-content: flex-start; gap: clamp(24px, 7vh, 88px); }
 .lt-hero .cs-back { color: rgba(26, 24, 22, 0.6); }
 .lt-hero .cs-back:hover { color: var(--ink); }
 .lt-hero .cs-label { color: rgba(26, 24, 22, 0.6); }
@@ -37,10 +37,11 @@
 .lt-hero .cs-hero-meta span { color: rgba(26, 24, 22, 0.62); }
 @media (prefers-reduced-motion: reduce) { .lt-hero-img, .lt-hero-text > * { animation: none; } }
 @media (max-width: 899px) {
-  /* phones: the render on top, the text below on the colour of the table */
+  /* phones: the text on top, the render below */
   .lt-hero { height: auto; min-height: 100svh; background: var(--hero-floor); }
-  .lt-hero-img { position: relative; inset: auto; height: 58svh; object-position: 64% 60%; }
-  .lt-hero-in { position: absolute; inset: 0; padding-bottom: 28px; }
+  .lt-hero { display: flex; flex-direction: column; }
+  .lt-hero-img { position: relative; inset: auto; order: 2; height: 52svh; object-position: 72% 80%; }
+  .lt-hero-in { order: 1; height: auto; padding-bottom: 8px; gap: 24px; }
 }
 
 /* ---------- context ---------- */
