@@ -11,7 +11,7 @@ import '../components/casestudy/xidie.css';
   XIDIE — /design/4. Media in /public/Design_4.
   Palette taken from the object: porcelain white, the earth yellow of the city wall,
   calligraphy ink, Qinghua cobalt and the "Xi'an red" of the port.
-  x_*.webp are the 2560 px renders; xidie_film.mp4 is Video.mp4 in H.264.
+  x_top.webp is the 3840 px top view; the other x_*.webp are 2560 px renders; xidie_film.mp4 is Video.mp4 in H.264.
 */
 
 const M = '/Design_4';
@@ -99,12 +99,11 @@ const GALLERY: StoryImage[] = [
 ];
 
 /*
-  The hero render is 2560 × 1440. A plain `cover` would stretch it past its own pixels on
-  any window taller than 16:9 and blur it, so it is sized here instead: as large as cover,
-  but never more than one image pixel per screen pixel, and placed on whole screen pixels.
-  Where it ends up smaller than the window, its edges fade into the same grey.
+  The hero render is 3840 × 2400. It covers the hero, sized in script so it lands on whole
+  screen pixels (a half-pixel offset blurs the whole image). On phones it is drawn at twice
+  the screen width near the top, with its edges faded into the same grey.
 */
-const HERO_W = 2560, HERO_H = 1440;
+const HERO_W = 3840, HERO_H = 2400;
 const HeroImage = ({ src, alt, fetchPriority }: { src: string; alt: string; fetchPriority?: 'high' }) => {
   const ref = useRef<HTMLImageElement>(null);
   useEffect(() => {
@@ -116,7 +115,7 @@ const HeroImage = ({ src, alt, fetchPriority }: { src: string; alt: string; fetc
       const bw = box.clientWidth, bh = box.clientHeight;
       const phone = bw < 900;
       const cover = phone ? (bw * 2) / HERO_W : Math.max(bw / HERO_W, bh / HERO_H);
-      const scale = Math.min(cover, 1 / dpr);           // CSS px per image px
+      const scale = cover;                               // CSS px per image px
       const snap = (v: number) => Math.round(v * dpr) / dpr;
       const w = snap(HERO_W * scale), h = snap(HERO_H * scale);
       const top = phone ? snap(bh * 0.1) : snap((bh - h) / 2);
