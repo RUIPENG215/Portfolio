@@ -5,6 +5,7 @@ import { designProjects, visibleDesignProjects } from '../data/designProjects';
 import WispCaseStudy from './WispCaseStudy';
 import ProjectCaseStudy from './ProjectCaseStudy';
 import XidieCaseStudy from './XidieCaseStudy';
+import LampCaseStudy from './LampCaseStudy';
 import ContentBlockRenderer from '../components/ContentBlockRenderer';
 import Seo from '../components/Seo';
 
@@ -29,6 +30,9 @@ const DesignProject = () => {
 
   if (project.layout === 'case-study' && project.id === 9) {
     return <WispCaseStudy project={project} prev={prevProject} next={nextProject} />;
+  }
+  if (project.id === 1) {
+    return <LampCaseStudy project={project} prev={prevProject} next={nextProject} />;
   }
   if (project.id === 4) {
     return <XidieCaseStudy project={project} prev={prevProject} next={nextProject} />;
