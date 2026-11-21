@@ -1,0 +1,122 @@
+/*
+  XIDIE (/design/4). Builds on casestudy.css (.cs).
+  Porcelain white, noodle wheat, calligraphy ink, Qinghua cobalt, Xi'an red.
+*/
+
+.xd {
+  --paper: #f1f1ef;
+  --paper-2: #e6e6e3;
+  --rule: #d5d4cf;
+  --amber: #b8322a;          /* Xi'an red: section indexes, accents */
+  --wheat: #c49a6c;
+  --cobalt: #2d4f9e;
+  --hero-bg: #c9c9c9;        /* the render's own backdrop */
+}
+.xd .cs-nav a:hover span:last-child { color: var(--amber); }
+.xd ::selection { background: var(--wheat); color: var(--ink); }
+.xd-zh, .xd [lang='zh-CN'] { font-family: 'Noto Serif SC', serif; }
+
+/* ---------- hero ---------- */
+.xd-hero { position: relative; height: 100svh; min-height: 620px; background: var(--hero-bg); overflow: hidden; color: var(--ink); }
+.xd-hero-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; display: block; animation: cs-settle 1.8s var(--ease) both; }
+.xd-hero-in { position: relative; height: 100%; padding-top: clamp(88px, 12vh, 112px); padding-bottom: clamp(28px, 4vh, 48px); }
+.xd-hero .cs-back { color: rgba(26, 24, 22, 0.6); }
+.xd-hero .cs-back:hover { color: var(--ink); }
+.xd-hero .cs-label { color: rgba(26, 24, 22, 0.6); }
+
+.xd-vert {
+  position: absolute; right: var(--pad); top: 50%; transform: translateY(-50%);
+  writing-mode: vertical-rl; margin: 0; display: flex; gap: 1.1em;
+  font-weight: 300; font-size: clamp(16px, 1.45vw, 21px); letter-spacing: 0.32em; line-height: 1.6; color: var(--ink);
+  animation: xd-fade 1.6s 0.4s var(--ease) both;
+}
+.xd-vert-k { color: rgba(26, 24, 22, 0.55); font-size: 0.82em; }
+@keyframes xd-fade { from { opacity: 0; } to { opacity: 1; } }
+
+.xd-hero-text { position: absolute; left: var(--pad); bottom: clamp(28px, 4vh, 48px); }
+.xd-hero-text > * { animation: cs-rise 1.1s var(--ease) both; }
+.xd-hero-text > :nth-child(2) { animation-delay: 0.08s; }
+.xd-hero-text > :nth-child(3) { animation-delay: 0.16s; }
+.xd-title { font-weight: 200; font-size: clamp(76px, 11vw, 190px); line-height: 0.84; letter-spacing: -0.05em; margin: 16px 0 0 -0.05em; }
+.xd-hero .cs-hero-sub { margin-top: 20px; max-width: 26ch; }
+.xd-hero-meta { position: absolute; right: var(--pad); bottom: clamp(28px, 4vh, 48px); margin: 0; border-top-color: rgba(26, 24, 22, 0.2); animation: cs-rise 1.1s 0.24s var(--ease) both; }
+.xd-hero-meta span { color: rgba(26, 24, 22, 0.65); }
+@media (prefers-reduced-motion: reduce) {
+  .xd-hero-img, .xd-vert, .xd-hero-text > *, .xd-hero-meta { animation: none; }
+}
+@media (max-width: 899px) {
+  .xd-hero { min-height: 640px; }
+  /* phones: let the object sit large in the top half, the backdrop fills the rest */
+  .xd-hero-img { inset: auto; top: 12svh; left: -50%; width: 200%; height: auto; object-fit: initial; }
+  .xd-vert { display: none; }
+  .xd-hero-meta { left: var(--pad); right: auto; bottom: auto; top: calc(100% - clamp(28px, 4vh, 48px)); transform: translateY(-100%); }
+  .xd-hero-text { bottom: calc(clamp(28px, 4vh, 48px) + 92px); }
+}
+
+/* ---------- 咥 on noodle wheat ---------- */
+.xd-wheat { background: var(--wheat); color: var(--ink); }
+.cs-sec + .xd-wheat, .xd-wheat + .cs-sec { border-top: 0 !important; }
+.xd-wheat .cs-body { color: rgba(26, 24, 22, 0.82); }
+.xd-die { display: grid; grid-template-columns: 1fr; gap: 40px; align-items: center; }
+@media (min-width: 900px) { .xd-die { grid-template-columns: 5fr 7fr; gap: 64px; } }
+.xd-die-char { display: flex; flex-direction: column; align-items: flex-start; }
+.xd-glyph { font-family: 'Noto Serif SC', serif; font-weight: 500; font-size: clamp(200px, 28vw, 420px); line-height: 0.95; letter-spacing: 0; margin-left: -0.04em; }
+.xd-pron { font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(26, 24, 22, 0.7); margin-top: 18px; }
+.xd-pron b { font-family: var(--serif); font-weight: 400; font-size: 20px; letter-spacing: 0.02em; text-transform: none; color: var(--ink); margin-right: 4px; }
+.xd-die-label { display: flex; gap: 14px; margin-bottom: 20px; color: rgba(26, 24, 22, 0.7); }
+.xd-die-label span:first-child { color: var(--ink); }
+
+/* ---------- motifs ---------- */
+.xd-motifs { display: grid; grid-template-columns: 1fr; gap: 32px; align-items: center; }
+@media (min-width: 900px) { .xd-motifs { grid-template-columns: 7fr 5fr; gap: 56px; } }
+.xd-stage { position: relative; display: block; width: 100%; aspect-ratio: 16 / 9; padding: 0; border: 0; border-radius: 4px; overflow: hidden; background: #e8eae5; cursor: zoom-in; }
+.xd-stage img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.03); transition: opacity 0.9s var(--ease), transform 1.6s var(--ease); }
+.xd-stage img.is-on { opacity: 1; transform: none; }
+.xd-stage-zh {
+  position: absolute; top: clamp(14px, 2vw, 26px); right: clamp(14px, 2vw, 26px); writing-mode: vertical-rl;
+  font-family: 'Noto Serif SC', serif; font-weight: 400; font-size: clamp(22px, 2.6vw, 38px); letter-spacing: 0.18em; color: var(--ink);
+}
+.xd-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--rule); }
+.xd-list li { border-bottom: 1px solid var(--rule); }
+.xd-list button {
+  width: 100%; display: grid; grid-template-columns: 30px 1fr auto; gap: 12px; align-items: baseline;
+  padding: 18px 0; min-height: 56px; background: none; border: 0; font: inherit; text-align: left; cursor: pointer;
+  color: var(--muted); transition: color 0.3s;
+}
+.xd-list button:hover, .xd-list button[aria-pressed='true'] { color: var(--ink); }
+.xd-list .n { font-family: var(--mono); font-size: 11px; color: var(--muted); }
+.xd-list button[aria-pressed='true'] .n { color: var(--cobalt); }
+.xd-list .zh { font-family: 'Noto Serif SC', serif; font-size: 22px; letter-spacing: 0.06em; }
+.xd-list .en { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); text-align: right; }
+.xd-list .x { grid-column: 2 / 4; font-size: 14.5px; line-height: 1.65; color: var(--ink-2); overflow: hidden; max-height: 0; transition: max-height 0.6s var(--ease), margin 0.6s var(--ease); }
+.xd-list button[aria-pressed='true'] .x { max-height: 160px; margin-top: 8px; }
+
+/* ---------- research ---------- */
+.xd-porcelain { background: var(--paper-2); }
+.xd-porcelain .cs-frame { background: var(--paper); }
+.xd-research { display: grid; grid-template-columns: 1fr; gap: 56px; }
+@media (min-width: 760px) { .xd-research { grid-template-columns: 1fr 1fr; gap: clamp(24px, 4vw, 64px); } }
+.xd-research .cs-frame { aspect-ratio: 3 / 2 !important; }
+.xd-brief { margin-top: clamp(72px, 9vw, 128px); border-top: 1px solid var(--ink); }
+.xd-brief-head { display: grid; grid-template-columns: 1fr; gap: 16px; padding: 22px 0 clamp(32px, 4vw, 48px); }
+@media (min-width: 900px) { .xd-brief-head { grid-template-columns: 3fr 9fr; gap: 40px; } }
+.xd-brief-head p { font-family: var(--serif); font-weight: 300; font-size: clamp(20px, 2vw, 28px); line-height: 1.4; margin: 0; max-width: 36ch; }
+.xd-brief ol { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr; border-top: 1px solid var(--rule); }
+@media (min-width: 760px) { .xd-brief ol { grid-template-columns: repeat(3, 1fr); } }
+.xd-brief li { padding: 24px 24px 8px 0; }
+@media (min-width: 760px) { .xd-brief li + li { padding-left: 24px; border-left: 1px solid var(--rule); } }
+@media (max-width: 759px) { .xd-brief li + li { border-top: 1px solid var(--rule); } }
+.xd-brief .n { font-family: var(--mono); font-size: 11px; color: var(--cobalt); }
+.xd-brief h4 { font-size: 19px; font-weight: 500; letter-spacing: -0.01em; margin: 12px 0 8px; }
+.xd-brief p { font-size: 14.5px; line-height: 1.65; color: var(--ink-2); margin: 0; }
+
+/* ---------- engineering ---------- */
+.xd-stats { margin-top: 0; margin-bottom: clamp(56px, 7vw, 96px); }
+.xd-stats small { font-size: 0.4em; }
+.xd-features .cs-frame { aspect-ratio: 16 / 9; }
+
+/* ---------- close ---------- */
+.xd-close { padding: clamp(96px, 12vw, 168px) 0 clamp(72px, 9vw, 120px); text-align: center; }
+.xd-close img { display: block; width: min(1100px, calc(100% - 2 * var(--pad))); margin: 0 auto clamp(56px, 7vw, 96px); border-radius: 4px; }
+.xd-close .cs-lead { font-size: clamp(28px, 3.6vw, 52px); line-height: 1.25; max-width: 22ch; margin: 0 auto; }
+.xd-close-zh { margin: 28px 0 0; font-weight: 300; font-size: clamp(16px, 1.5vw, 20px); letter-spacing: 0.3em; color: var(--muted); }
