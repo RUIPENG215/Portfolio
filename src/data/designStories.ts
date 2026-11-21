@@ -112,7 +112,7 @@ export const microclimateStory: CaseStory = {
   ],
   lead: 'In an orthopedic ward, what feels comfortable varies sharply from one patient to the next. Bio-Adaptive Microclimate measures how each patient feels, and tunes the air around their bed to match.',
   body: [
-    'The idea came out of field research. The system carries several sensors on flexible printed circuits that monitor skin moisture and galvanic skin response in real time, so each patient's perception of their environment can be measured rather than guessed.',
+    'The idea came out of field research. The system carries several sensors on flexible printed circuits that monitor skin moisture and galvanic skin response in real time, so each patient\'s perception of their environment can be measured rather than guessed.',
   ],
   sections: [
     {
