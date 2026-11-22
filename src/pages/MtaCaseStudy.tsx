@@ -252,7 +252,7 @@ const MtaCaseStudy = ({ project, prev, next }: { project: ProjectData; prev: Pro
           <div className="cs-split mt-overview">
             <Reveal>
               <dl className="cs-facts mt-facts">
-                <div><dt>Type</dt><dd>Individual project</dd></div>
+                <div><dt>Type</dt><dd>Interaction design research</dd></div>
                 <div><dt>System</dt><dd>Steering wheel with flexible modules<br />HUD serious game</dd></div>
                 <div><dt>Built with</dt><dd>Grip force sensor, Arduino<br />Camera, OpenCV (Python)<br />Unity (C#)</dd></div>
                 <div><dt>Timeline</dt><dd>{project.time.replace(' - ', ' – ')}</dd></div>
