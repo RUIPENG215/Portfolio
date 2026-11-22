@@ -159,7 +159,7 @@ function AnimatedRoutes() {
 
   // 动态设置背景色以匹配当前页面，防止转场闪白
   const getBackgroundColor = (pathname: string) => {
-    if (pathname.includes('/engineering')) return '#0d1117'; // engineering-bg
+    if (pathname.includes('/engineering')) return '#111214'; // engineering graphite
     if (pathname.includes('/humanities')) return '#FEFAE0'; // humanities-bg
     if (pathname === '/') return language === 'zh' ? '#faf9f6' : '#050505'; // 中文首页浅色，英文 Hero 深色
     return '#f9fafb'; // Default light for others

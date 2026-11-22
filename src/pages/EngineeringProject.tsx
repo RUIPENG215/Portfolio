@@ -4,6 +4,7 @@ import { ArrowLeft } from 'lucide-react';
 import { engineeringProjects } from '../data/engineeringProjects';
 import ContentBlockRenderer from '../components/ContentBlockRenderer';
 import Seo from '../components/Seo';
+import SeatSheet from '../components/engineering/SeatSheet';
 
 const EngineeringProject = () => {
   const { id } = useParams();
@@ -11,6 +12,9 @@ const EngineeringProject = () => {
   const projects = engineeringProjects;
 
   const project = projects.find(p => p.id === Number(id));
+
+  // Redone sheets render their own page (see components/engineering).
+  if (Number(id) === 1) return <SeatSheet lang="en" />;
 
   if (!project) return (
     <main className="min-h-screen bg-engineering-bg text-white flex items-center justify-center px-6 text-center font-mono">

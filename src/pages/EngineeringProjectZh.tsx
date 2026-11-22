@@ -4,6 +4,7 @@ import { ArrowLeft } from 'lucide-react';
 import { engineeringProjectsZh } from '../data/engineeringProjectsZh';
 import ContentBlockRenderer from '../components/ContentBlockRenderer';
 import Seo from '../components/Seo';
+import SeatSheet from '../components/engineering/SeatSheet';
 
 // 工程项目详情页的中文版：结构和英文版 EngineeringProject.tsx 完全一致（同一套
 // "代码块"视觉语言），只是数据源换成 engineeringProjectsZh，正文也是中文。
@@ -11,6 +12,9 @@ const EngineeringProjectZh = () => {
   const { id } = useParams();
 
   const project = engineeringProjectsZh.find((p) => p.id === Number(id));
+
+  // Redone sheets render their own page (see components/engineering).
+  if (Number(id) === 1) return <SeatSheet lang="zh" />;
 
   if (!project) return (
     <main className="min-h-screen bg-engineering-bg text-white flex items-center justify-center px-6 text-center font-mono">

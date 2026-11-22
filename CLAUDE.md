@@ -46,3 +46,15 @@ Vite + React 19 + TypeScript + Tailwind 3 + framer-motion 12 + react-router 7。
 
 ## 推送
 - 提交后需 `git push origin main`，Vercel 自动部署
+
+## 工程页（/engineering，2026.11 改版中，分支 engineering-redesign）
+- 风格：工程图纸集。深石墨底 + 淡绘图网格，线稿逐笔画出，琥珀色只用于载荷/信号；组件在 `components/engineering/`，内容在 `data/engineeringSheets.ts`（中英文同一份）
+- 线稿只画原理示意，不编造结果数据；关键数字必须是用户确认过的
+- 收录 5 项：ENG-01 地铁座椅支架（本科毕设，西安地铁 15 号线大项目的一部分，以毕业论文为准：3.93→2.20 kg，减重 44.02%；论文配图已提取到 `public/Engineering_1/`（分辨率偏低，约 600–950px 宽））、ENG-02 两轮自平衡车（EE5101/ME5401，MATLAB，个人）、ENG-03 Bio-Adaptive 的 CFD+FPC、ENG-04 Wisp 系统实现、ENG-05 字符识别（ME5405 小组，用户负责 Task 1，Python）
+- 支架项目分工：用户做优化设计与仿真；打印前的路径规划不是用户做的；打印参与过、了解流程；实物测试有，但不是用户做的。文案里要如实写
+- 已删除：个人网站、机械臂、SparkPilot、车道检测；风扇气动噪声、ME5422、ME5106 不放
+- `ready: true` 的图纸才可点进详情页；详情页逐个单独重做（同设计页思路）
+- ENG-01 详情页：`components/engineering/SeatSheet.tsx` + `seat.css`，在 `EngineeringProject(Zh).tsx` 里按 id 1 路由。所有数字取自毕业论文；论文图不放大超过原生像素；第 08 节（打印/CT/装配）必须保留"课题组完成"的署名
+- ENG-01 单位写"西安交通大学 机械工程学院 先进制造技术研究所"（英文 Institute of Advanced Manufacturing Technology, School of Mechanical Engineering, Xi'an Jiaotong University），不写米兰联合学院；中文文案用论文/学术化表述，不用口语
+- 工程详情页每节左栏放"旁注"：该节最关键的一个数字 + 一行说明（`st-mnote`）
+- 中文工程页的图纸元素（标题栏、目录、标签、图注、旁注说明）用长仿宋：朱雀仿宋（OFL）子集 + 横向压缩 0.82，`public/fonts/zhuque-fs-eng.woff2`；大标题与正文不用。工程页新增中文文字后要重跑 `python3 scripts/subset-fangsong.py`（需 fonttools、brotli），否则新字会退回系统字体
