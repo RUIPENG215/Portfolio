@@ -570,7 +570,6 @@ export const designProjects: ProjectData[] = [
     status: "RESEARCH PROJECT",
     tags: ["Interaction Design", "Automotive", "HMI", "AR-HUD", "Human-Machine Co-Driving"],
     time: "2025.05 - 2025.08",
-    externalLink: "https://spark-pilot.vercel.app",
     content: [
       {
         type: 'image-full',
