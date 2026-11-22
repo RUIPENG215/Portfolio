@@ -34,6 +34,7 @@ const ScrollProgress = () => {
   );
 
   const [active, setActive] = useState(false);
+  const [pastHero, setPastHero] = useState(false);
   const idleTimer = useRef<number | undefined>(undefined);
 
   useMotionValueEvent(scrollY, 'change', (latest) => {
@@ -45,9 +46,10 @@ const ScrollProgress = () => {
   useEffect(() => () => window.clearTimeout(idleTimer.current), []);
 
   // 首页：英雄区（首屏）不显示，滚过首屏之后才出现；其它页面始终显示
-  const [pastHero, setPastHero] = useState(false);
   useEffect(() => {
-    setPastHero(window.scrollY > window.innerHeight * 0.75);
+    // re-check after a route change, once the new page has restored its scroll position
+    const id = requestAnimationFrame(() => setPastHero(window.scrollY > window.innerHeight * 0.75));
+    return () => cancelAnimationFrame(id);
   }, [pathname]);
   const visible = !reduceMotion && (pathname !== '/' || pastHero);
 
