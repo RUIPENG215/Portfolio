@@ -235,7 +235,7 @@ const MtaCaseStudy = ({ project, prev, next }: { project: ProjectData; prev: Pro
 
       {/* ── Hero ── */}
       <header className="mt-hero" data-nav-dark>
-        <img className="mt-hero-img" src={`${M}/H.webp`} alt="A car crossing an intersection at night, sensing rings around it" fetchPriority="high" />
+        <img className="mt-hero-img" src={`${M}/hero.webp`} alt="Hands on the redesigned yoke at night, a mint guide path projected on the wet road ahead" fetchPriority="high" />
         <div className="cs-wrap mt-hero-in">
           <Link to="/design" className="cs-back"><ArrowLeft /><span className="cs-label" style={{ color: 'inherit' }}>Design</span></Link>
           <div className="mt-hero-text">

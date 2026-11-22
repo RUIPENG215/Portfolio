@@ -127,7 +127,7 @@ const SparkCaseStudy = ({ project, prev, next }: { project: ProjectData; prev: P
 
       {/* ── Hero ── */}
       <header className="sp-hero" data-nav-dark>
-        <img className="sp-hero-img" src={`${M}/D8_H.webp`} alt="AR glasses floating above a glowing chip on a circuit board" fetchPriority="high" />
+        <img className="sp-hero-img" src={`${M}/hero.webp`} alt="Soldering a circuit board at night with an AR layout overlaid on the board" fetchPriority="high" />
         <div className="cs-wrap sp-hero-in">
           <Link to="/design" className="cs-back"><ArrowLeft /><span className="cs-label" style={{ color: 'inherit' }}>Design</span></Link>
           <div className="sp-hero-text">
