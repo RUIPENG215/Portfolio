@@ -73,9 +73,10 @@ const GALLERY: StoryImage[] = [
   img('b_g2a', 512, 380, 'Second participant with sensors, initial state', 'Group 2, initial state.'),
   img('b_g2b', 516, 380, 'Second participant over ice', 'Group 2, cold.'),
   img('b_g2c', 540, 380, 'Second participant in the sun', 'Group 2, hot.'),
-  img('b_gsrplot', 1244, 392, 'GSR over time through the cold and hot phases', 'GSR: it falls in the cold and climbs steeply in the heat.'),
-  img('b_wetplot', 1244, 400, 'Skin wettedness over time through the cold and hot phases', 'Skin wettedness follows the same course.'),
-  img('b_schem', 1800, 357, 'Block diagram and schematics: MCU, battery, pulse and SpO2, GSR, wettedness', 'Schematic: demo board and sensor circuits.'),
+  img('b_gsrplot', 1256, 424, 'GSR over time through the cold and hot phases', 'GSR: it falls in the cold and climbs steeply in the heat.'),
+  img('b_wetplot', 1256, 404, 'Skin wettedness over time through the cold and hot phases', 'Skin wettedness follows the same course.'),
+  img('b_block', 752, 472, 'Block diagram: ESP32 MCU with battery, power, pulse and SpO2, wettedness, GSR, Type-C and antenna', 'System: ESP32-PICO-D4 at the centre.'),
+  img('b_schem', 1448, 480, 'Schematics of the demo board and the three sensor circuits', 'Schematic: demo board and sensor circuits.'),
   img('b_layout', 776, 420, 'PCB layout in JLCPCB EDA', 'Layout.'),
   img('b_pcbfb', 816, 424, 'PCB front and back layers', 'Front and back.'),
   img('b_fpc1', 508, 420, 'Flexible circuit worn across the fingers', 'FPC on the hand.'),
@@ -94,8 +95,8 @@ const GALLERY: StoryImage[] = [
   img('b_mod1', 928, 544, 'Modelling the bed rail in SolidWorks', 'Modelling the rail.'),
   img('b_mod2', 928, 544, 'Rendering the bed in KeyShot', 'Rendering.'),
   img('b_bed', 1800, 1350, 'The bed with its screen, electric fan unit and infrared heating rails called out', 'Screen, electric machinery and heating system.'),
-  img('b_heat', 1800, 669, 'The bed glowing warm with the heating on', 'Heating.'),
-  img('b_cool', 1800, 669, 'The bed with cool air flowing along it', 'Cooling.'),
+  img('b_heat', 1800, 955, 'The bed glowing warm with the heating on', 'Heating.'),
+  img('b_cool', 1800, 955, 'The bed with cool air flowing along it', 'Cooling.'),
 ];
 const g = (name: string) => GALLERY.find(x => x.src === `${M}/${name}.webp`)!;
 
@@ -486,7 +487,12 @@ const BioCaseStudy = ({ project, prev, next }: { project: ProjectData; prev: Pro
               </p>
             </Reveal>
           </div>
-          <Reveal><div className="cs-gap-top"><Shot i={g('b_schem')} open={open} /></div></Reveal>
+          <Reveal>
+            <div className="cs-row cs-gap-top">
+              <Shot i={g('b_block')} open={open} />
+              <Shot i={g('b_schem')} open={open} />
+            </div>
+          </Reveal>
           <Reveal>
             <div className="cs-row cs-gap-top">
               <Shot i={g('b_layout')} open={open} />
@@ -513,14 +519,19 @@ const BioCaseStudy = ({ project, prev, next }: { project: ProjectData; prev: Pro
       <section className="cs-sec">
         <div className="cs-wrap">
           <SectionHead index="07" label="Wearable" title="Sketched, modelled, worn." />
-          <Reveal>
-            <div className="cs-row">
-              <Shot i={g('b_sketch')} open={open} />
-              <Shot i={g('b_alias')} open={open} />
-            </div>
-          </Reveal>
+          <div className="cs-split">
+            <div />
+            <Reveal>
+              <p className="cs-body">
+                The circuit wraps the back of the hand and reaches two fingers, where the GSR electrodes sit. Hand
+                sketches settled the form, Alias turned it into a shell, and the flexible board went inside it.
+              </p>
+            </Reveal>
+          </div>
+          <Reveal><div className="cs-gap-top"><Shot i={g('b_sketch')} open={open} /></div></Reveal>
           <Reveal>
             <div className="cs-row cs-gap-top">
+              <Shot i={g('b_alias')} open={open} />
               <Shot i={g('b_glove')} open={open} />
               <Shot i={g('b_proto1')} open={open} />
             </div>
@@ -560,7 +571,16 @@ const BioCaseStudy = ({ project, prev, next }: { project: ProjectData; prev: Pro
               <Shot i={g('b_mod2')} open={open} />
             </div>
           </Reveal>
-          <Reveal><div className="cs-gap-top"><Shot i={g('b_bed')} open={open} /></div></Reveal>
+          <div className="bi-bed cs-gap-top">
+            <Reveal>
+              <ol className="bi-parts">
+                <li><span className="n">01</span><h4>Screen</h4><p>Heart rate, blood oxygen and the patient's thermal demand in real time: data for the regulation.</p></li>
+                <li><span className="n">02</span><h4>Electric machinery</h4><p>Compresses air to raise the static pressure at the inlet, so it leaves the slits fast enough to cool.</p></li>
+                <li><span className="n">03</span><h4>Heating system</h4><p>Infrared heating along the rails, for precise, even warmth.</p></li>
+              </ol>
+            </Reveal>
+            <Reveal delay={100}><Shot i={g('b_bed')} open={open} cap={false} /></Reveal>
+          </div>
         </div>
       </section>
 

@@ -152,7 +152,7 @@
 .is-cool .bi-switch button[aria-checked='true'] { background: var(--cool); color: #04191a; box-shadow: 0 0 24px rgba(79, 227, 224, 0.5); }
 .bi-modes-grid { display: grid; grid-template-columns: 1fr; gap: 36px; align-items: start; }
 @media (min-width: 900px) { .bi-modes-grid { grid-template-columns: 8fr 4fr; gap: 56px; } }
-.bi-stage { position: relative; display: block; width: 100%; aspect-ratio: 1800 / 669; padding: 0; border: 0; border-radius: 4px; overflow: hidden; background: #111; cursor: zoom-in; }
+.bi-stage { position: relative; display: block; width: 100%; aspect-ratio: 1800 / 955; padding: 0; border: 0; border-radius: 4px; overflow: hidden; background: #111; cursor: zoom-in; }
 .bi-stage img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1s var(--ease); }
 .bi-stage img.is-on { opacity: 1; }
 .bi-mode-text { margin-top: 28px; animation: cs-rise 0.8s var(--ease) both; }
@@ -169,3 +169,13 @@
 
 /* ---------- close ---------- */
 .bi-close-dot { display: block; width: 12px; height: 12px; border-radius: 50%; margin: 0 auto 48px; background: linear-gradient(90deg, var(--heat) 50%, var(--cool) 50%); box-shadow: -14px 0 30px rgba(255, 179, 71, 0.45), 14px 0 30px rgba(79, 227, 224, 0.45); }
+
+/* bed callouts beside a smaller render */
+.bi-bed { display: grid; grid-template-columns: 1fr; gap: 32px; align-items: center; }
+@media (min-width: 900px) { .bi-bed { grid-template-columns: 5fr 7fr; gap: 64px; } }
+.bi-parts { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--ink); }
+.bi-parts li { padding: 18px 0; border-bottom: 1px solid var(--rule); }
+.bi-parts .n { font-family: var(--mono); font-size: 11px; color: var(--amber); }
+.bi-parts h4 { font-size: 18px; font-weight: 500; margin: 8px 0 4px; }
+.bi-parts p { margin: 0; font-size: 14.5px; line-height: 1.6; color: var(--ink-2); }
+.bi-bed .cs-frame { background: #8fb0ff !important; }
