@@ -74,9 +74,9 @@ const GALLERY: StoryImage[] = [
   img('b_g2b', 516, 380, 'Second participant over ice', 'Group 2, cold.'),
   img('b_g2c', 540, 380, 'Second participant in the sun', 'Group 2, hot.'),
   img('b_gsrplot', 1256, 424, 'GSR over time through the cold and hot phases', 'GSR: it falls in the cold and climbs steeply in the heat.'),
-  img('b_wetplot', 1256, 404, 'Skin wettedness over time through the cold and hot phases', 'Skin wettedness follows the same course.'),
+  img('b_wetplot', 1256, 424, 'Skin wettedness over time through the cold and hot phases', 'Skin wettedness follows the same course.'),
   img('b_block', 752, 472, 'Block diagram: ESP32 MCU with battery, power, pulse and SpO2, wettedness, GSR, Type-C and antenna', 'System: ESP32-PICO-D4 at the centre.'),
-  img('b_schem', 1448, 480, 'Schematics of the demo board and the three sensor circuits', 'Schematic: demo board and sensor circuits.'),
+  img('b_schem', 1504, 528, 'Schematics of the demo board and the three sensor circuits', 'Schematic: demo board and sensor circuits.'),
   img('b_layout', 776, 420, 'PCB layout in JLCPCB EDA', 'Layout.'),
   img('b_pcbfb', 816, 424, 'PCB front and back layers', 'Front and back.'),
   img('b_fpc1', 508, 420, 'Flexible circuit worn across the fingers', 'FPC on the hand.'),
@@ -269,6 +269,7 @@ const BioCaseStudy = ({ project, prev, next }: { project: ProjectData; prev: Pro
             <Reveal>
               <dl className="cs-facts bi-facts">
                 <div><dt>Type</dt><dd>Research project<br /><span>with three hospitals in Zhangjiakou</span></dd></div>
+                <div><dt>Paper</dt><dd>Accepted, forthcoming</dd></div>
                 <div><dt>Setting</dt><dd>Orthopedic wards</dd></div>
                 <div><dt>Senses</dt><dd>Galvanic skin response (GSR)<br />Skin wettedness</dd></div>
                 <div><dt>Methods</dt><dd>Field study, questionnaires<br />Sensor experiments<br />FPC design, CFD simulation</dd></div>
@@ -376,25 +377,28 @@ const BioCaseStudy = ({ project, prev, next }: { project: ProjectData; prev: Pro
       <section className="cs-sec">
         <div className="cs-wrap">
           <SectionHead index="04" label="Engagement" title="Six cards, no thinking required." />
-          <div className="cs-split cs-split--wide">
+          <div className="cs-split">
+            <div />
             <Reveal>
-              <ul className="bi-cards" aria-label="Feeling cards">
-                {FEELINGS.map(f => <li key={f.zh}><span className="zh" lang="zh-CN">{f.zh}</span><span className="en">{f.en}</span></li>)}
-              </ul>
-            </Reveal>
-            <Reveal delay={100}>
               <p className="cs-body">
                 To see how much the neutral temperature differs from one patient to the next, a low cognitive load
                 test: six cards with simple feelings written on them, so patients of every kind could choose without
                 having to think.
               </p>
-              <p className="bi-finding">Patients in the same ward also experience differences in their individual thermal sensation.</p>
             </Reveal>
           </div>
+          <Reveal>
+            <ul className="bi-cards cs-gap-top" aria-label="Feeling cards">
+              {FEELINGS.map(f => <li key={f.zh}><span className="zh" lang="zh-CN">{f.zh}</span><span className="en">{f.en}</span></li>)}
+            </ul>
+          </Reveal>
           <Reveal>
             <div className="bi-sessions cs-gap-top">
               {[1, 2, 3, 4, 5, 6].map(i => <Shot key={i} i={g(`b_s${i}`)} open={open} cap={false} />)}
             </div>
+          </Reveal>
+          <Reveal>
+            <p className="bi-finding cs-gap-top">Patients in the same ward also experience differences in their individual thermal sensation.</p>
           </Reveal>
           <Reveal>
             <div className="bi-hmw cs-gap-top">
