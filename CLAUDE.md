@@ -26,7 +26,8 @@ Vite + React 19 + TypeScript + Tailwind 3 + framer-motion 12 + react-router 7。
 
 ## 设计项目页（Design 详情页）
 - 每个项目单独设计一页（像 Wisp），不要用通用模板：`WispCaseStudy`、`XidieCaseStudy`、`LampCaseStudy`、`KnoberCaseStudy`，在 `DesignProject.tsx` 里按 id 路由。共用零件在 `components/casestudy/`（`primitives`、`Viewer` 大图查看器、`casestudy.css`），每页自己的样式在同目录 `xidie.css`、`lamp.css`、`knober.css`
-- `ProjectCaseStudy.tsx` + `designStories.ts` 是早期的通用模板，目前只有 Bio-Adaptive（id 5）还在用，待重做
+- `ProjectCaseStudy.tsx` + `designStories.ts` 是早期的通用模板，已无页面使用（Bio-Adaptive 已改为 `BioCaseStudy`），可删除
+- Figma 源文件：Portfolio 文件里的 "项目一"(Bio) / "项目二"(MTA) section；4x 导出放在 `~/code/figma-export`（仓库外），按图层坐标×4 裁图
 - 学校合作项目（米理 × 西交 Project Work）用户都是 Team leader，概览和署名里要写
 - 素材来自用户的 PPT 原件时，网图、素材图、卡通形象、第三方网站截图不放；第三方数据重排成网页表格并注明来源
 - 首屏大图不要被放大到超过原生像素（会糊）；文字不要压在产品或阴影上
