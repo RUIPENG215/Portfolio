@@ -8,6 +8,7 @@ import XidieCaseStudy from './XidieCaseStudy';
 import LampCaseStudy from './LampCaseStudy';
 import KnoberCaseStudy from './KnoberCaseStudy';
 import BioCaseStudy from './BioCaseStudy';
+import MtaCaseStudy from './MtaCaseStudy';
 import ContentBlockRenderer from '../components/ContentBlockRenderer';
 import Seo from '../components/Seo';
 
@@ -32,6 +33,9 @@ const DesignProject = () => {
 
   if (project.layout === 'case-study' && project.id === 9) {
     return <WispCaseStudy project={project} prev={prevProject} next={nextProject} />;
+  }
+  if (project.id === 6) {
+    return <MtaCaseStudy project={project} prev={prevProject} next={nextProject} />;
   }
   if (project.id === 5) {
     return <BioCaseStudy project={project} prev={prevProject} next={nextProject} />;
