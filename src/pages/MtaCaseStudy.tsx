@@ -591,14 +591,17 @@ const MtaCaseStudy = ({ project, prev, next }: { project: ProjectData; prev: Pro
       <section className="cs-sec cs-dark mt-sec mt-rule" data-nav-dark>
         <div className="cs-wrap">
           <SectionHead index="10" label="Redesign" title="Two flexible modules and a transparent screen." />
+          <div className="cs-split">
+            <div />
+            <Reveal>
+              <p className="cs-body">A transparent screen shows speed, autopilot status and the driver's steering, brake and accelerator. Two flexible modules sit where the hands rest, with touch-sensitive areas for the game.</p>
+            </Reveal>
+          </div>
           <Reveal>
-            <div className="mt-wheel">
+            <div className="cs-row cs-gap-top">
               <Shot i={g('m_wheel')} open={open} cap={false} />
-              <div className="mt-wheel-side">
-                <p className="cs-body">A transparent screen shows speed, autopilot status and the driver's steering, brake and accelerator. Two flexible modules sit where the hands rest, with touch-sensitive areas for the game.</p>
-                <Shot i={g('m_det1')} open={open} />
-                <Shot i={g('m_det2')} open={open} />
-              </div>
+              <Shot i={g('m_det1')} open={open} />
+              <Shot i={g('m_det2')} open={open} />
             </div>
           </Reveal>
           <Reveal>

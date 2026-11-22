@@ -3,15 +3,16 @@ import { useEffect, useRef } from 'react';
 /**
  * The takeover-status halo on MTA-CoDrive's wheel screen, drawn like Wisp's LightRing:
  * a ring of soft additive glow points around a quiet core. Safe is a calm mint band that
- * slowly turns, medium a blue ring that breathes, danger an amber ring that pulses fast.
+ * slowly turns, medium a blue ring that breathes, danger an amber ring that pulses fast;
+ * the core grows with the risk.
  * Colour and motion ease from one state to the next.
  */
 export type HaloState = 'safe' | 'medium' | 'danger';
 
 const N = 48;
 const TARGET: Record<HaloState, { h: number; s: number; rate: number; depth: number; band: number; core: number }> = {
-  safe:   { h: 160, s: 0.62, rate: 0,    depth: 0,    band: 0.55, core: 0.55 },
-  medium: { h: 214, s: 0.72, rate: 0.55, depth: 0.55, band: 0.25, core: 0.7 },
+  safe:   { h: 160, s: 0.62, rate: 0,    depth: 0,    band: 0.55, core: 0 },
+  medium: { h: 214, s: 0.72, rate: 0.55, depth: 0.55, band: 0.25, core: 0.5 },
   danger: { h: 38,  s: 0.92, rate: 1.4,  depth: 0.75, band: 0,    core: 1 },
 };
 
@@ -78,8 +79,9 @@ const StatusHalo = ({ state, className }: { state: HaloState; className?: string
       }
       // the quiet core
       const cv = rgb(cur.h, cur.s * 0.8, 1);
-      glow(cx, cy, size * (0.12 + 0.06 * cur.core) * (0.85 + 0.15 * pulse), cv, 0.55 * pulse);
-      glow(cx, cy, size * 0.035, [255, 255, 255], 0.5 * pulse);
+      // the core grows with the risk: small and calm when safe, wide and bright in danger
+      glow(cx, cy, size * (0.09 + 0.17 * cur.core) * (0.88 + 0.12 * pulse), cv, (0.45 + 0.35 * cur.core) * pulse);
+      glow(cx, cy, size * (0.03 + 0.05 * cur.core), [255, 255, 255], (0.4 + 0.3 * cur.core) * pulse);
       ctx.globalCompositeOperation = 'source-over';
     };
 
