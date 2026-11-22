@@ -251,7 +251,7 @@ const BioCaseStudy = ({ project, prev, next }: { project: ProjectData; prev: Pro
 
       {/* ── Hero ── */}
       <header className="bi-hero" data-nav-dark>
-        <img className="bi-hero-img" src={`${M}/D5_H.webp`} alt="A hospital bed drawn in light, warm at one end and cool at the other" fetchPriority="high" />
+        <img className="bi-hero-img" src={`${M}/hero.webp`} alt="A hospital bed in a dark ward at night, a warm light strip glowing along its rail" fetchPriority="high" />
         <div className="cs-wrap bi-hero-in">
           <Link to="/design" className="cs-back"><ArrowLeft /><span className="cs-label" style={{ color: 'inherit' }}>Design</span></Link>
           <div className="bi-hero-text">
