@@ -5,6 +5,7 @@ import Seo from '../components/Seo';
 import Viewer from '../components/casestudy/Viewer';
 import { Reveal, SectionHead, ArrowLeft } from '../components/casestudy/primitives';
 import type { ProjectData, StoryImage } from '../data/types';
+import StatusHalo from '../components/casestudy/StatusHalo';
 import '../components/casestudy/mta.css';
 
 /*
@@ -199,9 +200,8 @@ const Halo = () => {
   const d = STATUS[s];
   return (
     <div className={`mt-halo is-${s}`}>
-      <div className="mt-halo-stage" aria-hidden="true">
-        <span className="ring r1" /><span className="ring r2" /><span className="ring r3" />
-        <span className="core" />
+      <div className="mt-halo-stage">
+        <StatusHalo state={s} className="mt-halo-canvas" />
       </div>
       <div>
         <div className="mt-seg" role="radiogroup" aria-label="Status">
@@ -247,7 +247,7 @@ const MtaCaseStudy = ({ project, prev, next }: { project: ProjectData; prev: Pro
       </header>
 
       {/* ── Overview ── */}
-      <section className="cs-sec cs-dark mt-sec">
+      <section className="cs-sec cs-dark mt-sec" data-nav-dark>
         <div className="cs-wrap">
           <div className="cs-split mt-overview">
             <Reveal>
@@ -277,7 +277,7 @@ const MtaCaseStudy = ({ project, prev, next }: { project: ProjectData; prev: Pro
       </section>
 
       {/* ── 01 Context ── */}
-      <section className="cs-sec cs-dark mt-sec mt-rule">
+      <section className="cs-sec cs-dark mt-sec mt-rule" data-nav-dark>
         <div className="cs-wrap">
           <SectionHead index="01" label="Context" title="More automation, more accidents to explain." />
           <div className="cs-split cs-split--wide">
@@ -298,7 +298,7 @@ const MtaCaseStudy = ({ project, prev, next }: { project: ProjectData; prev: Pro
       </section>
 
       {/* ── 02 The takeover ── */}
-      <section className="cs-sec cs-dark mt-sec mt-rule">
+      <section className="cs-sec cs-dark mt-sec mt-rule" data-nav-dark>
         <div className="cs-wrap">
           <SectionHead index="02" label="Takeover dilemma" title="Four steps, from a cognitive vacuum." />
           <div className="cs-split">
@@ -314,7 +314,7 @@ const MtaCaseStudy = ({ project, prev, next }: { project: ProjectData; prev: Pro
           </div>
           <Reveal>
             <ol className="mt-steps cs-gap-top">
-              {STEPS.map((s, i) => <li key={s.t}><span className="n">0{i + 1}</span><h4>{s.t}</h4><p>{s.d}</p></li>)}
+              {STEPS.map((s, i) => <li key={s.t}><span className="n">0{i + 1}</span><span className="line" aria-hidden="true" /><h4>{s.t}</h4><p>{s.d}</p></li>)}
             </ol>
           </Reveal>
           <Reveal>
@@ -380,7 +380,7 @@ const MtaCaseStudy = ({ project, prev, next }: { project: ProjectData; prev: Pro
       </section>
 
       {/* ── 04 Accident ── */}
-      <section className="cs-sec cs-dark mt-sec">
+      <section className="cs-sec cs-dark mt-sec" data-nav-dark>
         <div className="cs-wrap">
           <SectionHead index="04" label="Case study" title="Four seconds to a crash." />
           <div className="cs-split">
@@ -399,7 +399,7 @@ const MtaCaseStudy = ({ project, prev, next }: { project: ProjectData; prev: Pro
       </section>
 
       {/* ── 05 Experiment ── */}
-      <section className="cs-sec cs-dark mt-sec mt-rule">
+      <section className="cs-sec cs-dark mt-sec mt-rule" data-nav-dark>
         <div className="cs-wrap">
           <SectionHead index="05" label="Experiment" title="Three drivers, one unfamiliar track." />
           <div className="cs-split">
@@ -504,7 +504,7 @@ const MtaCaseStudy = ({ project, prev, next }: { project: ProjectData; prev: Pro
       </section>
 
       {/* ── 08 Prototype ── */}
-      <section className="cs-sec cs-dark mt-sec">
+      <section className="cs-sec cs-dark mt-sec" data-nav-dark>
         <div className="cs-wrap">
           <SectionHead index="08" label="Prototype" title="An F1 wheel, with modules that give." />
           <div className="cs-split cs-split--wide">
@@ -534,7 +534,7 @@ const MtaCaseStudy = ({ project, prev, next }: { project: ProjectData; prev: Pro
       </section>
 
       {/* ── 09 The game ── */}
-      <section className="cs-sec cs-dark mt-sec mt-rule">
+      <section className="cs-sec cs-dark mt-sec mt-rule" data-nav-dark>
         <div className="cs-wrap">
           <SectionHead index="09" label="Serious game" title="A game on the HUD that keeps you in the loop." />
           <div className="cs-split cs-split--wide">
@@ -588,14 +588,17 @@ const MtaCaseStudy = ({ project, prev, next }: { project: ProjectData; prev: Pro
       </section>
 
       {/* ── 10 The wheel ── */}
-      <section className="cs-sec cs-dark mt-sec mt-rule">
+      <section className="cs-sec cs-dark mt-sec mt-rule" data-nav-dark>
         <div className="cs-wrap">
           <SectionHead index="10" label="Redesign" title="Two flexible modules and a transparent screen." />
-          <Reveal><Shot i={g('m_wheel')} open={open} cap={false} /></Reveal>
           <Reveal>
-            <div className="cs-row cs-gap-top">
-              <Shot i={g('m_det1')} open={open} />
-              <Shot i={g('m_det2')} open={open} />
+            <div className="mt-wheel">
+              <Shot i={g('m_wheel')} open={open} cap={false} />
+              <div className="mt-wheel-side">
+                <p className="cs-body">A transparent screen shows speed, autopilot status and the driver's steering, brake and accelerator. Two flexible modules sit where the hands rest, with touch-sensitive areas for the game.</p>
+                <Shot i={g('m_det1')} open={open} />
+                <Shot i={g('m_det2')} open={open} />
+              </div>
             </div>
           </Reveal>
           <Reveal>
