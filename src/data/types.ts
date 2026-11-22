@@ -18,9 +18,7 @@ export type ContentBlock =
   | { type: 'quote'; text: string; author?: string }
   | { type: 'video'; src: string; caption?: string; poster?: string; autoPlay?: boolean; loop?: boolean; muted?: boolean; controls?: boolean; width?: 'full' | 'standard' | 'narrow' };
 
-/* ---------- Case-study story (data-driven pages in the Wisp visual language) ---------- */
-
-/** One image. `ratio` is width / height of the file, so the layout never jumps. */
+/** One image in a case-study page. `ratio` is width / height of the file, so the layout never jumps. */
 export interface StoryImage {
   src: string;
   alt: string;
@@ -28,48 +26,6 @@ export interface StoryImage {
   caption?: string;
   /** Show the whole image (drawings, boards) instead of cropping to the frame. */
   contain?: boolean;
-}
-
-export type StoryMedia =
-  /** Justified row: each image takes room in proportion to its ratio. */
-  | { kind: 'row'; items: StoryImage[] }
-  /** One image across the full text width. */
-  | { kind: 'full'; item: StoryImage }
-  /** Uniform grid, every cell cropped to the same ratio. */
-  | { kind: 'grid'; items: StoryImage[]; cols: 2 | 3 | 4; ratio: number; caption?: string }
-  /** Presentation boards with small text: shown large, tap to read in the viewer. */
-  | { kind: 'boards'; items: StoryImage[] }
-  /** Image and short title + text per item, as a row of cards. */
-  | { kind: 'features'; items: (StoryImage & { title: string; text: string })[] }
-  | { kind: 'film'; src: string; poster: string; label: string; caption?: string };
-
-export interface StorySection {
-  /** Mono label next to the index, e.g. "Context". */
-  label: string;
-  /** Section headline. */
-  title: string;
-  /** Paragraphs, shown in the right-hand column under the headline. */
-  body?: string[];
-  media?: StoryMedia[];
-  /** Paragraphs shown after the media. */
-  after?: string[];
-  tone?: 'paper' | 'tint' | 'dark';
-}
-
-export interface CaseStory {
-  hero: { src: string; alt: string; ratio: number; position?: string; dark?: boolean };
-  /** Short line under the title. */
-  sub: string;
-  /** Up to three short hero facts. */
-  meta: { k: string; v: string }[];
-  /** Fact list in the overview. */
-  facts: { k: string; v: string }[];
-  lead: string;
-  body?: string[];
-  sections: StorySection[];
-  /** Closing line. */
-  close?: string;
-  credits?: string;
 }
 
 export interface ProjectData {
@@ -95,8 +51,6 @@ export interface ProjectData {
   hidden?: boolean;
   /** 'case-study' pages render their own bespoke layout instead of content blocks. */
   layout?: 'blocks' | 'case-study';
-  /** When set, the project renders with the shared case-study template instead of `content`. */
-  story?: CaseStory;
 }
 
 export interface Interest {

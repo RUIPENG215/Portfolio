@@ -1,6 +1,5 @@
 import { Lamp, Utensils, DoorOpen, Zap, Activity, Car, Plane, Cpu, Sparkles } from 'lucide-react';
 import type { ProjectData } from './types';
-import { lampStory, microclimateStory } from './designStories';
 
 export const designProjects: ProjectData[] = [
   {
@@ -37,80 +36,7 @@ export const designProjects: ProjectData[] = [
     status: "COMPLETED",
     tags: ["Industrial Design", "Lighting", "Portability", "Mechanism"],
     time: "2024.06 - 2024.07",
-    story: lampStory,
-    content: [
-      {
-        type: 'text-and-image',
-        title: "",
-        content: "Designed for off-site university students in shared apartments or small studios, this lamp delivers a portable, adaptable lighting solution for reading, studying, working, and decoration.",
-        src: "/Design_1/details.81.2.webp",
-        imageLeft: false,
-        imageAspectRatio: 'auto',
-        textSize: 'md',
-        imageWidth: 'full' // 稍微缩小一点图片宽度
-      },
-      {
-        type: 'text-and-image',
-        title: "",
-        content: "This foldable, portable lamp delivers up to 500 lux of focused illumination across a 700x450mm surface, with adjustable brightness and color temperature to create comfortable, eye-friendly lighting for reading, studying, and working.",
-        src: "/Design_1/Detail1_lamp.webp",
-        imageLeft: true,
-        imageAspectRatio: 'auto', // 图片自适应，不裁切
-        textSize: 'md' // 文字稍微调小一点
-      },
-      {
-        type: 'image-grid',
-        images: [
-          "/Design_1/Lamp1.webp",
-          "/Design_1/Lamp2.webp",
-        ],
-        columns: 2,
-        caption: "Interaction with the lamp."
-      },
-      {
-        type: 'image-grid',
-        images: [
-          "/Design_1/details.102.1.webp",
-          "/Design_1/details.90.3.webp",
-          "/Design_1/details.81.1.webp",
-          "/Design_1/details.81.3.webp",
-          "/Design_1/details.90.1.webp",
-          "/Design_1/2.78.webp",
-        ],
-        columns: 3,
-        caption: "Details and ambient light of the lamp."
-      },
-      {
-        type: 'image-grid',
-        images: [
-          "/Design_1/details.110.1.webp",
-          "/Design_1/details.110.2.webp",
-        ],
-        columns: 2,
-        caption: "Exploded view showing the internal hidden mechanism."
-      },
-      {
-        type: 'image-full',
-        src: "/Design_1/Assem drawing.png",
-        caption: "Engineering drawing of the lamp."
-      },
-      {
-        type: 'image-grid',
-        images: [
-          "/Design_1/other colors.112.webp",
-          "/Design_1/other colors.114.webp",
-          "/Design_1/other color.webp",
-          "/Design_1/other colors.115.webp",
-        ],
-        columns: 4,
-        caption: "Colour palette created by other team members."
-      },
-      {
-        type: 'quote',
-        text: "Wherever you go, your glow follows.",
-        author: ""
-      },
-    ]
+    content: []
   },
  {
     "id": 2,
@@ -383,120 +309,7 @@ export const designProjects: ProjectData[] = [
   "tags": ["Industrial Design", "Cultural and Creative Product", "GaN Technology", "Portable Charger", "Cross-disciplinary Design"],
     status: "CONCEPT",
     time: "2025.10 - 2025.12",
-    content: [
-      {
-        type: 'text-full',
-        title: "The Unbroken Flow",
-        content: "A continuous, single-take sequence that seamlessly traces the product's contours, connecting form, material, and function in its purest state.",
-        align: 'left',
-        marginBottom: 'small',
-        width: 'full'
-      },
-      {
-        type: 'video',
-        src: "/Design_4/Video.mp4",
-        caption: "A continuous visual journey exploring the product.",
-        autoPlay: false,
-        controls: true,
-        width: 'full'
-      },
-    {
-      "type": "text-and-image",
-      "title": "Market Status",
-      "content": "At present, many cultural products focus on decorative functions, adopting simple printing of cultural elements without effectively meeting practical usage requirements.",
-      "src": "/Design_4/D4_3.webp",
-      "imageLeft": true,
-      "imageAspectRatio": "auto",
-      "textSize": "md",
-      "imageWidth": "full"
-    },
-    {
-      "type": "text-and-image",
-      "title": "User Research Insight",
-      "content": "Young users favor high-frequency-used, portable digital accessories with understated cultural touches that blend naturally into daily use.",
-      "src": "/Design_4/D4_4.webp",
-      "imageLeft": false,
-      "imageAspectRatio": "auto",
-      "textSize": "md",
-      "imageWidth": "full"
-    },
-    {
-      "type": "text-full",
-      "title": "Design Brief",
-      "content": "Project Goal: Create a portable charger that merges Xi'an's food culture with GaN fast-charging tech, breaking the 'decorative-only' stereotype of cultural products.\n\nTarget Users: Young consumers (18-30) who value daily practicality, portability, and understated cultural expression.\n\nKey Constraints:\n1. Cultural elements must blend naturally (not feel forced) with functional charger design.\n2. Product must be pocket-sized (≤10mm thick) to meet portability needs.\n3. Balance technical performance (65W fast charge) with cultural aesthetic.",
-      "align": "left",
-        width: 'full'
-    },
-    {
-      "type": "text-and-image",
-      "title": "Design Concept & Tech Solution",
-      "content": "Concept: 'Food Energy Station'. Tech: GaN + planar transformer cuts 40% volume (≤10mm thick); magnetic detachable structure for cable replacement.",
-      "src": "/Design_4/D4_5.webp",
-      "imageLeft": true,
-      "imageAspectRatio": "auto",
-      "textSize": "md"
-    },
-      {
-    "type": "image-full",
-    "src": "/Design_4/D4_7.webp",
-    "caption": "XIDIE Portable Charger: Where Xi'an's Carb Energy Meets Device Power"
-  },
-    {
-    "type": "text-full",
-    "title": "",
-    "content": "Xi'an is known for its hearty, energy-packed foods—think hand-pulled noodles that fuel locals through the day. XIDIE brings that spirit to daily tech: just as those dishes nourish people with energy, this charger powers your devices. It turns the city's dietary culture into a practical accessory you use every day.",
-    "align": "left",
-    "width": 'full'
-  },
-  {
-    "type": "text-and-image",
-    "title": "Porcelain Bowl & Blue and White Pattern",
-    "content": "The retractable cable case takes its shape and pattern from the classic blue and white porcelain bowls that Xi'an locals use to serve hand-pulled noodles. This design wraps a familiar daily dining element into a functional tech accessory.",
-    "src": "/Design_4/D4_6.webp",
-    "imageLeft": true,
-    "imageAspectRatio": "auto",
-    "textSize": "md"
-  },
-  {
-    "type": "text-and-image",
-    "title": "Shaanxi Dialect '咥' & Noodle Texture",
-    "content": "The charger's top bears '咥'—a classic Shaanxi word meaning 'eat', a phrase locals use every day. Its beige surface mirrors the color of Shaanxi hand-pulled noodles, tying the product directly to the city's core food culture.",
-    "src": "/Design_4/D4_12.webp",
-    "imageLeft": false,
-    "imageAspectRatio": "auto",
-    "textSize": "md"
-  },
-  {
-    "type": "text-and-image",
-    "title": "City Wall Crenelation Texture",
-    "content": "The charger's side carries an abstract pattern of Xi'an City Wall crenellations—an iconic mark of the ancient capital. The detail is subtle, so it doesn't interfere with grip, keeping the culture present but unobtrusive, just as users wanted.",
-    "src": "/Design_4/D4_10.webp",
-    "imageLeft": true,
-    "imageAspectRatio": "auto",
-    "textSize": "md"
-  },
-  {
-    "type": "image-grid",
-    "images": ["/Design_4/D4_9.webp", "/Design_4/D4_8.webp"],
-    "columns": 2,
-    "caption": "Cultural Details: 'Xi'an Red' Interface & Noodle-shaped Cable Mark"
-  },
-    {
-      "type": "image-full",
-      "src": "/Design_4/D4_11.webp",
-      "caption": "The foldable plug keeps the charger compact enough for a pocket—true to its role as a daily carry accessory. Its smooth, wall-inspired shape stays true to the cultural aesthetic, without giving up practicality."
-    },
-    {
-      "type": "image-full",
-      "src": "/Design_4/D4_2.webp",
-      "caption": "XIDIE PORTABLE CHARGER"
-    },
-    {
-      "type": "quote",
-      "text": "The energy of Xi'an's food, powering your digital life.",
-      "author": ""
-    }
-    ]
+    content: []
   },
   {
     id: 5,
@@ -513,49 +326,7 @@ export const designProjects: ProjectData[] = [
     status: "RESEARCH PROJECT",
     tags: ["Interaction Design", "Medical Design", "Sensor Integration", "Thermal Comfort"],
     time: "2025.01 - 2025.04",
-    story: microclimateStory,
-    content: [
-      {
-        type: 'image-full',
-        src: "/Design_5/P1.webp",
-        caption: "Research Phase: Identifying the specific thermal comfort challenges and requirements of orthopedic patients."
-      },
-      {
-        type: 'image-full',
-        src: "/Design_5/P2.webp",
-        caption: "Data Analysis: Synthesizing research findings into actionable thermal indicators and patient profiles."
-      },
-      {
-        type: 'image-full',
-        src: "/Design_5/P3.webp",
-        caption: "Interaction Concept: A tactile engagement tool bridging the gap between subjective feelings and physiological data."
-      },
-      {
-        type: 'image-full',
-        src: "/Design_5/P4.webp",
-        caption: "Sensor Development: Prototyping real-time acquisition systems for skin moisture and GSR monitoring."
-      },
-      {
-        type: 'image-full',
-        src: "/Design_5/P5.webp",
-        caption: "Hardware Refinement: Implementing Flexible Printed Circuit (FPC) technology for a non-intrusive patient experience."
-      },
-      {
-        type: 'image-full',
-        src: "/Design_5/P6.webp",
-        caption: "Technical Validation: Computational Fluid Dynamics (CFD) simulation for optimized microclimate delivery."
-      },
-      {
-        type: 'image-full',
-        src: "/Design_5/P7.webp",
-        caption: "Final Integration: The complete Bio-Adaptive Microclimate system operating in a responsive clinical scenario."
-      },
-      {
-        type: 'quote',
-        text: "Empowering recovery through responsive environments that breathe with the patient.",
-        author: ""
-      }
-    ]
+    content: []
   },
   {
     id: 6,
@@ -572,65 +343,7 @@ export const designProjects: ProjectData[] = [
     status: "RESEARCH PROJECT",
     tags: ["Interaction Design", "Automotive", "HMI", "AR-HUD", "Human-Machine Co-Driving"],
     time: "2025.05 - 2025.08",
-    content: [
-      {
-        type: 'image-full',
-        src: "/Design_6/D6_1.webp",
-        caption: "1. Problem Identification: ADAS Status and Takeover Dilemma"
-      },
-      {
-        type: 'image-full',
-        src: "/Design_6/D6_2.webp",
-        caption: "2. Research Foundation: Takeover Metrics and Existing Studies"
-      },
-      {
-        type: 'image-full',
-        src: "/Design_6/D6_3.webp",
-        caption: "3. Pain Point Deep Dive: Accident Cases and Driver Capability Experiments"
-      },
-      {
-        type: 'image-full',
-        src: "/Design_6/D6_4.webp", 
-        caption: "4. Goal Setting: Defining Design Objectives and User Behavior Analysis"
-      },
-      {
-        type: 'image-full',
-        src: "/Design_6/D6_5.webp",
-        caption: "5. Transdisciplinary Inspiration: Insights from Sports Kinesiology and Neuroscience"
-      },
-      {
-        type: 'image-full',
-        src: "/Design_6/D6_6.webp", 
-        caption: "6. Prototyping: Steering Wheel Iteration and Sensor Testing"
-      },
-      {
-        type: 'image-full',
-        src: "/Design_6/D6_7.webp",
-        caption: "7. Technical Implementation: Gamified Co-Driving Solution and Technical Framework"
-      },
-      {
-        type: 'image-full',
-        src: "/Design_6/D6_8.webp",
-        caption: "8. Design Solution: Novel Steering Wheel and HUD Interaction System"
-      },
-      {
-        type: 'image-full',
-        src: "/Design_6/D6_9.webp",
-        caption: "9. Core Interaction: Defining Human-Machine Co-Driving Takeover Logic"
-      },
-      {
-        type: 'text-full',
-        title: "Postscript: Beyond the Takeover",
-        content: "This project explores a specific moment in the evolution of mobility—the transition of control. As autonomous systems advance beyond Level 3, the technical necessity for 'takeover' may diminish, yet the philosophical inquiry into human-machine collaboration only deepens. MTA-CoDrive is less about the steering wheel and more about the 'Co'—the shared agency between human intent and algorithmic execution. Regardless of how 'smart' our machines become, the pursuit of a harmonious symbiosis remains an enduring challenge for designers, transcending the temporary limitations of today's technology.",
-        align: 'center',
-        width: 'full'
-      },
-      {
-        type: 'quote',
-        text: "Awakening driver attention through seamless multimodal interaction.",
-        author: ""
-      }
-    ]
+    content: []
   },
   {
     id: 7,
@@ -678,97 +391,7 @@ export const designProjects: ProjectData[] = [
     tags: ["Interaction Design", "Electronic Engineering","AI Agent", "Augmented Reality", "Large Language Model" ],
     time: "2025.10 - 2026.01",
     externalLink: "https://github.com/RUIPENG215/SparkPilot",
-    content: [
-      {
-        type: 'text-full',
-        title: "// BACKGROUND: THE CHALLENGE OF ELECTRONICS LEARNING",
-        content: "Designing and soldering a PCB is never a simple task for beginners. They often face multiple hurdles simultaneously:\n\n- Technical Knowledge: Lacking a foundation in analog and digital circuits.\n- Tool Operation: Unfamiliarity with EDA platform interfaces and soldering equipment.\n- Physical Execution: Challenges in component placement, temperature control, and time management often lead to defects like insufficient solder, excess solder, or bridging.",
-        align: 'left', 
-        width: 'full',
-        marginBottom: 'none'
-      },
-      {
-        type: 'image-full',
-        src: "/Design_8/D8_1.webp",
-      },
-      {
-        type: 'text-full',
-        title: "// INSPIRATION: AI IDE & AR DEVICES",
-        content: "The emergence of AI-integrated development environments (like TRAE) has turned programming from a professionals-only tool into a medium for enthusiasts to bring their creative ideas to fruition. \n\nSimilarly, AR hardware provides tools to break down the barriers between reality and virtuality. By combining AI's smart support with AR's live interaction, we can create a feasible path to solve the PCB learning challenges.",
-        align: 'left',
-        width: 'full',
-        marginBottom: 'small'
-      },
-      {
-        type: 'image-grid',
-        columns: 2,
-        images: [
-          "/Design_8/D8_3.webp",
-          "/Design_8/D8_4.webp"
-        ],
-      },
-      {
-        type: 'text-full',
-        title: "// THE CORE CONCEPT: INTELLIGENT HARDWARE EDUCATION",
-        content: "SparkPilot is a transdisciplinary project that redefines the learning curve of electronic engineering. By integrating Large Language Models (LLM) and Augmented Reality (AR), we've created a 'Live Circuit' environment where digital logic and physical components coexist. The system addresses the two biggest hurdles for beginners: the abstract complexity of circuit design and the high precision required for physical soldering.",
-        align: 'left',
-        width: 'full',
-        marginBottom: 'small'
-      },
-      {
-        type: 'image-full',
-        src: "/Design_8/D8_5.webp",
-      },
-      {
-        type: 'text-full',
-        title: "// PHASE 1: AI-INTEGRATED WEB EDA & COZE AGENT",
-        content: "Traditional EDA tools are passive. SparkPilot integrates a web-based EDA environment with a custom AI Agent built on the Coze platform. The agent acts as an active mentor rather than a direct editor, ensuring users learn the 'why' behind the design.\n\n- Multimodal Interaction: Users can communicate with the AI through natural language or by uploading images of circuit diagrams and component datasheets.\n- Intelligent Guidance: The Coze-powered agent analyzes user queries and provides technical advice, component recommendations, and troubleshooting tips.\n- Educational Guardrails: The AI provides the rationale and steps for design, but does not directly modify the EDA files, encouraging users to implement the changes and build their skills.",
-        align: 'left',
-        width: 'full',
-        marginBottom: 'small'
-      },
-      {
-        type: 'image-grid',
-        columns: 2,
-        images: [
-          "/Design_8/D8_6.webp",
-          "/Design_8/D8_7.webp"
-        ],
-        keepAspectRatio: true,
-      },
-      {
-        type: 'text-full',
-        title: "// PHASE 2: AR-GUIDED PRECISION SOLDERING",
-        content: "The transition from digital design to physical assembly is where most errors occur. SparkPilot uses a custom-built AR projection rig to bridge this gap.\n\n- Real-time Projection Mapping: Components and soldering pads are highlighted directly on the physical PCB.\n- Step-by-Step Instructions: The system tracks progress and illuminates the exact location for the next component.\n- Error Prevention: Visual cues prevent common mistakes like incorrect polarity or cold joints.",
-        align: 'left',
-        width: 'full',
-        marginBottom: 'small'
-      },
-      {
-        type: 'image-grid',
-        columns: 3,
-        images: [
-          "/Design_8/D8_8.webp",
-          "/Design_8/D8_9.webp",
-          "/Design_8/D8_10.webp"
-        ],
-        keepAspectRatio: true,
-        caption: "AR Workflow: Startup interface, front-side component placement, and back-side soldering guidance."
-      },
-      {
-        type: 'text-and-image',
-        title: "// TECHNICAL IMPLEMENTATION",
-        content: "The project leverages a robust tech stack to ensure low-latency interaction:\n\n- Frontend: React-based web EDA IDE with integrated chat interface for AI communication.\n- AI Engine: Intelligent Agent deployed on Coze platform, utilizing multimodal LLMs for text and image analysis.\n- AR Engine: WebAR implementation utilizing browser-based camera access and computer vision for real-time projection alignment and component tracking.",
-        src: "/Design_8/D8_2.webp",
-        imageLeft: false,
-        imageAspectRatio: 'auto'
-      },
-      {
-        type: 'quote',
-        text: "SparkPilot is more than a tool; it's a bridge between abstract electronics and the tactile joy of creation.",
-        author: "Project Vision"
-      }
-    ]
+    content: []
   }
 ];
 
